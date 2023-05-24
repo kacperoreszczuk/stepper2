@@ -458,6 +458,142 @@
         )
       )
     )
+    (symbol "stepper2:DCDC_module" (in_bom no) (on_board yes)
+      (property "Reference" "U" (at 0 0 0)
+        (effects (font (size 1.27 1.27)))
+      )
+      (property "Value" "" (at 0 0 0)
+        (effects (font (size 1.27 1.27)))
+      )
+      (property "Footprint" "" (at 0 0 0)
+        (effects (font (size 1.27 1.27)) hide)
+      )
+      (property "Datasheet" "" (at 0 0 0)
+        (effects (font (size 1.27 1.27)) hide)
+      )
+      (symbol "DCDC_module_0_1"
+        (rectangle (start -6.35 3.81) (end 6.35 -3.81)
+          (stroke (width 0) (type default))
+          (fill (type none))
+        )
+      )
+      (symbol "DCDC_module_1_1"
+        (pin bidirectional line (at -8.89 -2.54 0) (length 2.54)
+          (name "IN-" (effects (font (size 1.27 1.27))))
+          (number "1" (effects (font (size 1.27 1.27))))
+        )
+        (pin bidirectional line (at -8.89 2.54 0) (length 2.54)
+          (name "IN+" (effects (font (size 1.27 1.27))))
+          (number "2" (effects (font (size 1.27 1.27))))
+        )
+        (pin bidirectional line (at 8.89 -2.54 180) (length 2.54)
+          (name "OUT-" (effects (font (size 1.27 1.27))))
+          (number "3" (effects (font (size 1.27 1.27))))
+        )
+        (pin bidirectional line (at 8.89 2.54 180) (length 2.54)
+          (name "OUT+" (effects (font (size 1.27 1.27))))
+          (number "4" (effects (font (size 1.27 1.27))))
+        )
+      )
+    )
+    (symbol "stepper2:Waveshare_FT232_USBC" (in_bom no) (on_board yes)
+      (property "Reference" "U" (at 0 0 0)
+        (effects (font (size 1.27 1.27)))
+      )
+      (property "Value" "" (at 0 0 0)
+        (effects (font (size 1.27 1.27)))
+      )
+      (property "Footprint" "" (at 0 0 0)
+        (effects (font (size 1.27 1.27)) hide)
+      )
+      (property "Datasheet" "" (at 0 0 0)
+        (effects (font (size 1.27 1.27)) hide)
+      )
+      (symbol "Waveshare_FT232_USBC_0_1"
+        (rectangle (start -12.7 13.97) (end 12.7 -13.97)
+          (stroke (width 0) (type default))
+          (fill (type none))
+        )
+      )
+      (symbol "Waveshare_FT232_USBC_1_1"
+        (pin bidirectional line (at -6.35 -16.51 90) (length 2.54)
+          (name "VCCIO" (effects (font (size 1.27 1.27))))
+          (number "1" (effects (font (size 1.27 1.27))))
+        )
+        (pin bidirectional line (at -15.24 -5.08 0) (length 2.54)
+          (name "DTR#" (effects (font (size 1.27 1.27))))
+          (number "10" (effects (font (size 1.27 1.27))))
+        )
+        (pin bidirectional line (at -15.24 -2.54 0) (length 2.54)
+          (name "RI#" (effects (font (size 1.27 1.27))))
+          (number "11" (effects (font (size 1.27 1.27))))
+        )
+        (pin bidirectional line (at -15.24 0 0) (length 2.54)
+          (name "DSR#" (effects (font (size 1.27 1.27))))
+          (number "12" (effects (font (size 1.27 1.27))))
+        )
+        (pin bidirectional line (at -15.24 2.54 0) (length 2.54)
+          (name "DCD#" (effects (font (size 1.27 1.27))))
+          (number "13" (effects (font (size 1.27 1.27))))
+        )
+        (pin bidirectional line (at -15.24 5.08 0) (length 2.54)
+          (name "RESET#" (effects (font (size 1.27 1.27))))
+          (number "14" (effects (font (size 1.27 1.27))))
+        )
+        (pin bidirectional line (at 12.7 -5.08 180) (length 2.54)
+          (name "CBUS0" (effects (font (size 1.27 1.27))))
+          (number "15" (effects (font (size 1.27 1.27))))
+        )
+        (pin bidirectional line (at 12.7 -2.54 180) (length 2.54)
+          (name "CBUS1" (effects (font (size 1.27 1.27))))
+          (number "16" (effects (font (size 1.27 1.27))))
+        )
+        (pin bidirectional line (at 12.7 0 180) (length 2.54)
+          (name "CBUS2" (effects (font (size 1.27 1.27))))
+          (number "17" (effects (font (size 1.27 1.27))))
+        )
+        (pin bidirectional line (at 12.7 2.54 180) (length 2.54)
+          (name "CBUS3" (effects (font (size 1.27 1.27))))
+          (number "18" (effects (font (size 1.27 1.27))))
+        )
+        (pin bidirectional line (at 12.7 5.08 180) (length 2.54)
+          (name "CBUS4" (effects (font (size 1.27 1.27))))
+          (number "19" (effects (font (size 1.27 1.27))))
+        )
+        (pin bidirectional line (at -3.81 -16.51 90) (length 2.54)
+          (name "GND" (effects (font (size 1.27 1.27))))
+          (number "2" (effects (font (size 1.27 1.27))))
+        )
+        (pin bidirectional line (at -1.27 -16.51 90) (length 2.54)
+          (name "TXD" (effects (font (size 1.27 1.27))))
+          (number "3" (effects (font (size 1.27 1.27))))
+        )
+        (pin bidirectional line (at 1.27 -16.51 90) (length 2.54)
+          (name "RXD" (effects (font (size 1.27 1.27))))
+          (number "4" (effects (font (size 1.27 1.27))))
+        )
+        (pin bidirectional line (at 3.81 -16.51 90) (length 2.54)
+          (name "RTS#" (effects (font (size 1.27 1.27))))
+          (number "5" (effects (font (size 1.27 1.27))))
+        )
+        (pin bidirectional line (at 6.35 -16.51 90) (length 2.54)
+          (name "CTS#" (effects (font (size 1.27 1.27))))
+          (number "6" (effects (font (size 1.27 1.27))))
+        )
+        (pin bidirectional line (at -6.35 16.51 270) (length 2.54)
+          (name "5V" (effects (font (size 1.27 1.27))))
+          (number "7" (effects (font (size 1.27 1.27))))
+        )
+        (pin bidirectional line (at -3.81 16.51 270) (length 2.54)
+          (name "VCCIO" (effects (font (size 1.27 1.27))))
+          (number "8" (effects (font (size 1.27 1.27))))
+        )
+        (pin bidirectional line (at -1.27 16.51 270) (length 2.54)
+          (name "3V3" (effects (font (size 1.27 1.27))))
+          (number "9" (effects (font (size 1.27 1.27))))
+        )
+      )
+    )
     (symbol "stepper5:NucleoH723" (in_bom yes) (on_board yes)
       (property "Reference" "U" (at 0 0 0)
         (effects (font (size 1.27 1.27)))
@@ -1196,6 +1332,27 @@
       (effects (font (size 1.27 1.27)) hide)
     )
   )
+  (global_label "GND" (shape input) (at 45.72 90.17 180) (fields_autoplaced)
+    (effects (font (size 1.27 1.27)) (justify right))
+    (uuid d585cdf2-b638-483b-8b20-c2d4a1f3cd10)
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 38.9437 90.17 0)
+      (effects (font (size 1.27 1.27)) (justify right) hide)
+    )
+  )
+  (global_label "GND" (shape input) (at 63.5 90.17 0) (fields_autoplaced)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid e1f95cda-e548-4ddf-bc41-815d152325ce)
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 70.2763 90.17 0)
+      (effects (font (size 1.27 1.27)) (justify left) hide)
+    )
+  )
+  (global_label "GND" (shape input) (at 48.26 142.24 270) (fields_autoplaced)
+    (effects (font (size 1.27 1.27)) (justify right))
+    (uuid e9a44af1-e9a7-4ded-a7f7-0148ec216d33)
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 48.26 149.0163 90)
+      (effects (font (size 1.27 1.27)) (justify right) hide)
+    )
+  )
   (global_label "VREF1" (shape input) (at 99.695 32.385 180)
     (effects (font (size 1.27 1.27)) (justify right))
     (uuid f8fefcf6-628c-4534-84d3-b688fe96ff13)
@@ -1235,7 +1392,7 @@
     (pin "8" (uuid 7346dfe3-4bce-4631-9354-20793a2994c2))
     (pin "9" (uuid f119f43a-ad23-4394-b207-4225872936fd))
     (instances
-      (project "stepper5"
+      (project "stepper2"
         (path "/2519ce93-57a7-4269-80ad-e58f985d69b8"
           (reference "J1") (unit 1)
         )
@@ -1266,7 +1423,7 @@
           (reference "C19") (unit 1)
         )
       )
-      (project "stepper5"
+      (project "stepper2"
         (path "/2519ce93-57a7-4269-80ad-e58f985d69b8"
           (reference "C2") (unit 1)
         )
@@ -1297,7 +1454,7 @@
           (reference "C19") (unit 1)
         )
       )
-      (project "stepper5"
+      (project "stepper2"
         (path "/2519ce93-57a7-4269-80ad-e58f985d69b8"
           (reference "C3") (unit 1)
         )
@@ -1327,7 +1484,7 @@
           (reference "#PWR080") (unit 1)
         )
       )
-      (project "stepper5"
+      (project "stepper2"
         (path "/2519ce93-57a7-4269-80ad-e58f985d69b8"
           (reference "#PWR02") (unit 1)
         )
@@ -1358,7 +1515,7 @@
           (reference "R8") (unit 1)
         )
       )
-      (project "stepper5"
+      (project "stepper2"
         (path "/2519ce93-57a7-4269-80ad-e58f985d69b8"
           (reference "R3") (unit 1)
         )
@@ -1388,7 +1545,7 @@
           (reference "#PWR080") (unit 1)
         )
       )
-      (project "stepper5"
+      (project "stepper2"
         (path "/2519ce93-57a7-4269-80ad-e58f985d69b8"
           (reference "#PWR03") (unit 1)
         )
@@ -1418,7 +1575,7 @@
           (reference "#PWR080") (unit 1)
         )
       )
-      (project "stepper5"
+      (project "stepper2"
         (path "/2519ce93-57a7-4269-80ad-e58f985d69b8"
           (reference "#PWR01") (unit 1)
         )
@@ -1449,7 +1606,7 @@
           (reference "SW1") (unit 1)
         )
       )
-      (project "stepper5"
+      (project "stepper2"
         (path "/2519ce93-57a7-4269-80ad-e58f985d69b8"
           (reference "SW5") (unit 1)
         )
@@ -1480,7 +1637,7 @@
           (reference "R8") (unit 1)
         )
       )
-      (project "stepper5"
+      (project "stepper2"
         (path "/2519ce93-57a7-4269-80ad-e58f985d69b8"
           (reference "R1") (unit 1)
         )
@@ -1604,7 +1761,7 @@
     (pin "B8" (uuid b6d17c9e-18ed-41a6-86ca-94e93fbf1acd))
     (pin "B9" (uuid 552906e4-6a9a-4c13-9251-06e5c95f0f92))
     (instances
-      (project "stepper5"
+      (project "stepper2"
         (path "/2519ce93-57a7-4269-80ad-e58f985d69b8"
           (reference "U1") (unit 1)
         )
@@ -1643,7 +1800,7 @@
     (pin "8" (uuid 84ede754-09f8-482e-9747-0f9330f8eb78))
     (pin "9" (uuid c1911790-24e0-4153-be56-cd73bf1e45c3))
     (instances
-      (project "stepper5"
+      (project "stepper2"
         (path "/2519ce93-57a7-4269-80ad-e58f985d69b8"
           (reference "J2") (unit 1)
         )
@@ -1674,7 +1831,7 @@
           (reference "SW1") (unit 1)
         )
       )
-      (project "stepper5"
+      (project "stepper2"
         (path "/2519ce93-57a7-4269-80ad-e58f985d69b8"
           (reference "SW1") (unit 1)
         )
@@ -1705,7 +1862,7 @@
           (reference "POWER_5V1") (unit 1)
         )
       )
-      (project "stepper5"
+      (project "stepper2"
         (path "/2519ce93-57a7-4269-80ad-e58f985d69b8"
           (reference "POWER_5V1") (unit 1)
         )
@@ -1744,7 +1901,7 @@
     (pin "8" (uuid 8fee520d-55f3-4e6f-94ca-c98026d96378))
     (pin "9" (uuid c21833e3-6e6b-458f-9c1c-6fb9dcbe2053))
     (instances
-      (project "stepper5"
+      (project "stepper2"
         (path "/2519ce93-57a7-4269-80ad-e58f985d69b8"
           (reference "J3") (unit 1)
         )
@@ -1775,7 +1932,7 @@
           (reference "SW1") (unit 1)
         )
       )
-      (project "stepper5"
+      (project "stepper2"
         (path "/2519ce93-57a7-4269-80ad-e58f985d69b8"
           (reference "SW3") (unit 1)
         )
@@ -1806,7 +1963,7 @@
           (reference "C19") (unit 1)
         )
       )
-      (project "stepper5"
+      (project "stepper2"
         (path "/2519ce93-57a7-4269-80ad-e58f985d69b8"
           (reference "C1") (unit 1)
         )
@@ -1930,7 +2087,7 @@
     (pin "B8" (uuid fa4c36f3-9c3f-45d7-97c1-4c577b78a44e))
     (pin "B9" (uuid 5c8d58f3-c4d8-4313-900f-37c0c7e64081))
     (instances
-      (project "stepper5"
+      (project "stepper2"
         (path "/2519ce93-57a7-4269-80ad-e58f985d69b8"
           (reference "U1") (unit 2)
         )
@@ -1961,7 +2118,7 @@
           (reference "SW1") (unit 1)
         )
       )
-      (project "stepper5"
+      (project "stepper2"
         (path "/2519ce93-57a7-4269-80ad-e58f985d69b8"
           (reference "SW6") (unit 1)
         )
@@ -1992,7 +2149,7 @@
           (reference "SW1") (unit 1)
         )
       )
-      (project "stepper5"
+      (project "stepper2"
         (path "/2519ce93-57a7-4269-80ad-e58f985d69b8"
           (reference "SW2") (unit 1)
         )
@@ -2023,9 +2180,80 @@
           (reference "SW1") (unit 1)
         )
       )
-      (project "stepper5"
+      (project "stepper2"
         (path "/2519ce93-57a7-4269-80ad-e58f985d69b8"
           (reference "SW4") (unit 1)
+        )
+      )
+    )
+  )
+
+  (symbol (lib_id "stepper2:DCDC_module") (at 54.61 87.63 0) (unit 1)
+    (in_bom no) (on_board yes) (dnp no) (fields_autoplaced)
+    (uuid de15bb1f-f655-43a5-9831-f9099c9f07dd)
+    (property "Reference" "U3" (at 54.61 81.28 0)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Value" "~" (at 54.61 87.63 0)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Footprint" "stepper2:DCDC_17.0mm_22.2mm" (at 54.61 87.63 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Datasheet" "" (at 54.61 87.63 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (pin "1" (uuid 788fcf35-30d0-4969-bbd7-8688f4956a1b))
+    (pin "2" (uuid 8a72f5d9-c25f-489a-8ac9-13c693639dcc))
+    (pin "3" (uuid 147512f9-e4bc-44c0-9636-6f6b9ab1bd9f))
+    (pin "4" (uuid 2c9a9141-22e4-4dbd-9f66-259abdc7a9cb))
+    (instances
+      (project "stepper2"
+        (path "/2519ce93-57a7-4269-80ad-e58f985d69b8"
+          (reference "U3") (unit 1)
+        )
+      )
+    )
+  )
+
+  (symbol (lib_id "stepper2:Waveshare_FT232_USBC") (at 52.07 125.73 0) (unit 1)
+    (in_bom no) (on_board yes) (dnp no) (fields_autoplaced)
+    (uuid df9f04a3-89b1-4b02-98ef-b04b64332a62)
+    (property "Reference" "U2" (at 52.7559 109.22 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Value" "~" (at 52.07 125.73 0)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Footprint" "stepper2:Waveshare_FT232_USBC_module" (at 52.07 125.73 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Datasheet" "" (at 52.07 125.73 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (pin "1" (uuid c6540f28-86c3-437e-ab90-341f742295c2))
+    (pin "10" (uuid 9a410ddf-7e7c-46e2-991f-79c5a4264107))
+    (pin "11" (uuid 1e770c3c-8f5a-4d5d-88af-a4ee3485f076))
+    (pin "12" (uuid 6c45f2c3-cc21-4fa3-91fd-d1666694a067))
+    (pin "13" (uuid 0e5539e1-587a-4313-a9b3-03917837a67b))
+    (pin "14" (uuid c4d0c9f8-f773-40e7-bd82-5a3e6fec3352))
+    (pin "15" (uuid 1d3a9a08-ae8f-4762-9d8f-ea9b98a9848c))
+    (pin "16" (uuid 2a0924e7-58bb-4f5e-81aa-58cc6a6f71f8))
+    (pin "17" (uuid b2d5d1b9-85f3-4d78-9009-eeaa541af227))
+    (pin "18" (uuid 6143894e-8ab3-4b94-98d6-9152d19890c0))
+    (pin "19" (uuid 80fc11ab-5b07-4f58-83ce-637b7f5f272d))
+    (pin "2" (uuid 270b30bf-a48b-47ca-82ed-a3b95f275f04))
+    (pin "3" (uuid 4a2eb1a7-c158-48d8-853e-af2cb34f5ce8))
+    (pin "4" (uuid 1edbab23-e114-4c22-b806-1978404ec017))
+    (pin "5" (uuid 7ffab217-498a-4226-966b-40a5151f1aba))
+    (pin "6" (uuid 102be01d-38bd-4b83-b7e0-313f6566978a))
+    (pin "7" (uuid 11894a67-3349-43e3-8e70-e5174e901b3f))
+    (pin "8" (uuid cc138d3d-0e7d-4f60-90f8-ed24e900a200))
+    (pin "9" (uuid eeda575b-83db-44f6-8d29-5cea2d1b44ae))
+    (instances
+      (project "stepper2"
+        (path "/2519ce93-57a7-4269-80ad-e58f985d69b8"
+          (reference "U2") (unit 1)
         )
       )
     )
@@ -2054,7 +2282,7 @@
           (reference "R8") (unit 1)
         )
       )
-      (project "stepper5"
+      (project "stepper2"
         (path "/2519ce93-57a7-4269-80ad-e58f985d69b8"
           (reference "R2") (unit 1)
         )
