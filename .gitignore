@@ -1,0 +1,9 @@
+fw/Drivers/*
+fw/Debug/*
+fw/.settings/*
+fw/STM32H723Z*
+fw/*.launch
+pcb/#*
+pcb/*.bak
+pcb/stepper2-backups/*
+/fw/Core/Startup

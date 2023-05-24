@@ -1,0 +1,5 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "NUCLEOH723ZG")(type "KiCad")(uri "${KIPRJMOD}/NUCLEOH723ZG.kicad_sym")(options "")(descr ""))
+  (lib (name "stepper2")(type "KiCad")(uri "${KIPRJMOD}/stepper2.kicad_sym")(options "")(descr ""))
+)
