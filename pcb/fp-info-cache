@@ -1,4 +1,4 @@
-21675422822013874
+21687377101885269
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -90202,12 +90202,47 @@ DCDC_17.0mm_22.2mm
 20
 4
 stepper2
-DSUB-15-HD_Male_Horizontal_Pitch2.29x2.54mm_EdgePinOffset9.40mm
+DSUB-15-HD_Horizontal_Pitch2.29x2.54mm_EdgePinOffset9.40mm
 15-pin D-Sub connector, horizontal/angled (90 deg), THT-mount, male, pitch 2.29x2.54mm, pin-PCB-offset 9.4mm, see http://docs-europe.electrocomponents.com/webdocs/1585/0900766b81585df2.pdf
 15-pin D-Sub connector horizontal angled 90deg THT male pitch 2.29x2.54mm pin-PCB-offset 9.4mm
 0
 17
 15
+stepper2
+DSUB-15-HD_Vertical_Pitch2.29x1.98mm_Mercury3000_Enc
+15-pin D-Sub connector, horizontal/angled (90 deg), THT-mount, male, pitch 2.29x2.54mm, pin-PCB-offset 9.4mm, see http://docs-europe.electrocomponents.com/webdocs/1585/0900766b81585df2.pdf
+15-pin D-Sub connector horizontal angled 90deg THT male pitch 2.29x2.54mm pin-PCB-offset 9.4mm
+0
+17
+15
+stepper2
+JST_PH_S4B-PH-SM4-TB_1x04-1MP_P2.00mm_Horizontal
+JST PH series connector, S4B-PH-SM4-TB (http://www.jst-mfg.com/product/pdf/eng/ePH.pdf), generated with kicad-footprint-generator
+connector JST PH top entry
+0
+12
+5
+stepper2
+JST_PH_S5B-PH-SM4-TB_1x05-1MP_P2.00mm_Horizontal
+JST PH series connector, S5B-PH-SM4-TB (http://www.jst-mfg.com/product/pdf/eng/ePH.pdf), generated with kicad-footprint-generator
+connector JST PH top entry
+0
+14
+6
+stepper2
+JST_PH_S6B-PH-SM4-TB_1x06-1MP_P2.00mm_Horizontal
+JST PH series connector, S6B-PH-SM4-TB (http://www.jst-mfg.com/product/pdf/eng/ePH.pdf), generated with kicad-footprint-generator
+connector JST PH top entry
+0
+16
+7
+stepper2
+JST_PH_S7B-PH-SM4-TB_1x07-1MP_P2.00mm_Horizontal
+JST PH series connector, S7B-PH-SM4-TB (http://www.jst-mfg.com/product/pdf/eng/ePH.pdf), generated with kicad-footprint-generator
+connector JST PH top entry
+0
+18
+8
 stepper2
 Nucleo144_H723
 
@@ -90215,6 +90250,20 @@ Nucleo144_H723
 0
 100
 100
+stepper2
+Nucleo144_H723_withVBAT
+
+
+0
+102
+102
+stepper2
+SO-16_3.9x9.9mm_P1.27mm
+SO, 16 Pin (https://www.nxp.com/docs/en/package-information/SOT109-1.pdf), generated with kicad-footprint-generator ipc_gullwing_generator.py
+SO SO
+0
+16
+16
 stepper2
 TMC2209_BIGTREETECH
 
