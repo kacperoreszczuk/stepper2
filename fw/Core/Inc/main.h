@@ -73,6 +73,12 @@ void Error_Handler(void);
 #define EXTSDA_GPIO_Port GPIOF
 #define EXTSCL_Pin GPIO_PIN_1
 #define EXTSCL_GPIO_Port GPIOF
+#define EN3_Pin GPIO_PIN_3
+#define EN3_GPIO_Port GPIOF
+#define DIR2_Pin GPIO_PIN_4
+#define DIR2_GPIO_Port GPIOF
+#define EN2_Pin GPIO_PIN_5
+#define EN2_GPIO_Port GPIOF
 #define EXTRXUART_Pin GPIO_PIN_6
 #define EXTRXUART_GPIO_Port GPIOF
 #define EXTTXUART_Pin GPIO_PIN_7
@@ -105,6 +111,8 @@ void Error_Handler(void);
 #define RMII_RXD1_GPIO_Port GPIOC
 #define LED_GREEN_Pin GPIO_PIN_0
 #define LED_GREEN_GPIO_Port GPIOB
+#define EN1_Pin GPIO_PIN_2
+#define EN1_GPIO_Port GPIOB
 #define TMCUARTRX1_Pin GPIO_PIN_0
 #define TMCUARTRX1_GPIO_Port GPIOG
 #define FLIMIT1_Pin GPIO_PIN_7
@@ -149,10 +157,14 @@ void Error_Handler(void);
 #define ENCI2_GPIO_Port GPIOD
 #define TMCUARTTX1_Pin GPIO_PIN_15
 #define TMCUARTTX1_GPIO_Port GPIOD
+#define DIR1_Pin GPIO_PIN_6
+#define DIR1_GPIO_Port GPIOG
 #define ENCA3_Pin GPIO_PIN_6
 #define ENCA3_GPIO_Port GPIOC
 #define ENCB3_Pin GPIO_PIN_7
 #define ENCB3_GPIO_Port GPIOC
+#define DIR3_Pin GPIO_PIN_8
+#define DIR3_GPIO_Port GPIOC
 #define USB_FS_VBUS_Pin GPIO_PIN_9
 #define USB_FS_VBUS_GPIO_Port GPIOA
 #define USB_FS_ID_Pin GPIO_PIN_10
