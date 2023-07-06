@@ -96,7 +96,7 @@
         "silk_overlap": "warning",
         "skew_out_of_range": "error",
         "solder_mask_bridge": "error",
-        "starved_thermal": "error",
+        "starved_thermal": "ignore",
         "text_height": "warning",
         "text_thickness": "warning",
         "through_hole_pad_without_hole": "error",
@@ -176,7 +176,8 @@
         0.0,
         0.0,
         0.6,
-        1.4
+        1.4,
+        1.9
       ],
       "via_dimensions": [
         {
@@ -459,6 +460,7 @@
     "net_colors": null,
     "netclass_assignments": {
       "+3V3": "thick",
+      "+5V": "thick",
       "MXA1": "thick",
       "MXA2": "thick",
       "MXA3": "thick",

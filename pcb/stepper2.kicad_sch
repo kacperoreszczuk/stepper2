@@ -2707,7 +2707,6 @@
     )
   )
 
-
   (junction (at 236.22 137.16) (diameter 0) (color 0 0 0 0)
     (uuid 4a738977-3786-49c2-95ae-5998e640a822)
   )
@@ -3003,6 +3002,10 @@
   (wire (pts (xy 52.07 21.59) (xy 54.61 21.59))
     (stroke (width 0) (type default))
     (uuid 97f87729-4869-40d8-800d-24e120bbde04)
+  )
+  (wire (pts (xy 129.54 20.32) (xy 129.54 21.59))
+    (stroke (width 0) (type default))
+    (uuid 9b8ee9b3-267f-4780-92bf-6e58d40eb827)
   )
   (wire (pts (xy 236.22 137.16) (xy 241.3 137.16))
     (stroke (width 0) (type default))
@@ -4449,6 +4452,13 @@
     )
   )
 
+  (netclass_flag "" (length 2.54) (shape round) (at 129.54 20.32 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid 09105cc9-6f7f-427c-95b3-193850640a78)
+    (property "Netclass" "thick" (at 129.54 16.51 90)
+      (effects (font (size 1.27 1.27) italic) (justify left))
+    )
+  )
   (netclass_flag "" (length 2.54) (shape round) (at 93.98 20.32 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 1dfa36d8-3d11-4607-8678-6dfc2c8c6381)
@@ -7995,6 +8005,36 @@
       (project "stepper2"
         (path "/2519ce93-57a7-4269-80ad-e58f985d69b8"
           (reference "R1") (unit 1)
+        )
+      )
+    )
+  )
+
+  (symbol (lib_id "power:+5V") (at 129.54 21.59 180) (unit 1)
+    (in_bom yes) (on_board yes) (dnp no)
+    (uuid bc4afec8-2efe-4db7-893f-bbebf5c4cde7)
+    (property "Reference" "#PWR0103" (at 129.54 17.78 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Value" "+5V" (at 132.08 25.4 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Footprint" "" (at 129.54 21.59 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Datasheet" "" (at 129.54 21.59 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (pin "1" (uuid 3c226528-4064-49fc-9068-535aef587d24))
+    (instances
+      (project "stepper2"
+        (path "/2519ce93-57a7-4269-80ad-e58f985d69b8"
+          (reference "#PWR0103") (unit 1)
+        )
+      )
+      (project "stepper"
+        (path "/29e6b2c4-71e3-4cf4-b657-cab9f28c2e75"
+          (reference "#PWR0117") (unit 1)
         )
       )
     )
