@@ -1,4 +1,4 @@
-21687377101885269
+21689071587977928
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -90243,6 +90243,13 @@ connector JST PH top entry
 0
 18
 8
+stepper2
+MountingHole_3.2mm_M3
+Mounting Hole 3.2mm, no annular, M3
+mounting hole 3.2mm no annular m3
+0
+0
+0
 stepper2
 Nucleo144_H723
 

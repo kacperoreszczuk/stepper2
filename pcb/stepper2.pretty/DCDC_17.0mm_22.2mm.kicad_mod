@@ -1,6 +1,5 @@
 (footprint "DCDC_17.0mm_22.2mm" (version 20221018) (generator pcbnew)
   (layer "F.Cu")
-  (attr through_hole)
   (fp_text reference "REF**" (at 0 -0.5 unlocked) (layer "F.SilkS")
       (effects (font (size 1 1) (thickness 0.1)))
     (tstamp 8fe74779-d6e9-4481-b1aa-5fe0b2524be1)
@@ -40,7 +39,7 @@
   (zone (net 0) (net_name "") (layer "F.Cu") (tstamp 59cfb1ca-5545-482a-9fdb-62e750819fe4) (hatch edge 0.5)
     (connect_pads (clearance 0))
     (min_thickness 0.25) (filled_areas_thickness no)
-    (keepout (tracks not_allowed) (vias not_allowed) (pads not_allowed) (copperpour not_allowed) (footprints allowed))
+    (keepout (tracks allowed) (vias allowed) (pads allowed) (copperpour not_allowed) (footprints allowed))
     (fill (thermal_gap 0.5) (thermal_bridge_width 0.5))
     (polygon
       (pts
