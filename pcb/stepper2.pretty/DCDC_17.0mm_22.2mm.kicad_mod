@@ -43,10 +43,10 @@
     (fill (thermal_gap 0.5) (thermal_bridge_width 0.5))
     (polygon
       (pts
-        (xy -8.6 -11.2)
-        (xy 8.6 -11.2)
-        (xy 8.6 11.2)
-        (xy -8.6 11.2)
+        (xy -8.89 -11.43)
+        (xy 8.89 -11.43)
+        (xy 8.89 11.43)
+        (xy -8.89 11.43)
       )
     )
   )
