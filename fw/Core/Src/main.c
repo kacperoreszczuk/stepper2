@@ -23,6 +23,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
+#include "handles.hpp"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -74,6 +75,7 @@ TIM_HandleTypeDef htim4;
 TIM_HandleTypeDef htim5;
 TIM_HandleTypeDef htim8;
 TIM_HandleTypeDef htim23;
+TIM_HandleTypeDef htim24;
 
 UART_HandleTypeDef huart4;
 UART_HandleTypeDef huart5;
@@ -107,6 +109,7 @@ static void MX_DAC1_Init(void);
 static void MX_I2C5_Init(void);
 static void MX_SPI4_Init(void);
 static void MX_UART9_Init(void);
+static void MX_TIM24_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -162,22 +165,18 @@ int main(void)
   MX_I2C5_Init();
   MX_SPI4_Init();
   MX_UART9_Init();
+  MX_TIM24_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  while (1)
-  {
-	HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, 1);
-	HAL_Delay(50);
-	HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, 0);
-	HAL_Delay(450);
+  usrMain();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-  }
+
   /* USER CODE END 3 */
 }
 
@@ -455,12 +454,12 @@ static void MX_TIM1_Init(void)
 
   /* USER CODE END TIM1_Init 1 */
   htim1.Instance = TIM1;
-  htim1.Init.Prescaler = 0;
+  htim1.Init.Prescaler = 4;
   htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim1.Init.Period = 65535;
+  htim1.Init.Period = 2519;
   htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim1.Init.RepetitionCounter = 0;
-  htim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  htim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
   if (HAL_TIM_PWM_Init(&htim1) != HAL_OK)
   {
     Error_Handler();
@@ -806,6 +805,51 @@ static void MX_TIM23_Init(void)
 
   /* USER CODE END TIM23_Init 2 */
   HAL_TIM_MspPostInit(&htim23);
+
+}
+
+/**
+  * @brief TIM24 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_TIM24_Init(void)
+{
+
+  /* USER CODE BEGIN TIM24_Init 0 */
+
+  /* USER CODE END TIM24_Init 0 */
+
+  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
+
+  /* USER CODE BEGIN TIM24_Init 1 */
+
+  /* USER CODE END TIM24_Init 1 */
+  htim24.Instance = TIM24;
+  htim24.Init.Prescaler = 0;
+  htim24.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim24.Init.Period = 4294967295;
+  htim24.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim24.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init(&htim24) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  if (HAL_TIM_ConfigClockSource(&htim24, &sClockSourceConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim24, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM24_Init 2 */
+
+  /* USER CODE END TIM24_Init 2 */
 
 }
 

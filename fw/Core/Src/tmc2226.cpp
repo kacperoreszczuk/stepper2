@@ -1,0 +1,111 @@
+#include "tmc2226.hpp"
+#include "handles.hpp"
+#include "main.h"
+
+void Tmc::calc_crc(uint8_t* datagram, uint8_t datagramLength)
+{
+	uint8_t i, j;
+	uint8_t* crc = datagram + (datagramLength-1); // CRC located in last byte of message
+	uint8_t currentByte;
+	*crc = 0;
+	for (i = 0; i < (datagramLength - 1); i++) { // Execute for all bytes of a message
+		currentByte = datagram[i]; // Retrieve a byte to be sent from Array
+		for (j = 0; j < 8; j++) {
+			if ((*crc >> 7) ^ (currentByte & 0x01)) { // update CRC based result of XOR operation
+				*crc = (*crc << 1) ^ 0x07;
+			}
+			else {
+				*crc = (*crc << 1);
+			}
+			currentByte = currentByte >> 1;
+		} // for CRC bit
+	} // for message byte
+}
+
+void Tmc::write_reg_driver(uint8_t id, uint8_t reg, uint32_t data)
+{
+	uint8_t buffer[8];
+	buffer[0] = 0b00000101;
+	buffer[1] = 0b00000000;
+	buffer[2] = reg | (1 << 7);  // highest bit: 1 - write, 0 - read
+	buffer[3] = data >> 24;
+	buffer[4] = data >> 16;
+	buffer[5] = data >> 8;
+	buffer[6] = data;
+	calc_crc(buffer, 8);
+    HAL_UART_Transmit((UART_HandleTypeDef*)huart_tmc[id], buffer, 8, 500);
+	return;
+}
+
+void Tmc::write_half_current(uint8_t id, uint8_t is_half)
+{
+	uint32_t data =
+			((is_half ? 10 : 21) << 0)  |  // hold current (half of the run current)
+			((is_half ? 15 : 31) << 8) |  // run current
+			(2 << 16);                   // 2 * 2^18 / (12 MHz)  ->  0.04s delay between ramp down steps (total 8 or
+										 // 16 steps)
+	write_reg_driver(id, 0x10, data);
+}
+
+void Tmc::write_conf_default(uint8_t id)
+{
+	uint32_t data =
+			(1 << 0) |  // VREF as current reference
+			(0 << 1) |  // external sense resistors
+			(1 << 2) |  // prefer SpreadCycle over StealthChop
+			(0 << 3) |  // do not reverse direction
+			(0 << 4) |  // prefer index microstep pulse instead of temp. warning
+			(0 << 5) |  // prefer index microstep pulse instead of pulses from internal generator
+			(1 << 6) |  // use UART on UART_PDN pin
+			(1 << 7) |  // software control over microstep size
+			(1 << 8) |  // multistep filtering ON. TODO: understand how it works?
+			(0 << 9);   // test mode off
+	write_reg_driver(id, 0x00, data); // gconf
+
+	data = 6; // 6 * 2^18 / (12 MHz)  -> 0.125s
+	write_reg_driver(id, 0x11, data); // TPOWER DOWN
+
+	data = (3 << 0)       |  // default TOFF: (3 * 32 + 24) / 12 MHZ
+		   (0 << 4)       |  // default hstart 0
+		   (5 << 7)       |  // default hend 5
+		   (0b01 << 15)   |  // 24 clocks sense comparator blank time
+		   (1 << 17)      |  // standard (low sensitivity) sense resistor voltage
+		   (0b0010 << 24) |  // 64 microsteps
+		   (1 << 28)      |  // interpolation to 256 steps ON
+		   (0 << 29)      |  // step only on rising edge
+		   (0 << 30)      |  // short to GND protection is on
+		   (0 << 31);        // low side short protection is on
+	write_reg_driver(id, 0x6C, data); // CHOPCONF
+
+	data = (36 << 0)    |  // default PWM offset: 36
+		   (40 << 8)    |  // moderate PWM_GRAD
+		   (0b01 << 0)  |  // default PWM frequency of 2/683 fclk (35.1 kHz)
+		   (1 << 18)    |  // automatic amplitude scaling
+		   (1 << 19)    |  // automatic gradient adaptation
+		   (0b00 << 20) |  // no freewheeling at stand still
+		   (4 << 24)    |  // PWM amplitude change: 2 increment per half wave
+		   (12 << 28);     // default PWM_SCALE_AUTO during mode switching
+	write_reg_driver(id, 0x70, data); // PWMCONF
+
+	write_half_current(id, 0);
+
+    HAL_TIM_Base_Start_IT(htim_tmc_vref);
+}
+
+void Tmc::set_current(uint8_t id, uint16_t current)
+{
+	if(current > htim_tmc_vref->Instance->ARR){  // 1.35 * sqrt(2) * 3.3/2.5 = 2520
+		current = htim_tmc_vref->Instance->ARR;  // cap to 100%
+	}
+	if (current < 350)
+	{
+		write_half_current(id, 1);
+		current *= 2;
+	}
+	else {
+		write_half_current(id, 0);
+	}
+
+	__HAL_TIM_SET_COMPARE(htim_tmc_vref, MOTOR_CURRENT_Channel[id], current);
+}
+
