@@ -59,14 +59,14 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define EXTCLK_Pin GPIO_PIN_2
-#define EXTCLK_GPIO_Port GPIOE
-#define EXTCS_Pin GPIO_PIN_4
-#define EXTCS_GPIO_Port GPIOE
-#define EXTCIPO_Pin GPIO_PIN_5
-#define EXTCIPO_GPIO_Port GPIOE
-#define EXTCOPI_Pin GPIO_PIN_6
-#define EXTCOPI_GPIO_Port GPIOE
+#define EIO_Pin GPIO_PIN_2
+#define EIO_GPIO_Port GPIOE
+#define CLONE3_Pin GPIO_PIN_4
+#define CLONE3_GPIO_Port GPIOE
+#define CLONE1_Pin GPIO_PIN_5
+#define CLONE1_GPIO_Port GPIOE
+#define CLONE2_Pin GPIO_PIN_6
+#define CLONE2_GPIO_Port GPIOE
 #define B1_Pin GPIO_PIN_13
 #define B1_GPIO_Port GPIOC
 #define EXTSDA_Pin GPIO_PIN_0
@@ -121,22 +121,22 @@ void Error_Handler(void);
 #define RLIMIT1_GPIO_Port GPIOE
 #define VREFPWM1_Pin GPIO_PIN_9
 #define VREFPWM1_GPIO_Port GPIOE
-#define UP3_Pin GPIO_PIN_10
-#define UP3_GPIO_Port GPIOE
+#define FJOG3_Pin GPIO_PIN_10
+#define FJOG3_GPIO_Port GPIOE
 #define VREFPWM2_Pin GPIO_PIN_11
 #define VREFPWM2_GPIO_Port GPIOE
-#define UP2_Pin GPIO_PIN_12
-#define UP2_GPIO_Port GPIOE
+#define FJOG2_Pin GPIO_PIN_12
+#define FJOG2_GPIO_Port GPIOE
 #define VREFPWM3_Pin GPIO_PIN_13
 #define VREFPWM3_GPIO_Port GPIOE
 #define RLIMIT2_Pin GPIO_PIN_14
 #define RLIMIT2_GPIO_Port GPIOE
-#define DOWN3_Pin GPIO_PIN_15
-#define DOWN3_GPIO_Port GPIOE
-#define DOWN2_Pin GPIO_PIN_10
-#define DOWN2_GPIO_Port GPIOB
-#define DOWN1_Pin GPIO_PIN_11
-#define DOWN1_GPIO_Port GPIOB
+#define RJOG3_Pin GPIO_PIN_15
+#define RJOG3_GPIO_Port GPIOE
+#define RJOG2_Pin GPIO_PIN_10
+#define RJOG2_GPIO_Port GPIOB
+#define RJOG1_Pin GPIO_PIN_11
+#define RJOG1_GPIO_Port GPIOB
 #define FLIMIT3_Pin GPIO_PIN_12
 #define FLIMIT3_GPIO_Port GPIOB
 #define RMII_TXD1_Pin GPIO_PIN_13
@@ -149,6 +149,8 @@ void Error_Handler(void);
 #define STLK_VCP_RX_GPIO_Port GPIOD
 #define STLK_VCP_TX_Pin GPIO_PIN_9
 #define STLK_VCP_TX_GPIO_Port GPIOD
+#define ENCI1_Pin GPIO_PIN_11
+#define ENCI1_GPIO_Port GPIOD
 #define ENCA1_Pin GPIO_PIN_12
 #define ENCA1_GPIO_Port GPIOD
 #define ENCB1_Pin GPIO_PIN_13
@@ -211,8 +213,8 @@ void Error_Handler(void);
 #define DIAG3_GPIO_Port GPIOB
 #define RLIMIT3_Pin GPIO_PIN_9
 #define RLIMIT3_GPIO_Port GPIOB
-#define UP1_Pin GPIO_PIN_0
-#define UP1_GPIO_Port GPIOE
+#define FJOG1_Pin GPIO_PIN_0
+#define FJOG1_GPIO_Port GPIOE
 #define LED_YELLOW_Pin GPIO_PIN_1
 #define LED_YELLOW_GPIO_Port GPIOE
 

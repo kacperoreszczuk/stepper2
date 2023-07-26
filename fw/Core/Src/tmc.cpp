@@ -1,6 +1,18 @@
-#include "tmc2226.hpp"
+#include "tmc.hpp"
 #include "handles.hpp"
 #include "main.h"
+
+
+
+Tmc::Tmc(UART_HandleTypeDef* tmc_uart_handle, uint32_t motor_current_pwm_channel) {
+	init_tmc(tmc_uart_handle, motor_current_pwm_channel);
+};
+
+void Tmc::init_tmc(UART_HandleTypeDef* tmc_uart_handle, uint32_t motor_current_pwm_channel) {
+	uart_handle = tmc_uart_handle;
+	pwm_channel = motor_current_pwm_channel;
+	HAL_TIM_PWM_Start(htim_tmc_vref, pwm_channel);
+}
 
 void Tmc::calc_crc(uint8_t* datagram, uint8_t datagramLength)
 {
@@ -22,7 +34,7 @@ void Tmc::calc_crc(uint8_t* datagram, uint8_t datagramLength)
 	} // for message byte
 }
 
-void Tmc::write_reg_driver(uint8_t id, uint8_t reg, uint32_t data)
+void Tmc::write_reg_driver(uint8_t reg, uint32_t data)
 {
 	uint8_t buffer[8];
 	buffer[0] = 0b00000101;
@@ -33,21 +45,21 @@ void Tmc::write_reg_driver(uint8_t id, uint8_t reg, uint32_t data)
 	buffer[5] = data >> 8;
 	buffer[6] = data;
 	calc_crc(buffer, 8);
-    HAL_UART_Transmit((UART_HandleTypeDef*)huart_tmc[id], buffer, 8, 500);
+    HAL_UART_Transmit(uart_handle, buffer, 8, 500);
 	return;
 }
 
-void Tmc::write_half_current(uint8_t id, uint8_t is_half)
+void Tmc::write_half_current(uint8_t is_half)
 {
 	uint32_t data =
 			((is_half ? 10 : 21) << 0)  |  // hold current (half of the run current)
 			((is_half ? 15 : 31) << 8) |  // run current
 			(2 << 16);                   // 2 * 2^18 / (12 MHz)  ->  0.04s delay between ramp down steps (total 8 or
 										 // 16 steps)
-	write_reg_driver(id, 0x10, data);
+	write_reg_driver(0x10, data);
 }
 
-void Tmc::write_conf_default(uint8_t id)
+void Tmc::write_conf_default()
 {
 	uint32_t data =
 			(1 << 0) |  // VREF as current reference
@@ -60,10 +72,10 @@ void Tmc::write_conf_default(uint8_t id)
 			(1 << 7) |  // software control over microstep size
 			(1 << 8) |  // multistep filtering ON. TODO: understand how it works?
 			(0 << 9);   // test mode off
-	write_reg_driver(id, 0x00, data); // gconf
+	write_reg_driver(0x00, data); // gconf
 
 	data = 6; // 6 * 2^18 / (12 MHz)  -> 0.125s
-	write_reg_driver(id, 0x11, data); // TPOWER DOWN
+	write_reg_driver(0x11, data); // TPOWER DOWN
 
 	data = (3 << 0)       |  // default TOFF: (3 * 32 + 24) / 12 MHZ
 		   (0 << 4)       |  // default hstart 0
@@ -75,7 +87,7 @@ void Tmc::write_conf_default(uint8_t id)
 		   (0 << 29)      |  // step only on rising edge
 		   (0 << 30)      |  // short to GND protection is on
 		   (0 << 31);        // low side short protection is on
-	write_reg_driver(id, 0x6C, data); // CHOPCONF
+	write_reg_driver(0x6C, data); // CHOPCONF
 
 	data = (36 << 0)    |  // default PWM offset: 36
 		   (40 << 8)    |  // moderate PWM_GRAD
@@ -85,27 +97,26 @@ void Tmc::write_conf_default(uint8_t id)
 		   (0b00 << 20) |  // no freewheeling at stand still
 		   (4 << 24)    |  // PWM amplitude change: 2 increment per half wave
 		   (12 << 28);     // default PWM_SCALE_AUTO during mode switching
-	write_reg_driver(id, 0x70, data); // PWMCONF
+	write_reg_driver(0x70, data); // PWMCONF
 
-	write_half_current(id, 0);
-
-    HAL_TIM_Base_Start_IT(htim_tmc_vref);
+	write_half_current(0);
 }
 
-void Tmc::set_current(uint8_t id, uint16_t current)
+void Tmc::set_current(uint16_t current)
 {
+	last_current = current;
 	if(current > htim_tmc_vref->Instance->ARR){  // 1.35 * sqrt(2) * 3.3/2.5 = 2520
 		current = htim_tmc_vref->Instance->ARR;  // cap to 100%
 	}
 	if (current < 350)
 	{
-		write_half_current(id, 1);
+		write_half_current(1);
 		current *= 2;
 	}
 	else {
-		write_half_current(id, 0);
+		write_half_current(0);
 	}
 
-	__HAL_TIM_SET_COMPARE(htim_tmc_vref, MOTOR_CURRENT_Channel[id], current);
+	__HAL_TIM_SET_COMPARE(htim_tmc_vref, pwm_channel, current);
 }
 

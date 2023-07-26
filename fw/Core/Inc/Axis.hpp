@@ -1,16 +1,45 @@
-/*
- * motor.h
- *
- *  Created on: 17 wrz 2021
- *      Author: main
- */
+#ifndef INC_AXIS_HPP_
+#define INC_AXIS_HPP_
 
-#ifndef INC_MOTOR_HPP_
-#define INC_MOTOR_HPP_
+#include "main.h"
+#include "tmc.hpp"
 
 typedef enum {STOPPED, VELOCITY, POSITION, HOMING, HOMING_2} Mode;
 
-typedef struct{
+class Axis:public Tmc {
+
+public:
+	Axis(){};
+	void init(uint8_t id);
+	void parse_command(uint16_t signature, float value);
+
+private:
+	void set_limit_type(uint8_t limit_type);
+
+	TIM_HandleTypeDef *htim_enc;
+	TIM_HandleTypeDef *htim_nxt;
+	GPIO_TypeDef* nxt_port;
+	GPIO_TypeDef* dir_port;
+	GPIO_TypeDef* flimit_port;
+	GPIO_TypeDef* rlimit_port;
+	GPIO_TypeDef* fjog_port;
+	GPIO_TypeDef* rjog_port;
+	GPIO_TypeDef* en_port;
+	GPIO_TypeDef* diag_port;
+	GPIO_TypeDef* enci_port;
+	GPIO_TypeDef* clone_port;
+	uint16_t nxt_pin;
+	uint16_t dir_pin;
+	uint16_t flimit_pin;
+	uint16_t rlimit_pin;
+	uint16_t fjog_pin;
+	uint16_t rjog_pin;
+	uint16_t en_pin;
+	uint16_t diag_pin;
+	uint16_t enci_pin;
+	uint16_t clone_pin;
+
+public:
 	Mode status;
 
 	/* NXT and DIR states */
@@ -64,9 +93,6 @@ typedef struct{
 	/* help variable - if tact switch jogging was active in last loop iteration */
 	uint8_t was_jogging;
 
-	/* reading backup config will be aborted if this token is not present */
-	uint32_t backup_sram_token;
-} Motor;
+};
 
-
-#endif /* INC_MOTOR_HPP_ */
+#endif /* INC_AXIS_HPP_ */

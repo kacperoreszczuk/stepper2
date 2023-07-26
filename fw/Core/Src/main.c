@@ -446,6 +446,7 @@ static void MX_TIM1_Init(void)
 
   /* USER CODE END TIM1_Init 0 */
 
+  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
   TIM_MasterConfigTypeDef sMasterConfig = {0};
   TIM_OC_InitTypeDef sConfigOC = {0};
   TIM_BreakDeadTimeConfigTypeDef sBreakDeadTimeConfig = {0};
@@ -460,6 +461,15 @@ static void MX_TIM1_Init(void)
   htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim1.Init.RepetitionCounter = 0;
   htim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
+  if (HAL_TIM_Base_Init(&htim1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  if (HAL_TIM_ConfigClockSource(&htim1, &sClockSourceConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
   if (HAL_TIM_PWM_Init(&htim1) != HAL_OK)
   {
     Error_Handler();
@@ -869,7 +879,7 @@ static void MX_UART4_Init(void)
 
   /* USER CODE END UART4_Init 1 */
   huart4.Instance = UART4;
-  huart4.Init.BaudRate = 115200;
+  huart4.Init.BaudRate = 38400;
   huart4.Init.WordLength = UART_WORDLENGTH_8B;
   huart4.Init.StopBits = UART_STOPBITS_1;
   huart4.Init.Parity = UART_PARITY_NONE;
@@ -917,7 +927,7 @@ static void MX_UART5_Init(void)
 
   /* USER CODE END UART5_Init 1 */
   huart5.Instance = UART5;
-  huart5.Init.BaudRate = 115200;
+  huart5.Init.BaudRate = 38400;
   huart5.Init.WordLength = UART_WORDLENGTH_8B;
   huart5.Init.StopBits = UART_STOPBITS_1;
   huart5.Init.Parity = UART_PARITY_NONE;
@@ -1013,7 +1023,7 @@ static void MX_UART9_Init(void)
 
   /* USER CODE END UART9_Init 1 */
   huart9.Instance = UART9;
-  huart9.Init.BaudRate = 115200;
+  huart9.Init.BaudRate = 38400;
   huart9.Init.WordLength = UART_WORDLENGTH_8B;
   huart9.Init.StopBits = UART_STOPBITS_1;
   huart9.Init.Parity = UART_PARITY_NONE;
@@ -1061,7 +1071,7 @@ static void MX_USART2_UART_Init(void)
 
   /* USER CODE END USART2_Init 1 */
   huart2.Instance = USART2;
-  huart2.Init.BaudRate = 115200;
+  huart2.Init.BaudRate = 1000000;
   huart2.Init.WordLength = UART_WORDLENGTH_8B;
   huart2.Init.StopBits = UART_STOPBITS_1;
   huart2.Init.Parity = UART_PARITY_NONE;
@@ -1227,16 +1237,16 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : FLIMIT1_Pin RLIMIT1_Pin UP3_Pin UP2_Pin
-                           RLIMIT2_Pin DOWN3_Pin UP1_Pin */
-  GPIO_InitStruct.Pin = FLIMIT1_Pin|RLIMIT1_Pin|UP3_Pin|UP2_Pin
-                          |RLIMIT2_Pin|DOWN3_Pin|UP1_Pin;
+  /*Configure GPIO pins : FLIMIT1_Pin RLIMIT1_Pin FJOG3_Pin FJOG2_Pin
+                           RLIMIT2_Pin RJOG3_Pin FJOG1_Pin */
+  GPIO_InitStruct.Pin = FLIMIT1_Pin|RLIMIT1_Pin|FJOG3_Pin|FJOG2_Pin
+                          |RLIMIT2_Pin|RJOG3_Pin|FJOG1_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : DOWN2_Pin DOWN1_Pin FLIMIT3_Pin RLIMIT3_Pin */
-  GPIO_InitStruct.Pin = DOWN2_Pin|DOWN1_Pin|FLIMIT3_Pin|RLIMIT3_Pin;
+  /*Configure GPIO pins : RJOG2_Pin RJOG1_Pin FLIMIT3_Pin RLIMIT3_Pin */
+  GPIO_InitStruct.Pin = RJOG2_Pin|RJOG1_Pin|FLIMIT3_Pin|RLIMIT3_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
@@ -1253,6 +1263,12 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : ENCI1_Pin */
+  GPIO_InitStruct.Pin = ENCI1_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(ENCI1_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pin : ENCI2_Pin */
   GPIO_InitStruct.Pin = ENCI2_Pin;
