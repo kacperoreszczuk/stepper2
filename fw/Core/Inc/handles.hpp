@@ -10,11 +10,14 @@
 
 #include "main.h"
 
+#define AXES_COUNT 3
+
 extern TIM_HandleTypeDef htim1;
 extern TIM_HandleTypeDef htim2;
 extern TIM_HandleTypeDef htim3;
 extern TIM_HandleTypeDef htim4;
 extern TIM_HandleTypeDef htim5;
+extern TIM_HandleTypeDef htim6;
 extern TIM_HandleTypeDef htim8;
 extern TIM_HandleTypeDef htim23;
 extern TIM_HandleTypeDef htim24;
@@ -25,8 +28,10 @@ extern UART_HandleTypeDef huart7;
 extern UART_HandleTypeDef huart9;
 extern UART_HandleTypeDef huart2;
 extern UART_HandleTypeDef huart3;
+extern DMA_HandleTypeDef hdma_usart2_rx;
 
 static UART_HandleTypeDef *huart_usb = &huart2;
+static DMA_HandleTypeDef *hdma_uart_usb_rx = &hdma_usart2_rx;
 static UART_HandleTypeDef *huart_stlink = &huart3;
 static UART_HandleTypeDef *huart_expansion = &huart7;
 static UART_HandleTypeDef *huart_tmc1 = &huart9;
@@ -36,6 +41,7 @@ static UART_HandleTypeDef *huart_tmc3 = &huart4;
 
 static TIM_HandleTypeDef *htim_tmc_vref = &htim1;
 static TIM_HandleTypeDef *htim_micros = &htim24;
+static TIM_HandleTypeDef *htim_control_loop = &htim6;
 static TIM_HandleTypeDef *htim_enc1 = &htim4;
 static TIM_HandleTypeDef *htim_enc2 = &htim3;
 static TIM_HandleTypeDef *htim_enc3 = &htim8;

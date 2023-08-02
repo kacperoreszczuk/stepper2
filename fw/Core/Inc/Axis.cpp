@@ -70,13 +70,13 @@ void Axis::init(uint8_t id) {
 
 }
 
-void Axis::parse_command(uint16_t signature, float value) {
+void Axis::parse_command(uint16_t command, float value) {
 
 	static uint8_t result_u8, j;
 
-	switch(signature)
+	switch(command)
 	{
-		case 0x0100 * 'h' + 'm':
+		case COMM_HOME:
 			if(homing_enabled == 0)
 			{
 				status = STOPPED;
@@ -95,7 +95,7 @@ void Axis::parse_command(uint16_t signature, float value) {
 			}
 			printf("hm\r");
 			break;
-		case 0x0100 * 'm' + 'v':
+		case COMM_MOVE_VELOCITY:
 			target_velocity = value;
 			if(target_velocity > max_velocity)
 				target_velocity = max_velocity;
@@ -105,41 +105,41 @@ void Axis::parse_command(uint16_t signature, float value) {
 			printf("mv\r");
 
 			break;
-		case 0x0100 * 's' + 's':
+		case COMM_SET_STEP:
 			step = value;
 			step_inv = 1.0f / value;
 			status = STOPPED;
 			hysteresis_ticks = hysteresis / step * MICROSTEPS;
 			printf("ss\r");
 			break;
-		case 0x0100 * 's' + 'v':
+		case COMM_SET_VELOCITY:
 			standard_velocity = value;
 			printf("sv\r");
 			break;
-		case 0x0100 * 's' + 'm':
+		case COMM_SET_MAX_VELOCITY:
 			max_velocity = value;
 			printf("sm\r");
 			break;
-		case 0x0100 * 's' + 'a':
+		case COMM_SET_ACCELERATION_TIME:
 			acceleration_time_inv = 1.0f / value;
 			printf("sa\r");
 			break;
-		case 0x0100 * 's' + 'o':
+		case COMM_SET_HOMING_OFFSET:
 			homing_offset = value;
 			printf("so\r");
 			break;
-		case 0x0100 * 'c' + 'a':  // undocumented feature, clones NXT pin of given axis to EIO pin
+		case COMM_CLONE_AXIS:  // undocumented feature, clones NXT pin of given axis to EIO pin
 			clone_axis = 1;
 			printf("ca\r");
 			break;
-		case 0x0100 * 's' + 'l':
+		case COMM_SET_LIMIT_TYPE:
 			// 0 - no switch, 1 - active switch (high-active) 2 - active shorted,
 			// 3 - active disconnected, 4,5 - like 2,3, but only for homing
 			limit_type = value + 0.5f;
 			set_limit_type(limit_type);
 			printf("sl\r");
 			break;
-		case 0x0100 * 'm' + 'a':
+		case COMM_MOVE_ABSOLUTE:
 			target_real_position = value / step * MICROSTEPS;
 			if(target_real_position < real_position)
 				target_position = target_real_position;
@@ -148,7 +148,7 @@ void Axis::parse_command(uint16_t signature, float value) {
 			status = POSITION;
 			printf("ma\r");
 			break;
-		case 0x0100 * 'm' + 'r':
+		case COMM_MOVE_RELATIVE:
 			if (status == POSITION)
 				target_real_position += value / step * MICROSTEPS;
 			else
@@ -160,10 +160,10 @@ void Axis::parse_command(uint16_t signature, float value) {
 			status = POSITION;
 			printf("mr\r");
 			break;
-		case 0x0100 * 't' + 'p':
+		case COMM_TELL_POSITION:
 			printf("tp%.6f\r", real_position * step / MICROSTEPS);
 			break;
-//		case 0x0100 * 't' + 'a':
+//		case COMM_TELL_ALL:
 //			printf("ta");
 //			for (id = 0; id < NO_OF_MOTORS; id++)
 //				printf("%.6f ", real_position * step / MICROSTEPS);
@@ -178,22 +178,22 @@ void Axis::parse_command(uint16_t signature, float value) {
 //			}
 //			printf("\r");
 //			break;
-		case 0x0100 * 'a' + 'c':
+		case COMM_TELL_AXIS_COUNT:
 			printf("ac%d\r", NO_OF_MOTORS);
 			break;
-		case 0x0100 * 's' + 'c':
-			value = max(0, min(1500, value));
+		case COMM_SET_CURRENT:
+			value = max(0, min(2000, value));
 			motor_current = (uint16_t)value;
 			set_current((uint16_t)value);
 			printf("sc\r");
 			break;
-		case 0x0100 * 's' + 'h':
+		case COMM_SET_HYSTERESIS:
 			value = max(0, value);
 			hysteresis = value;
 			hysteresis_ticks = value / step * MICROSTEPS;
 			printf("sh\r");
 			break;
-		case 0x0100 * 't' + 's':
+		case COMM_TELL_AXIS_STATUS:
 			result_u8 = status;
 			if (result_u8 == 4)
 				result_u8 = 3;  // treat both homing phases as the same
@@ -201,19 +201,19 @@ void Axis::parse_command(uint16_t signature, float value) {
 				result_u8 = 4;  // special case: stopped by the emergency button
 			printf("ts%d\r", result_u8);
 			break;
-		case 0x0100 * 'r' + 's':
+		case COMM_READ_LIMIT_SWITCH:
 			printf("rsF%d R%d\r",
 							HAL_GPIO_ReadPin(flimit_port, flimit_pin),
 							HAL_GPIO_ReadPin(rlimit_port, flimit_pin));
 			break;
-		case 0x0100 * 'i' + 'd':
+		case COMM_ID:
 			printf("id%d\r", DRIVER_ID);
 			break;
-		case 0x0100 * 's' + 'e':
+		case COMM_SET_EMERGENCY_BUTTON:
 			emergency_button = (value != 0.0);
 			printf("se\r");
 			break;
-		case 0x0100 * 's' + 'r':
+		case COMM_SET_REVERSED:
 			reversed = (value != 0.0);
 			printf("sr\r");
 			break;

@@ -6,6 +6,28 @@
 
 typedef enum {STOPPED, VELOCITY, POSITION, HOMING, HOMING_2} Mode;
 
+const uint16_t COMM_HOME 				    = 0x0100 * 'h' + 'm';
+const uint16_t COMM_MOVE_VELOCITY           = 0x0100 * 'm' + 'v';
+const uint16_t COMM_SET_STEP  				= 0x0100 * 's' + 's';
+const uint16_t COMM_SET_VELOCITY 			= 0x0100 * 's' + 'v';
+const uint16_t COMM_SET_MAX_VELOCITY 		= 0x0100 * 's' + 'm';
+const uint16_t COMM_SET_ACCELERATION_TIME 	= 0x0100 * 's' + 'a';
+const uint16_t COMM_SET_HOMING_OFFSET 		= 0x0100 * 's' + 'o';
+const uint16_t COMM_CLONE_AXIS 				= 0x0100 * 'c' + 'a';
+const uint16_t COMM_SET_LIMIT_TYPE 			= 0x0100 * 's' + 'l';
+const uint16_t COMM_MOVE_ABSOLUTE 			= 0x0100 * 'm' + 'a';
+const uint16_t COMM_MOVE_RELATIVE 			= 0x0100 * 'm' + 'r';
+const uint16_t COMM_TELL_POSITION 			= 0x0100 * 't' + 'p';
+const uint16_t COMM_TELL_ALL 				= 0x0100 * 't' + 'a';
+const uint16_t COMM_TELL_AXIS_COUNT 		= 0x0100 * 'a' + 'c';
+const uint16_t COMM_SET_CURRENT 			= 0x0100 * 's' + 'c';
+const uint16_t COMM_SET_HYSTERESIS 			= 0x0100 * 's' + 'h';
+const uint16_t COMM_TELL_AXIS_STATUS 		= 0x0100 * 't' + 's';
+const uint16_t COMM_READ_LIMIT_SWITCH 		= 0x0100 * 'r' + 's';
+const uint16_t COMM_ID 						= 0x0100 * 'i' + 'd';
+const uint16_t COMM_SET_EMERGENCY_BUTTON 	= 0x0100 * 's' + 'e';
+const uint16_t COMM_SET_REVERSED 			= 0x0100 * 's' + 'r';
+
 class Axis:public Tmc {
 
 public:
