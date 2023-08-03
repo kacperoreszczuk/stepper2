@@ -34,6 +34,7 @@ public:
 	Axis(){};
 	void init(uint8_t id);
 	void parse_command(uint16_t signature, float value);
+	void control_loop();
 
 private:
 	void set_limit_type(uint8_t limit_type);

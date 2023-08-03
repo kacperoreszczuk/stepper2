@@ -9,10 +9,9 @@
 #include "axis.hpp"
 #include "usb_uart_parser.hpp"
 
+Axis axis0 = Axis();
 Axis axis1 = Axis();
 Axis axis2 = Axis();
-Axis axis3 = Axis();
-
 
 void control_loop() {
 
@@ -20,11 +19,21 @@ void control_loop() {
 	uint16_t message_id;
 	double value;
 	while (usb_uart_parse(&axis, &message_id, &value)) {
-		if (message_id < 100)
-			printf("%d\n", message_id);
-		else
-			printf("%c%c\n", (char)(message_id >> 8), (char)(message_id));
+		if (message_id == 0)
+			printf("?\n");
+		else {
+			if (axis == 0)
+				axis0.parse_command(message_id, value);
+			if (axis == 1)
+				axis1.parse_command(message_id, value);
+			if (axis == 2)
+				axis2.parse_command(message_id, value);
+		}
 	}
+
+	axis0.control_loop();
+	axis1.control_loop();
+	axis2.control_loop();
 }
 
 extern "C" int usrMain()
@@ -50,14 +59,14 @@ extern "C" int usrMain()
 //    HAL_TIM_Base_Start_IT(tim_read_limits);
 //    HAL_UART_Receive_DMA(uart_main, uart_receive_buffer, UART_BUFFER_SIZE);
 //    HAL_TIM_Base_Start_IT(tim_parse_messages);
-    axis1.init(0);
-    axis2.init(1);
-    axis3.init(2);
+    axis0.init(0);
+    axis1.init(1);
+    axis2.init(2);
 
 
-    axis1.set_current(300);
-    axis2.set_current(500);
-    axis3.parse_command(0x0100 * 's' + 'c', 1500);
+    axis0.set_current(300);
+    axis1.set_current(500);
+    axis2.parse_command(0x0100 * 's' + 'c', 1500);
 
 	int i = 0;
     while(1)
