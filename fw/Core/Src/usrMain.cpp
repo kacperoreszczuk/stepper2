@@ -44,21 +44,7 @@ extern "C" int usrMain()
     usb_uart_init();
 
 
-//    for (uint8_t id = 0; id < NO_OF_MOTORS; id++)
-//    {
-//    	write_conf_default(id);
-//        HAL_TIM_PWM_Start(tim_current_control_pwm, MOTOR_CURRENT_Channel[id]);
-//        setCurrent(id, motors[id].motor_current);
-//        set_limit_type(id, motors[id].limit_type);
-//        if(motors[id].clone_axis)
-//        	clone_axis();
-//    }
-//    HAL_TIM_Base_Start_IT(tim_nxt_pulse);
-//    HAL_TIM_Base_Start_IT(tim_control_loop);
-//
-//    HAL_TIM_Base_Start_IT(tim_read_limits);
-//    HAL_UART_Receive_DMA(uart_main, uart_receive_buffer, UART_BUFFER_SIZE);
-//    HAL_TIM_Base_Start_IT(tim_parse_messages);
+
     axis0.init(0);
     axis1.init(1);
     axis2.init(2);
@@ -75,7 +61,7 @@ extern "C" int usrMain()
     	HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, (GPIO_PinState)((i + 1) / 3 % 2));
     	HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, (GPIO_PinState)((i + 2) / 3 % 2));
     	HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, (GPIO_PinState)((i + 3) / 3 % 2));
-    	HAL_Delay(100);
+    	HAL_Delay(55);
     }
     
     return 0;
@@ -83,6 +69,13 @@ extern "C" int usrMain()
 
 extern "C" void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-  if (htim->Instance == htim_control_loop->Instance)
-    control_loop();
+
+	if (htim->Instance == htim_nxt1->Instance)
+		axis0.nxt_loop();
+	else if (htim->Instance == htim_nxt2->Instance)
+		axis1.nxt_loop();
+	else if (htim->Instance == htim_nxt3->Instance)
+		axis2.nxt_loop();
+	else if (htim->Instance == htim_control_loop->Instance)
+		control_loop();
 }

@@ -1,9 +1,10 @@
 #ifndef INC_DEFAULTS_HPP_
 #define INC_DEFAULTS_HPP_
 
-
-#define UART_BUFFER_SIZE 250
-#define UART_BUFFER_SIZE_DRIVER 64
+#define TIMER_CLOCK_FREQ 137500000
+#define NXT_SUPERRESOLUTION_FACTOR 10
+#define LOWEST_NXT_PERIOD 550  // 250 kHz, fastest possible switching speed
+#define IDLE_NXT_PERIOD 55000  // 2.5 kHz, idle time delay if NXT tick must be further in time than MAX_NXT_PERIOD
 
 static uint16_t const CONTROL_LOOP_FREQ = 500;
 static uint16_t const MICROSTEPS = 64;

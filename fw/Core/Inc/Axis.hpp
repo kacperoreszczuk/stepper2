@@ -32,9 +32,10 @@ class Axis:public Tmc {
 
 public:
 	Axis(){};
-	void init(uint8_t id);
+	void init(uint8_t axis_id);
 	void parse_command(uint16_t signature, float value);
 	void control_loop();
+	void nxt_loop();
 
 private:
 	void set_limit_type(uint8_t limit_type);
@@ -63,6 +64,7 @@ private:
 	uint16_t clone_pin;
 
 public:
+	uint8_t id;
 	Mode status;
 
 	/* NXT and DIR states */

@@ -219,7 +219,6 @@ void Error_Handler(void);
 #define LED_YELLOW_GPIO_Port GPIOE
 
 /* USER CODE BEGIN Private defines */
-
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

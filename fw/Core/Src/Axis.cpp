@@ -1,5 +1,6 @@
 #include "Axis.hpp"
 #include "handles.hpp"
+#include "main.h"
 #include "defaults.hpp"
 #include "stdio.h"
 #include "stdlib.h"
@@ -13,12 +14,12 @@
 void print_signature_endl(uint16_t command_signature);
 void print_signature(uint16_t command_signature);
 
-void Axis::init(uint8_t id) {
+void Axis::init(uint8_t axis_id) {
 
 	UART_HandleTypeDef *huart_tmc;
 	uint32_t pwm_channel;
 
-	switch (id) {
+	switch (axis_id) {
 	case 0:
 		huart_tmc = huart_tmc1;
 		htim_enc = htim_enc1;
@@ -36,6 +37,9 @@ void Axis::init(uint8_t id) {
 		break;
 	}
 	init_tmc(huart_tmc, MOTOR_CURRENT_Channel[id]);
+	write_conf_default();
+
+	id = axis_id;
 
 	nxt_port = NXT_Port[id];
 	dir_port = DIR_Port[id];
@@ -77,6 +81,78 @@ void Axis::init(uint8_t id) {
 	goal = 0;
 	dir = 0;
 	last_dir = 0;
+
+    HAL_TIM_Base_Start(htim_enc);
+    HAL_TIM_PWM_Start(htim_nxt, TIM_CHANNEL_1);
+    HAL_TIM_Base_Start_IT(htim_nxt);
+}
+
+
+
+//#define TIMER_CLOCK_FREQ 137500000
+//#define LOWEST_NXT_PERIOD = 550  // 250 kHz, fastest possible switching speed
+//#define MAX_NXT_PERIOD = 110000 // 1.25 kHz, max time delay to next NXT tick
+//#define IDLE_NXT_PERIOD = 55000  // 2.5 kHz, idle time delay if NXT tick must be further in time than MAX_NXT_PERIOD
+//
+
+void Axis::nxt_loop() {
+	last_dir = dir;
+
+	// explicitly call the content of:
+	//HAL_GPIO_WritePin(dir_port, dir_pin, (GPIO_PinState)(reversed != last_dir));
+	if (reversed != last_dir)
+		dir_port->BSRR = dir_pin;
+	else
+		dir_port->BSRR = (uint32_t)dir_pin << 16U;
+
+	uint32_t duration;
+	bool active = false;
+
+	if (goal == 0) {
+		clock = 0;
+		duration = IDLE_NXT_PERIOD;
+	}
+	else if (clock > goal) {
+		duration = LOWEST_NXT_PERIOD;
+	}
+	else {
+		duration = (goal - clock) / NXT_SUPERRESOLUTION_FACTOR + 1;
+		if (duration < LOWEST_NXT_PERIOD)
+			duration = LOWEST_NXT_PERIOD;
+	}
+
+	clock += duration * NXT_SUPERRESOLUTION_FACTOR;
+	if (clock > goal) {
+		clock %= goal;
+		active = true;
+	} else {
+		active = false;
+	}
+
+	if (status == STOPPED ||
+		status == POSITION && (current_position - target_position == 0) ||
+		limit_state_rear && last_dir && limit_enabled ||
+		limit_state_front && !last_dir && limit_enabled)
+		active = false;
+
+	if (active) {
+		if (last_dir) {
+			current_position--;
+			if(current_position < real_position)
+				real_position = current_position;
+		} else {
+			current_position++;
+			if(current_position - hysteresis_ticks > real_position)
+				real_position = current_position - hysteresis_ticks;
+		}
+	}
+
+	htim_nxt->Instance->ARR = duration - 1;
+	if (active)
+		__HAL_TIM_SET_COMPARE(htim_nxt, TIM_CHANNEL_1, duration / 2);  // rising slope after half period
+	else
+		__HAL_TIM_SET_COMPARE(htim_nxt, TIM_CHANNEL_1, duration + 1);  // no rising slope
+
 }
 
 void Axis::control_loop() {
@@ -184,7 +260,11 @@ void Axis::control_loop() {
 		}
 		else
 			new_dir = 0;
-		new_goal = 1e9 / value;
+		value = TIMER_CLOCK_FREQ * NXT_SUPERRESOLUTION_FACTOR / value;
+		if (value > 2e9)
+			new_goal = 0;
+		else
+			new_goal = value;
 	}
 	__disable_irq();
 	goal = new_goal;
