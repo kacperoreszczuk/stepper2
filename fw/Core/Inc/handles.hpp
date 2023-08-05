@@ -12,14 +12,19 @@
 
 #define AXES_COUNT 3
 
+#define __GPIO_WritePinHigh(port, pin) (port->BSRR = pin)
+#define __GPIO_WritePinLow(port, pin) (port->BSRR = (uint32_t)pin << 16U)
+#define __GPIO_ReadPin(port, pin) ((port->IDR & pin) != 0x00U)
+
 extern TIM_HandleTypeDef htim1;
-extern TIM_HandleTypeDef htim2;
+//extern TIM_HandleTypeDef htim2;
 extern TIM_HandleTypeDef htim3;
 extern TIM_HandleTypeDef htim4;
-extern TIM_HandleTypeDef htim5;
+//extern TIM_HandleTypeDef htim5;
 extern TIM_HandleTypeDef htim6;
+extern TIM_HandleTypeDef htim7;
 extern TIM_HandleTypeDef htim8;
-extern TIM_HandleTypeDef htim23;
+//extern TIM_HandleTypeDef htim23;
 extern TIM_HandleTypeDef htim24;
 
 extern UART_HandleTypeDef huart4;
@@ -41,12 +46,13 @@ static UART_HandleTypeDef *huart_tmc3 = &huart4;
 static TIM_HandleTypeDef *htim_tmc_vref = &htim1;
 static TIM_HandleTypeDef *htim_micros = &htim24;
 static TIM_HandleTypeDef *htim_control_loop = &htim6;
+static TIM_HandleTypeDef *htim_nxt_loop = &htim7;
 static TIM_HandleTypeDef *htim_enc1 = &htim4;
 static TIM_HandleTypeDef *htim_enc2 = &htim3;
 static TIM_HandleTypeDef *htim_enc3 = &htim8;
-static TIM_HandleTypeDef *htim_nxt1 = &htim5;
-static TIM_HandleTypeDef *htim_nxt2 = &htim23;
-static TIM_HandleTypeDef *htim_nxt3 = &htim2;
+//static TIM_HandleTypeDef *htim_nxt1 = &htim5;
+//static TIM_HandleTypeDef *htim_nxt2 = &htim23;
+//static TIM_HandleTypeDef *htim_nxt3 = &htim2;
 
 
 static GPIO_TypeDef* const NXT_Port[] = {NXT1_GPIO_Port, NXT2_GPIO_Port, NXT3_GPIO_Port};

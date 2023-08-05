@@ -36,6 +36,26 @@ void control_loop() {
 	axis2.control_loop();
 }
 
+uint32_t limit_switch_iterator = 0;
+
+inline void nxt_loop() {
+	axis0.nxt_loop();
+	axis1.nxt_loop();
+	axis2.nxt_loop();
+
+	limit_switch_iterator++;
+	switch(limit_switch_iterator % 3) {
+	case 0:
+		axis0.limit_switch_loop();
+		break;
+	case 1:
+		axis1.limit_switch_loop();
+		break;
+	case 2:
+		axis2.limit_switch_loop();
+	}
+}
+
 extern "C" int usrMain()
 {
 	setbuf(stdout, NULL);
@@ -50,9 +70,31 @@ extern "C" int usrMain()
     axis2.init(2);
 
 
-    axis0.set_current(300);
-    axis1.set_current(500);
-    axis2.parse_command(0x0100 * 's' + 'c', 1500);
+//    axis0.set_current(300);
+//    axis1.set_current(500);
+    axis0.parse_command(COMM_SET_STEP, 64);
+    axis0.parse_command(COMM_SET_CURRENT, 600);
+    axis0.parse_command(COMM_SET_MAX_VELOCITY, 1000000);
+    axis0.parse_command(COMM_SET_VELOCITY, 1000000);
+    axis0.parse_command(COMM_MOVE_VELOCITY, 500000);
+    axis0.goal = 1000000;
+//    axis0.dir = 1;
+    axis1.parse_command(COMM_SET_STEP, 64);
+    axis1.parse_command(COMM_SET_CURRENT, 150);
+    axis1.parse_command(COMM_SET_MAX_VELOCITY, 1000000);
+    axis1.parse_command(COMM_SET_VELOCITY, 1000000);
+    axis1.parse_command(COMM_MOVE_VELOCITY, 500000);
+    axis1.goal = 1000000;
+//    axis1.dir = 1;
+    axis2.parse_command(COMM_SET_STEP, 64);
+    axis2.parse_command(COMM_SET_CURRENT, 1200);
+    axis2.parse_command(COMM_SET_MAX_VELOCITY, 1000000);
+    axis2.parse_command(COMM_SET_VELOCITY, 1000000);
+    axis2.parse_command(COMM_MOVE_VELOCITY, 500000);
+    axis2.goal = 1000000;
+//    axis2.dir = 1;
+
+    HAL_TIM_Base_Start_IT(htim_nxt_loop);
 
 	int i = 0;
     while(1)
@@ -69,13 +111,15 @@ extern "C" int usrMain()
 
 extern "C" void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-
-	if (htim->Instance == htim_nxt1->Instance)
-		axis0.nxt_loop();
-	else if (htim->Instance == htim_nxt2->Instance)
-		axis1.nxt_loop();
-	else if (htim->Instance == htim_nxt3->Instance)
-		axis2.nxt_loop();
+//
+//	if (htim->Instance == htim_nxt1->Instance)
+//		axis0.nxt_loop();
+//	else if (htim->Instance == htim_nxt2->Instance)
+//		axis1.nxt_loop();
+	//	else if (htim->Instance == htim_nxt3->Instance)
+	//		axis2.nxt_loop();
+	if (htim->Instance == htim_nxt_loop->Instance)
+		nxt_loop();
 	else if (htim->Instance == htim_control_loop->Instance)
 		control_loop();
-}
+ }

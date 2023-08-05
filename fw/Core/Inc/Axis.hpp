@@ -3,6 +3,8 @@
 
 #include "main.h"
 #include "tmc.hpp"
+#include "defaults.hpp"
+#include "handles.hpp"
 
 typedef enum {STOPPED, VELOCITY, POSITION, HOMING, HOMING_2} Mode;
 
@@ -35,7 +37,10 @@ public:
 	void init(uint8_t axis_id);
 	void parse_command(uint16_t signature, float value);
 	void control_loop();
+	void nxt_down_loop();
+	void nxt_up_loop();
 	void nxt_loop();
+	void limit_switch_loop();
 
 private:
 	void set_limit_type(uint8_t limit_type);
@@ -68,10 +73,11 @@ public:
 	Mode status;
 
 	/* NXT and DIR states */
-	uint32_t clock;  // in ns - clock incremented in constant intervals
-	uint32_t goal;  // target clock value when NXT pin state is to be changed
-	uint8_t dir;
+	int64_t clock;  // in ns - clock incremented in constant intervals
+	volatile int64_t goal;  // target clock value when NXT pin state is to be changed
+	volatile uint8_t dir;
 	uint8_t last_dir;
+	uint8_t nxt_in_this_cycle;
 
 	/* current motor position */
 	int32_t current_position;
@@ -102,8 +108,8 @@ public:
 	int16_t motor_current;  // in milliamperes
 
 	/* current state of the limit switches, raw values in software filter */
-	float limit_value_front;
-	float limit_value_rear;
+	int32_t limit_value_front;
+	int32_t limit_value_rear;
 
 	/* current state of the limit switches, result values */
 	uint8_t limit_state_front;
@@ -119,5 +125,88 @@ public:
 	uint8_t was_jogging;
 
 };
+
+
+inline void Axis::nxt_loop() {
+    __GPIO_WritePinLow(nxt_port, nxt_pin);
+
+	last_dir = dir;
+
+	//HAL_GPIO_WritePin(dir_port, dir_pin, (GPIO_PinState)(reversed != last_dir));
+	if (reversed != last_dir)
+		__GPIO_WritePinHigh(dir_port, dir_pin);
+	else
+	    __GPIO_WritePinLow(dir_port, dir_pin);
+
+	// freeze clock if motor is stopped
+	if (goal == 0 || status == STOPPED)
+		return;
+	if (status == POSITION && (current_position - target_position == 0 ))
+		return;
+	if (limit_state_rear && last_dir && limit_enabled)
+		return;
+	if (limit_state_front && !last_dir && limit_enabled)
+		return;
+
+	clock += TICK_PERIOD_PS;
+
+	if (clock <= goal)
+		return;  // still waiting before next pulse
+
+	clock %= goal;  // new repetition (modulo instead of subtraction for when extremely high
+				    // speeds are provided or when speed suddenly increased)
+
+	if (last_dir)
+	{
+		current_position--;
+		if(current_position < real_position)
+			real_position = current_position;
+	}
+	else
+	{
+		current_position++;
+		if(current_position - hysteresis_ticks > real_position)
+			real_position = current_position - hysteresis_ticks;
+	}
+    __GPIO_WritePinHigh(nxt_port, nxt_pin);
+}
+
+
+inline void Axis::limit_switch_loop() {
+	if (reversed)
+	{
+		limit_value_rear = LIMIT_OLD_FRACTION * (limit_value_rear >> LIMIT_POWER_2) +
+				LIMIT_NEW_COMP * (!limit_active_state == !__GPIO_ReadPin(flimit_port, flimit_pin));
+		limit_value_front = LIMIT_OLD_FRACTION * (limit_value_front >> LIMIT_POWER_2) +
+				LIMIT_NEW_COMP * (!limit_active_state == !__GPIO_ReadPin(rlimit_port, rlimit_pin));
+	}
+	else
+	{
+		limit_value_rear = LIMIT_OLD_FRACTION * (limit_value_rear >> LIMIT_POWER_2) +
+				LIMIT_NEW_COMP * (!limit_active_state == !__GPIO_ReadPin(rlimit_port, rlimit_pin));
+		limit_value_front = LIMIT_OLD_FRACTION * (limit_value_front >> LIMIT_POWER_2) +
+				LIMIT_NEW_COMP * (!limit_active_state == !__GPIO_ReadPin(flimit_port, flimit_pin));
+	}
+
+	if (limit_value_rear < LIMIT_THRS_LOW)
+		limit_state_rear = 0;
+	else if (limit_value_rear > LIMIT_THRS_HIGH)
+		limit_state_rear = 1;
+
+	if (limit_value_front > LIMIT_THRS_HIGH)
+		limit_state_front = 1;
+	else if (limit_value_front < LIMIT_THRS_LOW)
+		limit_state_front = 0;
+
+	limit_state_home_last = limit_state_home;
+	limit_state_home = limit_state_rear;
+
+	if (limit_state_home_last && !limit_state_home) // limit switch just was deactivated
+		limit_off_position = current_position;
+	if (!limit_state_home_last && limit_state_home) // limit switch just was activated
+		limit_on_position = current_position;
+}
+
+
 
 #endif /* INC_AXIS_HPP_ */
