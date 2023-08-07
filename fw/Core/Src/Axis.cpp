@@ -2,8 +2,7 @@
 #include "handles.hpp"
 #include "main.h"
 #include "defaults.hpp"
-#include "stdio.h"
-#include "stdlib.h"
+#include "uart_printf.h"
 
 
 #define min(a,b) (((a)<(b))?(a):(b))
@@ -37,7 +36,6 @@ void Axis::init(uint8_t axis_id) {
 		break;
 	}
 	init_tmc(huart_tmc, MOTOR_CURRENT_Channel[axis_id]);
-	write_conf_default();
 
 	id = axis_id;
 

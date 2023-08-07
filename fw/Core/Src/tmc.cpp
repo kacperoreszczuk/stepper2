@@ -1,7 +1,7 @@
 #include "tmc.hpp"
 #include "handles.hpp"
 #include "main.h"
-
+#include "uart_printf.h"
 
 
 Tmc::Tmc(UART_HandleTypeDef* tmc_uart_handle, uint32_t motor_current_pwm_channel) {
@@ -12,6 +12,7 @@ void Tmc::init_tmc(UART_HandleTypeDef* tmc_uart_handle, uint32_t motor_current_p
 	uart_handle = tmc_uart_handle;
 	pwm_channel = motor_current_pwm_channel;
 	HAL_TIM_PWM_Start(htim_tmc_vref, pwm_channel);
+	write_conf_default();
 }
 
 void Tmc::calc_crc(uint8_t* datagram, uint8_t datagramLength)
@@ -38,24 +39,26 @@ void Tmc::write_reg_driver(uint8_t reg, uint32_t data)
 {
 	uint8_t buffer[8];
 	buffer[0] = 0b00000101;
-	buffer[1] = 0b00000000;
+	buffer[1] = 0b00000010;  // ADDR 2: MS2=1, MS1=0
 	buffer[2] = reg | (1 << 7);  // highest bit: 1 - write, 0 - read
 	buffer[3] = data >> 24;
 	buffer[4] = data >> 16;
 	buffer[5] = data >> 8;
 	buffer[6] = data;
 	calc_crc(buffer, 8);
-    HAL_UART_Transmit(uart_handle, buffer, 8, 500);
+	for (uint8_t i = 0; i < 8; i++)
+        HAL_UART_Transmit(uart_handle, buffer + i, 1, 500);
 	return;
 }
 
 void Tmc::write_half_current(uint8_t is_half)
 {
 	uint32_t data =
-			((is_half ? 10 : 21) << 0)  |  // hold current (half of the run current)
-			((is_half ? 15 : 31) << 8) |  // run current
-			(2 << 16);                   // 2 * 2^18 / (12 MHz)  ->  0.04s delay between ramp down steps (total 8 or
+			((is_half ? 10l : 21l) << 0) |  // hold current (half of the run current)
+			((is_half ? 15l : 31l) << 8) |  // run current
+			(2l << 16);                   // 2 * 2^18 / (12 MHz)  ->  0.04s delay between ramp down steps (total 8 or
 										 // 16 steps)
+
 	write_reg_driver(0x10, data);
 }
 
@@ -64,13 +67,13 @@ void Tmc::write_conf_default()
 	uint32_t data =
 			(1 << 0) |  // VREF as current reference
 			(0 << 1) |  // external sense resistors
-			(1 << 2) |  // prefer SpreadCycle over StealthChop
+			(0 << 2) |  // prefer StealthChop over SpreadCycle
 			(0 << 3) |  // do not reverse direction
 			(0 << 4) |  // prefer index microstep pulse instead of temp. warning
 			(0 << 5) |  // prefer index microstep pulse instead of pulses from internal generator
 			(1 << 6) |  // use UART on UART_PDN pin
-			(1 << 7) |  // software control over microstep size
-			(1 << 8) |  // multistep filtering ON. TODO: understand how it works?
+			(0 << 7) |  // hardware control over microstep size
+			(0 << 8) |  // multistep filtering OFF. TODO: understand how it works?
 			(0 << 9);   // test mode off
 	write_reg_driver(0x00, data); // gconf
 
@@ -81,13 +84,13 @@ void Tmc::write_conf_default()
 		   (0 << 4)       |  // default hstart 0
 		   (5 << 7)       |  // default hend 5
 		   (0b01 << 15)   |  // 24 clocks sense comparator blank time
-		   (1 << 17)      |  // standard (low sensitivity) sense resistor voltage
-		   (0b0010 << 24) |  // 64 microsteps
-		   (1 << 28)      |  // interpolation to 256 steps ON
+		   (0 << 17)      |  // standard (low sensitivity) sense resistor voltage
+		   (2 << 24)      |  // 64 microsteps
+		   (0 << 28)      |  // interpolation to 256 steps OFF
 		   (0 << 29)      |  // step only on rising edge
 		   (0 << 30)      |  // short to GND protection is on
 		   (0 << 31);        // low side short protection is on
-	write_reg_driver(0x6C, data); // CHOPCONF
+//	write_reg_driver(0x6C, data); // CHOPCONF
 
 	data = (36 << 0)    |  // default PWM offset: 36
 		   (40 << 8)    |  // moderate PWM_GRAD
@@ -97,7 +100,7 @@ void Tmc::write_conf_default()
 		   (0b00 << 20) |  // no freewheeling at stand still
 		   (4 << 24)    |  // PWM amplitude change: 2 increment per half wave
 		   (12 << 28);     // default PWM_SCALE_AUTO during mode switching
-	write_reg_driver(0x70, data); // PWMCONF
+//	write_reg_driver(0x70, data); // PWMCONF
 
 	write_half_current(0);
 }
@@ -108,6 +111,8 @@ void Tmc::set_current(uint16_t current)
 	if(current > htim_tmc_vref->Instance->ARR){  // 1.35 * sqrt(2) * 3.3/2.5 = 2520
 		current = htim_tmc_vref->Instance->ARR;  // cap to 100%
 	}
+	write_half_current(0);
+	write_half_current(1);
 	if (current < 350)
 	{
 		write_half_current(1);

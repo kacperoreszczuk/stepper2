@@ -1,6 +1,9 @@
 #ifndef INC_UART_PRINTF_H_
 #define INC_UART_PRINTF_H_
 
+#include "stdio.h"
+#include "stdlib.h"
+
 
 #ifdef __GNUC__
 /* With GCC/RAISONANCE, small printf (option LD Linker->Libraries->Small printf

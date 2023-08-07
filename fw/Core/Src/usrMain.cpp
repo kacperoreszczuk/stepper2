@@ -70,28 +70,30 @@ extern "C" int usrMain()
     axis2.init(2);
 
 
-//    axis0.set_current(300);
-//    axis1.set_current(500);
-    axis0.parse_command(COMM_SET_STEP, 64);
-    axis0.parse_command(COMM_SET_CURRENT, 600);
-    axis0.parse_command(COMM_SET_MAX_VELOCITY, 1000000);
-    axis0.parse_command(COMM_SET_VELOCITY, 1000000);
-    axis0.parse_command(COMM_MOVE_VELOCITY, 500000);
-    axis0.goal = 1000000;
-//    axis0.dir = 1;
-    axis1.parse_command(COMM_SET_STEP, 64);
-    axis1.parse_command(COMM_SET_CURRENT, 150);
-    axis1.parse_command(COMM_SET_MAX_VELOCITY, 1000000);
-    axis1.parse_command(COMM_SET_VELOCITY, 1000000);
-    axis1.parse_command(COMM_MOVE_VELOCITY, 500000);
-    axis1.goal = 1000000;
-//    axis1.dir = 1;
-    axis2.parse_command(COMM_SET_STEP, 64);
-    axis2.parse_command(COMM_SET_CURRENT, 1200);
-    axis2.parse_command(COMM_SET_MAX_VELOCITY, 1000000);
-    axis2.parse_command(COMM_SET_VELOCITY, 1000000);
-    axis2.parse_command(COMM_MOVE_VELOCITY, 500000);
-    axis2.goal = 1000000;
+    axis0.set_current(350);
+    axis1.set_current(350);
+    axis2.set_current(350);
+
+//    axis0.parse_command(COMM_SET_STEP, 64);
+//    axis0.parse_command(COMM_SET_CURRENT, 600);
+//    axis0.parse_command(COMM_SET_MAX_VELOCITY, 1000000);
+//    axis0.parse_command(COMM_SET_VELOCITY, 1000000);
+//    axis0.parse_command(COMM_MOVE_VELOCITY, 0.24);
+//    axis0.goal = 1000000;
+////    axis0.dir = 1;
+//    axis1.parse_command(COMM_SET_STEP, 64);
+//    axis1.parse_command(COMM_SET_CURRENT, 150);
+//    axis1.parse_command(COMM_SET_MAX_VELOCITY, 1000000);
+//    axis1.parse_command(COMM_SET_VELOCITY, 1000000);
+//    axis1.parse_command(COMM_MOVE_VELOCITY, 500000);
+//    axis1.goal = 1000000;
+////    axis1.dir = 1;
+//    axis2.parse_command(COMM_SET_STEP, 64);
+//    axis2.parse_command(COMM_SET_CURRENT, 1200);
+//    axis2.parse_command(COMM_SET_MAX_VELOCITY, 1000000);
+//    axis2.parse_command(COMM_SET_VELOCITY, 1000000);
+//    axis2.parse_command(COMM_MOVE_VELOCITY, 500000);
+//    axis2.goal = 1000000;
 //    axis2.dir = 1;
 
     HAL_TIM_Base_Start_IT(htim_nxt_loop);
@@ -103,7 +105,8 @@ extern "C" int usrMain()
     	HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, (GPIO_PinState)((i + 1) / 3 % 2));
     	HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, (GPIO_PinState)((i + 2) / 3 % 2));
     	HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, (GPIO_PinState)((i + 3) / 3 % 2));
-    	HAL_Delay(55);
+    	HAL_Delay(550);
+    	axis2.set_current(1200);
     }
     
     return 0;

@@ -7,10 +7,10 @@
 
 static uint16_t const CONTROL_LOOP_FREQ = 500;
 static uint16_t const MICROSTEPS = 64;
-static float const DEFAULT_STEP = 0.005f;
+static float const DEFAULT_STEP = 1.0f;
 static float const DEFAULT_ACCELERATION_TIME_INV = 4.0f;  // 0.25s
-static float const DEFAULT_MAX_VELOCITY = 20.0f;
-static float const DEFAULT_STANDARD_VELOCITY = 5.0f;
+static float const DEFAULT_MAX_VELOCITY = 2000.0f;
+static float const DEFAULT_STANDARD_VELOCITY = 200.0f;
 static float const DEFAULT_HYSTERESIS = 0.0f;
 static uint16_t const DEFAULT_MOTOR_CURRENT = 300;  // mA
 static uint32_t const BACKUP_SRAM_TOKEN = 0xdeadbeef;
