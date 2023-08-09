@@ -4705,6 +4705,40 @@
     )
   )
 
+  (symbol (lib_id "Device:C") (at 36.83 67.31 90) (unit 1)
+    (in_bom yes) (on_board yes) (dnp no)
+    (uuid 0257d5e4-c5d0-4547-a5c6-f4a013139b2d)
+    (property "Reference" "C19" (at 34.29 63.5 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Value" "100n" (at 44.45 64.77 90)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Footprint" "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder" (at 40.64 66.3448 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Datasheet" "~" (at 36.83 67.31 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C24497" (at 36.83 67.31 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (pin "1" (uuid ea3b2051-cdf4-4b99-921e-d9750f6b5e30))
+    (pin "2" (uuid 9f3eafe7-312a-4c79-a311-7e610ea8c35e))
+    (instances
+      (project "stepper4"
+        (path "/20c1a5dc-30fe-4b22-89fc-32f539f9a1d0"
+          (reference "C19") (unit 1)
+        )
+      )
+      (project "stepper2"
+        (path "/2519ce93-57a7-4269-80ad-e58f985d69b8"
+          (reference "C8") (unit 1)
+        )
+      )
+    )
+  )
+
   (symbol (lib_id "Connector:DE15_Receptacle_HighDensity") (at 105.41 50.8 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 02f18ae2-3f0c-4413-bfc3-beb3e9284828)
@@ -4883,6 +4917,9 @@
     (property "Datasheet" "~" (at 182.88 52.07 0)
       (effects (font (size 1.27 1.27)) hide)
     )
+    (property "LCSC" "C2874530" (at 182.88 52.07 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
     (pin "1" (uuid fa3ef3a7-70a6-4ee9-bd02-a6232afcfa12))
     (pin "2" (uuid 5199a44b-fd6f-456a-9b1d-99c19997d857))
     (pin "3" (uuid 45c80ed9-76d9-4917-9f08-89c49adad283))
@@ -4923,7 +4960,7 @@
   )
 
   (symbol (lib_id "Device:R") (at 50.8 114.3 0) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no)
+    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 0afbce09-d740-4a6b-9536-bc57d377a152)
     (property "Reference" "R8" (at 53.34 114.3 90)
       (effects (font (size 1.27 1.27)))
@@ -4937,8 +4974,11 @@
     (property "Datasheet" "~" (at 50.8 114.3 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (pin "1" (uuid fdd96fd6-b46a-46d1-8420-7347e3128ef8))
-    (pin "2" (uuid 5cee36e8-b27c-4219-8c7b-47ba6411bb75))
+    (property "LCSC" "C17909" (at 50.8 114.3 90)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (pin "1" (uuid f9a4b099-6ee2-429b-b6e7-07357ee7f3ef))
+    (pin "2" (uuid 28631cc7-4096-4839-b037-3ba13d89b2c2))
     (instances
       (project "stepper4"
         (path "/20c1a5dc-30fe-4b22-89fc-32f539f9a1d0"
@@ -5141,6 +5181,9 @@
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 217.17 52.07 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C2856758" (at 217.17 52.07 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (pin "1" (uuid f8f2e797-a337-4931-a48b-b6be72862f51))
@@ -5350,6 +5393,9 @@
     (property "Datasheet" "~" (at 166.37 50.8 0)
       (effects (font (size 1.27 1.27)) hide)
     )
+    (property "LCSC" "C2688786" (at 166.37 50.8 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
     (pin "1" (uuid d4f190fc-9bbe-4a36-9ce6-f64de0512549))
     (pin "2" (uuid 3cee6d1b-f322-4930-9bd8-8f26c676a052))
     (pin "3" (uuid 68c516ea-8b21-4e93-9159-0ebbb43bd87d))
@@ -5376,6 +5422,9 @@
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 99.06 170.18 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C2688785" (at 99.06 170.18 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (pin "1" (uuid 737bc586-1c41-46f8-84bd-318d48661e9b))
@@ -5430,6 +5479,9 @@
     (property "Datasheet" "~" (at 204.47 26.67 0)
       (effects (font (size 1.27 1.27)) hide)
     )
+    (property "LCSC" "C12891" (at 204.47 26.67 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
     (pin "1" (uuid 61104121-cdb0-4f49-a511-497e6a18d931))
     (pin "2" (uuid 3eda527b-6406-490d-8b3e-4de6fb9b937d))
     (instances
@@ -5447,7 +5499,7 @@
   )
 
   (symbol (lib_id "Device:R") (at 49.53 176.53 0) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no)
+    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 2382a9f7-4c3c-42a9-b7ef-6952d3460831)
     (property "Reference" "R8" (at 44.2722 176.53 90)
       (effects (font (size 1.27 1.27)))
@@ -5461,8 +5513,11 @@
     (property "Datasheet" "~" (at 49.53 176.53 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (pin "1" (uuid 9d100bc3-c220-492b-9f46-cc6160bec937))
-    (pin "2" (uuid 367378ba-d71a-4701-aef0-986232fb11ae))
+    (property "LCSC" "C17909" (at 49.53 176.53 90)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (pin "1" (uuid 2011677b-434d-4eb9-a40e-944550b0216c))
+    (pin "2" (uuid 54ee4024-f4e3-4e64-8746-60c972426ee0))
     (instances
       (project "stepper4"
         (path "/20c1a5dc-30fe-4b22-89fc-32f539f9a1d0"
@@ -5492,6 +5547,9 @@
     (property "Datasheet" "~" (at 232.41 26.67 0)
       (effects (font (size 1.27 1.27)) hide)
     )
+    (property "LCSC" "C12891" (at 232.41 26.67 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
     (pin "1" (uuid 0a871b6b-7278-4d77-a10c-5f638225a7bd))
     (pin "2" (uuid 4c1ff44f-0c6d-4bec-8b0b-e7d5fb7eb1ac))
     (instances
@@ -5503,6 +5561,31 @@
       (project "stepper2"
         (path "/2519ce93-57a7-4269-80ad-e58f985d69b8"
           (reference "C3") (unit 1)
+        )
+      )
+    )
+  )
+
+  (symbol (lib_id "power:GND") (at 39.37 187.96 90) (unit 1)
+    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
+    (uuid 2cf65e91-17bc-4eea-88ea-85f69746781c)
+    (property "Reference" "#PWR0112" (at 45.72 187.96 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Value" "GND" (at 42.545 187.96 90)
+      (effects (font (size 1.27 1.27)) (justify right))
+    )
+    (property "Footprint" "" (at 39.37 187.96 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Datasheet" "" (at 39.37 187.96 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (pin "1" (uuid 8339edf1-c7fb-48cb-bf13-c9777d6baa4f))
+    (instances
+      (project "stepper2"
+        (path "/2519ce93-57a7-4269-80ad-e58f985d69b8"
+          (reference "#PWR0112") (unit 1)
         )
       )
     )
@@ -5626,6 +5709,9 @@
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 228.6 22.86 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C17902" (at 228.6 22.86 90)
       (effects (font (size 1.27 1.27)) hide)
     )
     (pin "1" (uuid 66532b67-853d-4f7a-8786-2dd801e5ac82))
@@ -5789,12 +5875,12 @@
   )
 
   (symbol (lib_id "power:+5V") (at 54.61 64.77 90) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
+    (in_bom yes) (on_board yes) (dnp no)
     (uuid 3ce0a500-07b8-4a14-aacc-53516cb78afa)
     (property "Reference" "#PWR010" (at 58.42 64.77 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (property "Value" "+5V" (at 51.4351 65.0868 90)
+    (property "Value" "+5V" (at 50.8 64.77 90)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Footprint" "" (at 54.61 64.77 0)
@@ -6059,6 +6145,9 @@
     (property "Datasheet" "~" (at 99.06 185.42 0)
       (effects (font (size 1.27 1.27)) hide)
     )
+    (property "LCSC" "C2688785" (at 99.06 185.42 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
     (pin "1" (uuid 5d07dfe7-a916-4a80-8917-f1e81a9f7229))
     (pin "2" (uuid 0ff96384-19f1-489f-8b9b-c330524885c0))
     (pin "3" (uuid d789764b-3152-44a5-b605-cd5ff0023e83))
@@ -6066,6 +6155,31 @@
       (project "stepper2"
         (path "/2519ce93-57a7-4269-80ad-e58f985d69b8"
           (reference "J12") (unit 1)
+        )
+      )
+    )
+  )
+
+  (symbol (lib_id "power:GND") (at 40.64 67.31 90) (unit 1)
+    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
+    (uuid 48cee4bf-06fb-400c-b008-87cb2f398f0b)
+    (property "Reference" "#PWR0108" (at 46.99 67.31 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Value" "GND" (at 43.815 67.31 90)
+      (effects (font (size 1.27 1.27)) (justify right))
+    )
+    (property "Footprint" "" (at 40.64 67.31 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Datasheet" "" (at 40.64 67.31 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (pin "1" (uuid 07b60b05-c4ec-4929-b013-52cb99089cc9))
+    (instances
+      (project "stepper2"
+        (path "/2519ce93-57a7-4269-80ad-e58f985d69b8"
+          (reference "#PWR0108") (unit 1)
         )
       )
     )
@@ -6159,6 +6273,9 @@
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 99.06 154.94 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C2688785" (at 99.06 154.94 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (pin "1" (uuid 3c3bee6b-fc52-452b-a065-93763e645496))
@@ -6303,6 +6420,31 @@
     )
   )
 
+  (symbol (lib_id "power:GND") (at 41.91 130.81 90) (unit 1)
+    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
+    (uuid 53bdf74d-da2d-4abd-9ffc-adf8ab083bdc)
+    (property "Reference" "#PWR0110" (at 48.26 130.81 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Value" "GND" (at 45.085 130.81 90)
+      (effects (font (size 1.27 1.27)) (justify right))
+    )
+    (property "Footprint" "" (at 41.91 130.81 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Datasheet" "" (at 41.91 130.81 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (pin "1" (uuid ca6780be-cae2-40bb-8bf5-335a22ad4b67))
+    (instances
+      (project "stepper2"
+        (path "/2519ce93-57a7-4269-80ad-e58f985d69b8"
+          (reference "#PWR0110") (unit 1)
+        )
+      )
+    )
+  )
+
   (symbol (lib_id "power:GND") (at 153.67 30.48 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 548d4b44-c961-4bae-9a60-0de485259aa5)
@@ -6410,7 +6552,7 @@
   )
 
   (symbol (lib_id "Device:R") (at 50.8 82.55 0) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no)
+    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 5b55313b-330e-4e90-95cf-521359186c88)
     (property "Reference" "R8" (at 45.5422 82.55 90)
       (effects (font (size 1.27 1.27)))
@@ -6424,8 +6566,11 @@
     (property "Datasheet" "~" (at 50.8 82.55 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (pin "1" (uuid 420770a7-3687-46e9-8460-582dba1ac78a))
-    (pin "2" (uuid a2ea885c-bfde-4dd8-9758-9dd82483625f))
+    (property "LCSC" "C17909" (at 50.8 82.55 90)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (pin "1" (uuid def67b04-cc42-439a-90e4-a7a62891b68b))
+    (pin "2" (uuid cf3ffcd7-d662-4565-9ce0-ed9589cfcb79))
     (instances
       (project "stepper4"
         (path "/20c1a5dc-30fe-4b22-89fc-32f539f9a1d0"
@@ -6598,6 +6743,9 @@
     (property "Datasheet" "~" (at 172.72 22.86 0)
       (effects (font (size 1.27 1.27)) hide)
     )
+    (property "LCSC" "C17902" (at 172.72 22.86 90)
+      (effects (font (size 1.27 1.27)) hide)
+    )
     (pin "1" (uuid 6e759845-c5f2-42ec-ad4c-795b1c91e1d1))
     (pin "2" (uuid d0ec3adb-6840-4fcb-a913-7859768e19f7))
     (instances
@@ -6738,7 +6886,7 @@
   )
 
   (symbol (lib_id "Device:R") (at 52.07 25.4 0) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no)
+    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 66888e6f-7ceb-4e6f-bb51-b1944ce988a4)
     (property "Reference" "R8" (at 46.8122 25.4 90)
       (effects (font (size 1.27 1.27)))
@@ -6752,8 +6900,11 @@
     (property "Datasheet" "~" (at 52.07 25.4 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (pin "1" (uuid 26be7759-b4f7-4e34-aa31-c57267bfbab6))
-    (pin "2" (uuid 0b249e21-f232-46a5-9fa5-9a1dac6010bc))
+    (property "LCSC" "C17909" (at 52.07 25.4 90)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (pin "1" (uuid 53bb32e6-ea45-44b6-a20f-7f7a9408c122))
+    (pin "2" (uuid 32fc9b86-ff83-4260-846c-d75d3f58e106))
     (instances
       (project "stepper4"
         (path "/20c1a5dc-30fe-4b22-89fc-32f539f9a1d0"
@@ -6861,6 +7012,9 @@
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 264.16 69.85 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C310836" (at 264.16 69.85 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (pin "1" (uuid 447d5a4d-b3e0-45b1-9000-830fc6c6034d))
@@ -7039,6 +7193,9 @@
     (property "Datasheet" "~" (at 232.41 137.16 0)
       (effects (font (size 1.27 1.27)) hide)
     )
+    (property "LCSC" "C4410" (at 232.41 137.16 90)
+      (effects (font (size 1.27 1.27)) hide)
+    )
     (pin "1" (uuid d37fede4-0842-461b-bcb0-b771fac8addd))
     (pin "2" (uuid 1ab8b850-6d53-4aa5-a42f-aebded8afed1))
     (instances
@@ -7050,6 +7207,31 @@
       (project "stepper2"
         (path "/2519ce93-57a7-4269-80ad-e58f985d69b8"
           (reference "R14") (unit 1)
+        )
+      )
+    )
+  )
+
+  (symbol (lib_id "power:+5V") (at 34.29 130.81 90) (unit 1)
+    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
+    (uuid 732bbf86-7306-4821-ba79-98c71d3d5514)
+    (property "Reference" "#PWR0109" (at 38.1 130.81 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Value" "+5V" (at 31.1151 131.1268 90)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Footprint" "" (at 34.29 130.81 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Datasheet" "" (at 34.29 130.81 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (pin "1" (uuid 95e7f6db-7999-4efb-a6cc-d7528c22af90))
+    (instances
+      (project "stepper2"
+        (path "/2519ce93-57a7-4269-80ad-e58f985d69b8"
+          (reference "#PWR0109") (unit 1)
         )
       )
     )
@@ -7290,6 +7472,65 @@
     )
   )
 
+  (symbol (lib_id "power:+5V") (at 33.02 67.31 90) (unit 1)
+    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
+    (uuid 7e42ad53-22fc-49f7-bb26-9fb023b60af1)
+    (property "Reference" "#PWR0107" (at 36.83 67.31 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Value" "+5V" (at 29.8451 67.6268 90)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Footprint" "" (at 33.02 67.31 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Datasheet" "" (at 33.02 67.31 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (pin "1" (uuid 12719d73-9d79-4473-9df5-0cd2ea332dec))
+    (instances
+      (project "stepper2"
+        (path "/2519ce93-57a7-4269-80ad-e58f985d69b8"
+          (reference "#PWR0107") (unit 1)
+        )
+      )
+    )
+  )
+
+  (symbol (lib_id "Device:C") (at 38.1 130.81 90) (unit 1)
+    (in_bom yes) (on_board yes) (dnp no)
+    (uuid 7f2ae6c3-4af4-4e36-a66c-f18a7d791aaa)
+    (property "Reference" "C19" (at 35.56 127 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Value" "100n" (at 45.72 128.27 90)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Footprint" "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder" (at 41.91 129.8448 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Datasheet" "~" (at 38.1 130.81 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C24497" (at 38.1 130.81 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (pin "1" (uuid 25bdb6d0-771f-4177-938a-ab75c393af99))
+    (pin "2" (uuid 8a8ff742-6c89-41e0-8348-fd4f8f8687e1))
+    (instances
+      (project "stepper4"
+        (path "/20c1a5dc-30fe-4b22-89fc-32f539f9a1d0"
+          (reference "C19") (unit 1)
+        )
+      )
+      (project "stepper2"
+        (path "/2519ce93-57a7-4269-80ad-e58f985d69b8"
+          (reference "C9") (unit 1)
+        )
+      )
+    )
+  )
+
   (symbol (lib_id "power:+5V") (at 54.61 124.46 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 8213fd89-978a-46f0-b47c-ec1dc0de5b11)
@@ -7436,6 +7677,9 @@
     (property "Datasheet" "~" (at 280.67 77.47 0)
       (effects (font (size 1.27 1.27)) hide)
     )
+    (property "LCSC" "C4410" (at 280.67 77.47 90)
+      (effects (font (size 1.27 1.27)) hide)
+    )
     (pin "1" (uuid 639a398b-36ba-4a3a-b533-3c26c7120374))
     (pin "2" (uuid c48f65d3-7b79-4f1f-87e2-e529ba5dd84e))
     (instances
@@ -7572,7 +7816,7 @@
   )
 
   (symbol (lib_id "Device:R") (at 52.07 144.78 0) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no)
+    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 963cdc44-7ec6-429b-8867-d49eae7b5339)
     (property "Reference" "R8" (at 46.8122 144.78 90)
       (effects (font (size 1.27 1.27)))
@@ -7586,8 +7830,11 @@
     (property "Datasheet" "~" (at 52.07 144.78 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (pin "1" (uuid 4cce3fe2-73f5-452f-8d11-d0f939e658de))
-    (pin "2" (uuid 0986c3a2-6c1c-4920-9b0b-982baaf9e02f))
+    (property "LCSC" "C17909" (at 52.07 144.78 90)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (pin "1" (uuid f6b2d05a-7063-4d90-997f-a6408fd92cf9))
+    (pin "2" (uuid a30c3e18-1068-4bd3-a110-d14d64d28e5a))
     (instances
       (project "stepper4"
         (path "/20c1a5dc-30fe-4b22-89fc-32f539f9a1d0"
@@ -7683,7 +7930,7 @@
   )
 
   (symbol (lib_id "Device:R") (at 50.8 156.21 0) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no)
+    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 9b669bf7-7971-442f-bfe2-c591fcf4290a)
     (property "Reference" "R8" (at 45.5422 156.21 90)
       (effects (font (size 1.27 1.27)))
@@ -7697,8 +7944,11 @@
     (property "Datasheet" "~" (at 50.8 156.21 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (pin "1" (uuid c5c544f2-7a6c-4397-9602-a861a9796729))
-    (pin "2" (uuid 296ffeb3-67ee-470b-9999-e65280024201))
+    (property "LCSC" "C17909" (at 50.8 156.21 90)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (pin "1" (uuid d1e57f02-6e69-471e-94e8-15d8e339831b))
+    (pin "2" (uuid c9aeb130-23cb-4f76-b56d-deb92a93e0fd))
     (instances
       (project "stepper4"
         (path "/20c1a5dc-30fe-4b22-89fc-32f539f9a1d0"
@@ -7858,6 +8108,9 @@
     (property "Datasheet" "~" (at 153.67 26.67 0)
       (effects (font (size 1.27 1.27)) hide)
     )
+    (property "LCSC" "C2880403" (at 153.67 26.67 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
     (pin "1" (uuid 82ae8567-1f97-46d7-8bc0-9b0abd5d4957))
     (pin "2" (uuid d52999a6-413e-4fbd-adb8-49c5906dd2cb))
     (instances
@@ -7959,7 +8212,7 @@
   )
 
   (symbol (lib_id "Device:R") (at 52.07 93.98 0) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no)
+    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid ae410dfb-f11d-4c59-bc41-5a1364b5f2cd)
     (property "Reference" "R8" (at 46.8122 93.98 90)
       (effects (font (size 1.27 1.27)))
@@ -7973,8 +8226,11 @@
     (property "Datasheet" "~" (at 52.07 93.98 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (pin "1" (uuid bf5551b8-6bbb-4188-903a-267b8c30dc25))
-    (pin "2" (uuid 64f4c7cf-4014-4301-82bd-97d5705557fb))
+    (property "LCSC" "C17909" (at 52.07 93.98 90)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (pin "1" (uuid 8cec5169-5e83-4139-89e5-0a19004a1b11))
+    (pin "2" (uuid 028ac705-8426-4989-a605-e6ddbf361703))
     (instances
       (project "stepper4"
         (path "/20c1a5dc-30fe-4b22-89fc-32f539f9a1d0"
@@ -8145,6 +8401,9 @@
     (property "Datasheet" "~" (at 176.53 26.67 0)
       (effects (font (size 1.27 1.27)) hide)
     )
+    (property "LCSC" "C12891" (at 176.53 26.67 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
     (pin "1" (uuid d4798e43-150c-4149-81ea-5856fc8bc521))
     (pin "2" (uuid 03442fb2-80bf-41bf-a1ce-8ba798a5019e))
     (instances
@@ -8261,6 +8520,9 @@
     (property "Datasheet" "~" (at 154.94 67.31 0)
       (effects (font (size 1.27 1.27)) hide)
     )
+    (property "LCSC" "C2880403" (at 154.94 67.31 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
     (pin "1" (uuid 697b1c48-ebe7-43b7-82c0-27e8c54372db))
     (pin "2" (uuid 2ba74398-4b33-428f-88af-23b87e314d53))
     (instances
@@ -8273,7 +8535,7 @@
   )
 
   (symbol (lib_id "Device:R") (at 49.53 35.56 0) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no)
+    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid bbe18c71-6670-4d43-9326-94a8656c3f81)
     (property "Reference" "R8" (at 44.2722 35.56 90)
       (effects (font (size 1.27 1.27)))
@@ -8287,8 +8549,11 @@
     (property "Datasheet" "~" (at 49.53 35.56 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (pin "1" (uuid e8d43986-b7cc-45fc-af91-6aec399038c2))
-    (pin "2" (uuid 072faf70-a276-4440-8cf8-320c3da3f16d))
+    (property "LCSC" "C17909" (at 49.53 35.56 90)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (pin "1" (uuid dffb5c38-b645-47cc-b503-e90d8582728e))
+    (pin "2" (uuid 5e92842b-ff3a-4b28-bcf6-0d06c4ee63e4))
     (instances
       (project "stepper4"
         (path "/20c1a5dc-30fe-4b22-89fc-32f539f9a1d0"
@@ -8346,6 +8611,9 @@
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 199.39 50.8 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C2874531" (at 199.39 50.8 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (pin "1" (uuid 4c17fb92-527b-4fac-9832-46748e13be5e))
@@ -8864,6 +9132,9 @@
     (property "Datasheet" "~" (at 232.41 132.08 0)
       (effects (font (size 1.27 1.27)) hide)
     )
+    (property "LCSC" "C4410" (at 232.41 132.08 90)
+      (effects (font (size 1.27 1.27)) hide)
+    )
     (pin "1" (uuid 985508fd-a2be-46e1-a11e-882e65b3a6c7))
     (pin "2" (uuid db955717-961d-4fa2-a07c-63ab6b7d0476))
     (instances
@@ -8875,6 +9146,65 @@
       (project "stepper2"
         (path "/2519ce93-57a7-4269-80ad-e58f985d69b8"
           (reference "R13") (unit 1)
+        )
+      )
+    )
+  )
+
+  (symbol (lib_id "power:+5V") (at 31.75 187.96 90) (unit 1)
+    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
+    (uuid dd2a9a3a-4d9c-4f2d-a85d-7d3b4e8d6ede)
+    (property "Reference" "#PWR0111" (at 35.56 187.96 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Value" "+5V" (at 28.5751 188.2768 90)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Footprint" "" (at 31.75 187.96 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Datasheet" "" (at 31.75 187.96 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (pin "1" (uuid 60ba0892-ad3e-4b7f-908a-b5a2b4fc55b9))
+    (instances
+      (project "stepper2"
+        (path "/2519ce93-57a7-4269-80ad-e58f985d69b8"
+          (reference "#PWR0111") (unit 1)
+        )
+      )
+    )
+  )
+
+  (symbol (lib_id "Device:C") (at 35.56 187.96 90) (unit 1)
+    (in_bom yes) (on_board yes) (dnp no)
+    (uuid ddf0c70f-c9a9-44d4-8b9a-53f529d44d2a)
+    (property "Reference" "C19" (at 33.02 184.15 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Value" "100n" (at 43.18 185.42 90)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Footprint" "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder" (at 39.37 186.9948 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Datasheet" "~" (at 35.56 187.96 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C24497" (at 35.56 187.96 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (pin "1" (uuid 4dd5b2f3-76db-4cd0-b74f-07d0ee22348f))
+    (pin "2" (uuid 21afc073-dcba-47d0-83a2-76fe46f6f890))
+    (instances
+      (project "stepper4"
+        (path "/20c1a5dc-30fe-4b22-89fc-32f539f9a1d0"
+          (reference "C19") (unit 1)
+        )
+      )
+      (project "stepper2"
+        (path "/2519ce93-57a7-4269-80ad-e58f985d69b8"
+          (reference "C10") (unit 1)
         )
       )
     )
@@ -9002,7 +9332,7 @@
   )
 
   (symbol (lib_id "Device:R") (at 50.8 53.34 0) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no)
+    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid e35a6286-c0c8-4ed3-b20f-c4d4f44526ce)
     (property "Reference" "R8" (at 53.34 54.61 90)
       (effects (font (size 1.27 1.27)))
@@ -9016,8 +9346,11 @@
     (property "Datasheet" "~" (at 50.8 53.34 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (pin "1" (uuid c912bc54-d0d6-4838-ade0-fc2827b5186c))
-    (pin "2" (uuid 373db302-4a2b-43b6-ad55-88d48f711212))
+    (property "LCSC" "C17909" (at 50.8 53.34 90)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (pin "1" (uuid 0a1bb317-f2a9-47c6-b175-40ca2068ef1f))
+    (pin "2" (uuid 1be55dbd-d0b8-45f8-b413-7968718b0081))
     (instances
       (project "stepper4"
         (path "/20c1a5dc-30fe-4b22-89fc-32f539f9a1d0"
@@ -9155,6 +9488,9 @@
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 200.66 22.86 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C17902" (at 200.66 22.86 90)
       (effects (font (size 1.27 1.27)) hide)
     )
     (pin "1" (uuid 5aae2e73-5cea-44ee-abba-f3889485a267))
@@ -9337,6 +9673,9 @@
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 154.94 107.95 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C2880403" (at 154.94 107.95 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (pin "1" (uuid ad3fb2b9-81a2-4e13-a892-2c778868597c))
