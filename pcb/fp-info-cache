@@ -1,4 +1,4 @@
-21889433115272157
+21891134024595527
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -90670,6 +90670,13 @@ DSUB-15-HD_Vertical_Pitch2.29x1.98mm_Mercury3000_Enc
 0
 17
 15
+stepper2
+JST_PH_S3B-PH-SM4-TB_1x03-1MP_P2.00mm_Horizontal
+JST PH series connector, S4B-PH-SM4-TB (http://www.jst-mfg.com/product/pdf/eng/ePH.pdf), generated with kicad-footprint-generator
+connector JST PH top entry
+0
+10
+4
 stepper2
 JST_PH_S4B-PH-SM4-TB_1x04-1MP_P2.00mm_Horizontal
 JST PH series connector, S4B-PH-SM4-TB (http://www.jst-mfg.com/product/pdf/eng/ePH.pdf), generated with kicad-footprint-generator
