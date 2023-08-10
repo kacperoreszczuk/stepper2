@@ -7,11 +7,7 @@
 
 #define min(a,b) (((a)<(b))?(a):(b))
 #define max(a,b) (((a)>(b))?(a):(b))
-#define DRIVER_ID 123
-#define NO_OF_MOTORS 3
 
-void print_signature_endl(uint16_t command_signature);
-void print_signature(uint16_t command_signature);
 
 void Axis::init(uint8_t axis_id) {
 
@@ -41,8 +37,8 @@ void Axis::init(uint8_t axis_id) {
 
 	nxt_port = NXT_Port[id];
 	dir_port = DIR_Port[id];
-	flimit_port = flimit_port;
-	rlimit_port = rlimit_port;
+	flimit_port = FLIMIT_Port[id];
+	rlimit_port = RLIMIT_Port[id];
 	fjog_port = FJOG_Port[id];
 	rjog_port = RJOG_Port[id];
 	en_port = EN_Port[id];
@@ -361,7 +357,7 @@ void Axis::parse_command(uint16_t command, float value) {
 			break;
 		case COMM_TELL_POSITION:
 			print_signature(COMM_TELL_POSITION);
-			printf("%.6f\r", real_position * step / MICROSTEPS);
+			printf("%.6f\r", get_position());
 			break;
 //		case COMM_TELL_ALL:
 //			printf("ta");
@@ -395,13 +391,8 @@ void Axis::parse_command(uint16_t command, float value) {
 			print_signature_endl(COMM_SET_HYSTERESIS);
 			break;
 		case COMM_TELL_AXIS_STATUS:
-			result_u8 = status;
-			if (result_u8 == 4)
-				result_u8 = 3;  // treat both homing phases as the same
-			if (emergency_button && !HAL_GPIO_ReadPin(EIO_GPIO_Port, EIO_Pin))
-				result_u8 = 4;  // special case: stopped by the emergency button
 			print_signature(COMM_TELL_AXIS_STATUS);
-			printf("%d\r", result_u8);
+			printf("%d\r", get_status());
 			break;
 		case COMM_READ_LIMIT_SWITCH:
 			print_signature(COMM_READ_LIMIT_SWITCH);
@@ -426,6 +417,18 @@ void Axis::parse_command(uint16_t command, float value) {
 	}
 }
 
+float Axis::get_position(){
+	return real_position * step / MICROSTEPS;
+}
+
+uint8_t Axis::get_status(){
+	uint8_t result_u8 = status;
+	if (result_u8 == 4)
+		result_u8 = 3;  // treat both homing phases as the same
+	if (emergency_button && !HAL_GPIO_ReadPin(EIO_GPIO_Port, EIO_Pin))
+		result_u8 = 4;  // special case: stopped by the emergency button
+	return result_u8;
+}
 
 void Axis::set_limit_type(uint8_t limit_type){
 	limit_active_state = (limit_type == 3 || limit_type == 1 || limit_type == 5 || limit_type == 6) ? 1 : 0;

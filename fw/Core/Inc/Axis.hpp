@@ -30,6 +30,9 @@ const uint16_t COMM_ID 						= 0x0100 * 'i' + 'd';
 const uint16_t COMM_SET_EMERGENCY_BUTTON 	= 0x0100 * 's' + 'e';
 const uint16_t COMM_SET_REVERSED 			= 0x0100 * 's' + 'r';
 
+void print_signature_endl(uint16_t command_signature);
+void print_signature(uint16_t command_signature);
+
 class Axis:public Tmc {
 
 public:
@@ -41,6 +44,8 @@ public:
 	void nxt_up_loop();
 	void nxt_loop();
 	void limit_switch_loop();
+	float get_position();
+	uint8_t get_status();
 
 private:
 	void set_limit_type(uint8_t limit_type);
@@ -124,6 +129,7 @@ public:
 	/* help variable - if tact switch jogging was active in last loop iteration */
 	uint8_t was_jogging;
 
+	int32_t test1, test2, test3, test4, test5;
 };
 
 
@@ -182,10 +188,14 @@ inline void Axis::limit_switch_loop() {
 	}
 	else
 	{
+//		test1 = limit_active_state == __GPIO_ReadPin(rlimit_port, rlimit_pin);
+//		test2 = limit_value_rear >> LIMIT_POWER_2;
+//		test3 = LIMIT_OLD_FRACTION * (limit_value_rear >> LIMIT_POWER_2);
+//		test4 = LIMIT_NEW_COMP * (limit_active_state == __GPIO_ReadPin(rlimit_port, rlimit_pin));
 		limit_value_rear = LIMIT_OLD_FRACTION * (limit_value_rear >> LIMIT_POWER_2) +
-				LIMIT_NEW_COMP * (!limit_active_state == !__GPIO_ReadPin(rlimit_port, rlimit_pin));
+				LIMIT_NEW_COMP * (limit_active_state == __GPIO_ReadPin(rlimit_port, rlimit_pin));
 		limit_value_front = LIMIT_OLD_FRACTION * (limit_value_front >> LIMIT_POWER_2) +
-				LIMIT_NEW_COMP * (!limit_active_state == !__GPIO_ReadPin(flimit_port, flimit_pin));
+				LIMIT_NEW_COMP * (limit_active_state == __GPIO_ReadPin(flimit_port, flimit_pin));
 	}
 
 	if (limit_value_rear < LIMIT_THRS_LOW)

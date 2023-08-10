@@ -20,7 +20,18 @@ void control_loop() {
 	double value;
 	while (usb_uart_parse(&axis, &message_id, &value)) {
 		if (message_id == 0)
-			printf("?\n");
+			printf("?\r");
+		else if (message_id == COMM_TELL_ALL) {
+			print_signature(COMM_TELL_ALL);
+			printf("%.6f ", axis0.get_position());
+			printf("%.6f ", axis1.get_position());
+			printf("%.6f ", axis2.get_position());
+			printf("%d", axis0.get_status());
+			printf("%d", axis1.get_status());
+			printf("%d", axis2.get_status());
+			printf("\r");
+			break;
+		}
 		else {
 			if (axis == 0)
 				axis0.parse_command(message_id, value);
