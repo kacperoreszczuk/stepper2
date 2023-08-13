@@ -10,8 +10,8 @@ C7,5V,CP_Elec_8x10.5,86.5,-101.75,-90,top
 C8,100n,C_1206_3216Metric_Pad1.33x1.80mm_HandSolder,56.5,-23.1875,90,top
 C9,100n,C_1206_3216Metric_Pad1.33x1.80mm_HandSolder,57.25,-52.8125,90,top
 C10,100n,C_1206_3216Metric_Pad1.33x1.80mm_HandSolder,45.5,-89,90,top
-C11,100n,C_1206_3216Metric_Pad1.33x1.80mm_HandSolder,65,-79.75,180,top
-C12,100n,C_1206_3216Metric_Pad1.33x1.80mm_HandSolder,65,-82.25,180,top
+C11,100n,C_1206_3216Metric_Pad1.33x1.80mm_HandSolder,64,-79.67,180,top
+C12,100n,C_1206_3216Metric_Pad1.33x1.80mm_HandSolder,64,-82,180,top
 J1,DA15_Receptacle_MountingHoles,DSUB-15-HD_Vertical_Pitch2.29x1.98mm_Mercury3000_Enc,60.505001,-13.5,0,top
 J2,DA15_Receptacle_MountingHoles,DSUB-15-HD_Vertical_Pitch2.29x1.98mm_Mercury3000_Enc,60.505001,-43,0,top
 J3,DA15_Receptacle_MountingHoles,DSUB-15-HD_Vertical_Pitch2.29x1.98mm_Mercury3000_Enc,60.505001,-72,0,top
@@ -54,7 +54,7 @@ U3,AM26LS32ACN,SO-16_3.9x9.9mm_P1.27mm,50.575,-86.175,180,top
 U4,TMC2209_BIGTREETECH,TMC2209_BIGTREETECH,21.5,-49,0,top
 U5,TMC2209_BIGTREETECH,TMC2209_BIGTREETECH,21.5,-69.5,0,top
 U6,TMC2209_BIGTREETECH,TMC2209_BIGTREETECH,21.5,-90,0,top
-U7,~,OnSemi_UDFN-8_1.2x1.8mm_P0.4mm,68.722,-81.114,90,top
+U7,~,UDFN-8_1.2x1.8mm_OR_SO8_3.9x4.9mm,69.215,-81.75,0,top
 U8,~,DCDC_17.0mm_22.2mm,82.15,-125.11,0,top
 U9,~,Waveshare_FT232_USBC_module,62.885,-122.478,180,top
 U10,~,Nucleo144_H723_withVBAT,55.87,-72.38,180,top

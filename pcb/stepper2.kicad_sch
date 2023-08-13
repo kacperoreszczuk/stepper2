@@ -1877,6 +1877,9 @@
         )
       )
       (symbol "NLSX4373MUTAG_1_1"
+        (text "NLSX4373MUTAG" (at 0 5.08 0)
+          (effects (font (size 1.27 1.27)))
+        )
         (pin bidirectional line (at -12.7 3.81 0) (length 2.54)
           (name "VL" (effects (font (size 1.27 1.27))))
           (number "1" (effects (font (size 1.27 1.27))))
@@ -7684,7 +7687,7 @@
     (property "Value" "~" (at 255.27 21.59 0)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Footprint" "Package_DFN_QFN:OnSemi_UDFN-8_1.2x1.8mm_P0.4mm" (at 255.27 21.59 0)
+    (property "Footprint" "stepper2:UDFN-8_1.2x1.8mm_OR_SO8_3.9x4.9mm" (at 255.27 21.59 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "" (at 255.27 21.59 0)
