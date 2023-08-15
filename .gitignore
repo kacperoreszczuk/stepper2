@@ -8,3 +8,4 @@ pcb/*.bak
 pcb/stepper2-backups/*
 /fw/Core/Startup
 hs_err*
+*.lck
