@@ -8,8 +8,6 @@ module pcb_support_2d() {
     top_right_bar_len = 16;
     top_bar_width = 3;
     right_bar_width = 0.5;
-    right_bar_length_1 = 30;
-    right_bar_length_2 = 90;
     bottom_left_bar_len = 20;
     bottom_bar_width = 3;
     union() {
@@ -29,10 +27,8 @@ module pcb_support_2d() {
             square([pcb_margin + top_right_bar_len, pcb_margin + top_bar_width]);
         
         translate ([pcb_x - right_bar_width, -pcb_margin]) 
-            square([pcb_margin + right_bar_width, right_bar_length_1 + pcb_margin]);
+            square([pcb_margin + right_bar_width, pcb_y + 2 * pcb_margin]);
         
-        translate ([pcb_x - right_bar_width, pcb_y - right_bar_length_2]) 
-            square([pcb_margin + right_bar_width, right_bar_length_2 + pcb_margin]);
         
         translate ([-pcb_margin, -pcb_margin]) 
             square([pcb_margin + bottom_left_bar_len, pcb_margin + bottom_bar_width]);
@@ -101,17 +97,14 @@ module support_nucleo_pins_2d() {
 }
 
 module motor_cutouts_2d() {  // in yz plane
-    y1 = 24; 
-    y2 = 69;
-    y3 = 114;
     depth = 14.4;
     width = 30.25;
     union() {
-        translate([y1 - width / 2, d + thickness_below_pcb + pcb_thickness - depth])
+        translate([motor_port_y_1 - width / 2, d + thickness_below_pcb + pcb_thickness - depth])
             square([width, depth + 1]);
-        translate([y2 - width / 2, d + thickness_below_pcb + pcb_thickness - depth])
+        translate([motor_port_y_2 - width / 2, d + thickness_below_pcb + pcb_thickness - depth])
             square([width, depth + 1]);
-        translate([y3 - width / 2, d + thickness_below_pcb + pcb_thickness - depth])
+        translate([motor_port_y_3 - width / 2, d + thickness_below_pcb + pcb_thickness - depth])
             square([width, depth + 1]);
     }
 }
@@ -151,8 +144,8 @@ module m3_mount_drills() {
 }
 
 module mount_tab(yyy) {
-    head_diameter = 10;
-    drill_offset = head_diameter * 1;
+    head_diameter = 10.2;
+    drill_offset = head_diameter / 2 + 7;
     drill_diameter = 6.2;
     base_thickness = 5 + d;
     
@@ -162,8 +155,8 @@ module mount_tab(yyy) {
             linear_extrude(height=base_thickness) 
                 polygon([
                 [0, -head_diameter * 1.5], 
-                [-drill_offset - head_diameter, -head_diameter / 2],
-                [-drill_offset - head_diameter, head_diameter / 2],
+                [-drill_offset - head_diameter * 0.8, -head_diameter / 2],
+                [-drill_offset - head_diameter * 0.8, head_diameter / 2],
                 [0, head_diameter * 1.5]       
             ]);
             translate([-drill_offset, 0, d])
