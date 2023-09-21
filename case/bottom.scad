@@ -9,7 +9,9 @@ module pcb_support_2d() {
     top_bar_width = 3;
     right_bar_width = 0.5;
     bottom_left_bar_len = 20;
-    bottom_bar_width = 3;
+    bottom_left_bar_width = 3;
+    bottom_right_bar_len = 45;
+    bottom_right_bar_width = 1.2;
     union() {
         
         translate ([-pcb_margin, -pcb_margin]) 
@@ -31,7 +33,9 @@ module pcb_support_2d() {
         
         
         translate ([-pcb_margin, -pcb_margin]) 
-            square([pcb_margin + bottom_left_bar_len, pcb_margin + bottom_bar_width]);
+            square([pcb_margin + bottom_left_bar_len, pcb_margin + bottom_left_bar_width]);
+        translate ([pcb_x - bottom_right_bar_len, -pcb_margin]) 
+            square([pcb_margin + bottom_right_bar_len, pcb_margin + bottom_right_bar_width]);
     }
 }
 
@@ -49,15 +53,18 @@ module outer_frame_2d() {
 }
 
 module structure_rails_2d() {
-    rail_vertical_x = 57;
-    rail_horizontal_y_1 = 23;
+    rail_vertical_x_1 = 44;
+    rail_vertical_x_2 = 50;
+    rail_horizontal_y_1 = 26;
     rail_horizontal_y_2 = 105;
     union() {
         translate([-pcb_margin, rail_horizontal_y_1 - d / 2])
             square([pcb_x + 2 * pcb_margin, d]);
         translate([-pcb_margin, rail_horizontal_y_2 - d / 2])
             square([pcb_x + 2 * pcb_margin, d]);
-        translate([rail_vertical_x - d / 2, -pcb_margin])
+        translate([rail_vertical_x_1 - d / 2, -pcb_margin])
+            square([d, pcb_y + 2 * pcb_margin]);
+        translate([rail_vertical_x_2 - d / 2, -pcb_margin])
             square([d, pcb_y + 2 * pcb_margin]);
     }
 }
@@ -97,8 +104,8 @@ module support_nucleo_pins_2d() {
 }
 
 module motor_cutouts_2d() {  // in yz plane
-    depth = 14.4;
-    width = 30.25;
+    depth = 14.9;
+    width = 32.5;
     union() {
         translate([motor_port_y_1 - width / 2, d + thickness_below_pcb + pcb_thickness - depth])
             square([width, depth + 1]);
@@ -133,14 +140,14 @@ module m3_mount_drills() {
     y3 = 80.86;
     x4 = 80.00;
     y4 = 28.79;
-    translate([x1, y1, 0])
-        cylinder(d=m3_drill_diameter, h=d+thickness_below_pcb + pcb_thickness);
-    translate([x2, y2, 0])
-        cylinder(d=m3_drill_diameter, h=d+thickness_below_pcb + pcb_thickness);
-    translate([x3, y3, 0])
-        cylinder(d=m3_drill_diameter, h=d+thickness_below_pcb + pcb_thickness);
-    translate([x4, y4, 0])
-        cylinder(d=m3_drill_diameter, h=d+thickness_below_pcb + pcb_thickness);
+    translate([x1, y1, d])
+        cylinder(d=m3_drill_diameter, h=thickness_below_pcb + pcb_thickness);
+    translate([x2, y2, d])
+        cylinder(d=m3_drill_diameter, h=thickness_below_pcb + pcb_thickness);
+    translate([x3, y3, d])
+        cylinder(d=m3_drill_diameter, h=thickness_below_pcb + pcb_thickness);
+    translate([x4, y4, d])
+        cylinder(d=m3_drill_diameter, h=thickness_below_pcb + pcb_thickness);
 }
 
 module mount_tab(yyy) {
@@ -170,15 +177,15 @@ module mount_tab(yyy) {
 module stlink_drill() {
     x = 42;
     depth = 9.5;
-    w = 11.5;
-    h = 8.5;
+    w = 6.5;
+    h = 4.5;
     translate([x, -pcb_margin - d / 2, d + thickness_below_pcb - depth])
         cube([w, 10, h], center=true);
 }
 
 module ethernet_drill() {
-    x = 45.6;
-    depth = 10.5;
+    x = 46.85;
+    depth = 9.5;
     w = 16.25;
     h = 12;
     translate([x, pcb_y + pcb_margin + d / 2, d + thickness_below_pcb - depth])
