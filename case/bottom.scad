@@ -40,8 +40,8 @@ module pcb_support_2d() {
 }
 
 module base_2d() {
-        translate([-d - pcb_margin, -d - pcb_margin])
-            square([pcb_x + 2 * pcb_margin + 2 * d, pcb_y + 2 * pcb_margin + 2 * d]);
+    translate([-d - pcb_margin, -d - pcb_margin])
+        square([pcb_x + 2 * pcb_margin + 2 * d, pcb_y + 2 * pcb_margin + 2 * d]);
 }
 
 module outer_frame_2d() {
@@ -105,49 +105,23 @@ module support_nucleo_pins_2d() {
 
 module motor_cutouts_2d() {  // in yz plane
     depth = 14.9;
-    width = 32.5;
     union() {
-        translate([motor_port_y_1 - width / 2, d + thickness_below_pcb + pcb_thickness - depth])
-            square([width, depth + 1]);
-        translate([motor_port_y_2 - width / 2, d + thickness_below_pcb + pcb_thickness - depth])
-            square([width, depth + 1]);
-        translate([motor_port_y_3 - width / 2, d + thickness_below_pcb + pcb_thickness - depth])
-            square([width, depth + 1]);
+        for (i=[0, 1, 2])
+        translate([motor_port_y[i] - motor_width / 2, d + thickness_below_pcb + pcb_thickness - depth])
+            square([motor_width, depth + 1]);
     }
 }
 
 module m3_mount_base() {
-    x1 = 5;
-    y1 = 5;
-    x2 = 5;
-    y2 = 133;
-    x3 = 46.98;
-    y3 = 80.86;
-    x4 = 80.00;
-    y4 = 28.79;
-    translate([x3, y3, 0])
-        cylinder(d=m3_mount_diameter, h=d+m3_mount_h);
-    translate([x4, y4, 0])
-        cylinder(d=m3_mount_diameter, h=d+m3_mount_h);
+    for (i=[2, 3]) 
+        translate([m3_x[i], m3_y[i], 0])
+            cylinder(d=m3_mount_diameter, h=d+m3_mount_h);
 }
 
 module m3_mount_drills() {
-    x1 = 5;
-    y1 = 5;
-    x2 = 5;
-    y2 = 133;
-    x3 = 46.98;
-    y3 = 80.86;
-    x4 = 80.00;
-    y4 = 28.79;
-    translate([x1, y1, d])
-        cylinder(d=m3_drill_diameter, h=thickness_below_pcb + pcb_thickness);
-    translate([x2, y2, d])
-        cylinder(d=m3_drill_diameter, h=thickness_below_pcb + pcb_thickness);
-    translate([x3, y3, d])
-        cylinder(d=m3_drill_diameter, h=thickness_below_pcb + pcb_thickness);
-    translate([x4, y4, d])
-        cylinder(d=m3_drill_diameter, h=thickness_below_pcb + pcb_thickness);
+    for (i=[0, 1, 2, 3]) 
+        translate([m3_x[i], m3_y[i], d])
+            cylinder(d=m3_drill_diameter, h=thickness_below_pcb + pcb_thickness);
 }
 
 module mount_tab(yyy) {
@@ -211,7 +185,7 @@ module base() {
         }
         rotate(90, [1, 0, 0]) 
             rotate(90, [0, 1, 0])
-                linear_extrude(10, center=true)
+                linear_extrude(17, center=true)
                     motor_cutouts_2d();
         m3_mount_drills();
         translate([0, 0, d + thickness_below_pcb + pcb_thickness])
