@@ -20,6 +20,7 @@ const uint16_t COMM_SET_LIMIT_TYPE 			= 0x0100 * 's' + 'l';
 const uint16_t COMM_MOVE_ABSOLUTE 			= 0x0100 * 'm' + 'a';
 const uint16_t COMM_MOVE_RELATIVE 			= 0x0100 * 'm' + 'r';
 const uint16_t COMM_TELL_POSITION 			= 0x0100 * 't' + 'p';
+const uint16_t COMM_TELL_ENCODER	 		= 0x0100 * 't' + 'e';
 const uint16_t COMM_TELL_ALL 				= 0x0100 * 't' + 'a';
 const uint16_t COMM_TELL_AXIS_COUNT 		= 0x0100 * 'a' + 'c';
 const uint16_t COMM_SET_CURRENT 			= 0x0100 * 's' + 'c';

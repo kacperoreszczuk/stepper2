@@ -80,6 +80,7 @@ void Axis::init(uint8_t axis_id) {
     HAL_TIM_Base_Start(htim_enc);
     HAL_TIM_PWM_Start(htim_nxt, TIM_CHANNEL_1);
     HAL_TIM_Base_Start_IT(htim_nxt);
+    HAL_TIM_Encoder_Start(htim_enc, TIM_CHANNEL_ALL);
 }
 
 
@@ -358,6 +359,10 @@ void Axis::parse_command(uint16_t command, float value) {
 		case COMM_TELL_POSITION:
 			print_signature(COMM_TELL_POSITION);
 			printf("%.6f\r", get_position());
+			break;
+		case COMM_TELL_ENCODER:
+			print_signature(COMM_TELL_ENCODER);
+			printf("%ld\r", htim_enc->Instance->CNT);
 			break;
 //		case COMM_TELL_ALL:
 //			printf("ta");
