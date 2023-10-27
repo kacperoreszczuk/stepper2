@@ -92,8 +92,10 @@ module edge_walls() {
 }
 
 module button_cuts() {
-    button_x = [16.75, 16.75, 16.75, 25.75, 25.75, 25.75];
-    button_y = [132.5, 123.5, 114.5, 132.5, 123.5, 114.5];
+    //button_x = [16.75, 16.75, 16.75, 25.75, 25.75, 25.75];  // new
+    //button_y = [132.5, 123.5, 114.5, 132.5, 123.5, 114.5];  // new
+    button_x = [16.5, 16.5, 16.5, 26.0, 26.0, 26.0];  // prototype
+    button_y = [132.025, 121.475, 111, 132.025, 121.475, 111];  // prototype
     button_d = 3.5;
     button_cone_height = 1;
     button_cone_base_d = 7.5;
@@ -109,7 +111,8 @@ module button_cuts() {
 
 module encoder_cuts() {
     encoder_x = 60.505;
-    encoder_y = [67, 94.5, 122.5];
+    //encoder_y = [67, 94.5, 122.5];  // new
+    encoder_y = [66, 95, 124.5];  // prototype
     
     encoder_w = 31.5;
     encoder_h = 12.5;
@@ -144,7 +147,7 @@ module usb_cut() {
         cube([usb_w, 10, usb_h], center=true);
 }
 
-module usb_cut() {
+module jack_cut() {
     jack_x = 21.5;
     jack_z = 5.0;
     jack_d = 6.0;
@@ -165,8 +168,8 @@ module corridor_cut() {
                     [-corridor_w / 2 - pcb_margin - d, top_height],
                     [corridor_w / 2 + pcb_margin + d, top_height],
                     [corridor_w / 2 + pcb_margin + d, fan_height],
-                    [corridor_w / 2, fan_height - 1],  // slope to avoid support
-                    [-corridor_w / 2, fan_height - 1], // slope to avoid support
+                    [corridor_w / 2, fan_height - 1 - pcb_margin],  // slope to avoid support
+                    [-corridor_w / 2, fan_height - 1 - pcb_margin], // slope to avoid support
                     [-corridor_w / 2 - pcb_margin - d, fan_height]
                     ]);
         translate([corridor_x - fan_d / 2, corridor_y - corridor_len / 2 - fan_thickness, fan_height])
@@ -179,6 +182,46 @@ module corridor_cut() {
         power_supply_h = 4.0;
         translate([corridor_x, corridor_horiz_y - corridor_w / 2, power_supply_h])
             cube([pcb_x + d + pcb_margin - corridor_x, corridor_w, top_height - d - power_supply_h]);
+    }
+}
+
+module corridor_top() {
+    air_down_cutout_h = (corridor_y - corridor_len / 2 - fan_thickness) - (corridor_horiz_y - corridor_w / 2);
+    difference() {
+        union() {        
+            translate([corridor_x, corridor_y, 0])
+                rotate(90, [1, 0, 0])
+                    linear_extrude(corridor_len, center=true)
+                        polygon([
+                        [corridor_w / 2 + d, fan_height + fan_d + d],
+                        [corridor_w / 2 + d, fan_height],
+                        [corridor_w / 2, fan_height - 1],  // slope to avoid support
+                        //[corridor_w / 2, fan_height + fan_d],  // slope to avoid support
+                        //[-corridor_w / 2, fan_height + fan_d],  // slope to avoid support
+                        [-corridor_w / 2, fan_height - 1], // slope to avoid support
+                        [-corridor_w / 2 - d, fan_height],
+                        [-corridor_w / 2 - d, fan_height + fan_d + d]
+                        ]);
+            translate([corridor_x - corridor_w / 2 - d, corridor_y + corridor_len / 2, top_height])
+                cube([corridor_w + 2 * d, d, fan_d + d - top_height + fan_height]);
+            translate([corridor_x - fan_d / 2 - d, corridor_y - corridor_len / 2 - fan_thickness - d, top_height])
+                cube([fan_d + 2 * d, fan_thickness + 2 * d, fan_d - (top_height - fan_height) + d]);
+            translate([corridor_x - fan_d / 2 - d / 2, 
+                   corridor_y - corridor_len / 2 - fan_thickness - air_down_cutout_h - d, 
+                   top_height])
+                cube([fan_d + d, air_down_cutout_h + d, fan_d - top_height + fan_height + d]);
+        }
+        translate([corridor_x - fan_d / 2, corridor_y - corridor_len / 2 - fan_thickness, 0])
+            cube([fan_d, fan_thickness, fan_height + fan_d]);
+        translate([corridor_x - corridor_w / 2, corridor_y - corridor_len / 2, 0])
+            cube([corridor_w, corridor_len, fan_height + fan_d]);
+        translate([corridor_x - fan_d / 2 + d / 2, 
+               corridor_y - corridor_len / 2 - fan_thickness - air_down_cutout_h, 
+               top_height])
+            cube([fan_d - d, air_down_cutout_h, fan_d - top_height + fan_height]);
+        for(i=[0, 1, 2])
+            translate([corridor_x - corridor_w / 2, corridor_y + corridor_len / 2, top_height + i * 5.3])
+                cube([corridor_w, d, 4.2]);
     }
 }
 
@@ -236,6 +279,8 @@ module base_old() {
 
 base();
 //structure_rails_2d();
+translate([-37, 0, -fan_d + top_height - fan_height - d])
+corridor_top();
 
 
 

@@ -33,6 +33,7 @@ corridor_horiz_y = 12.89;
 fan_d = 20.3;
 fan_thickness = 10.7;
 fan_height = 7.5;
+fan_ribs_h_from_pcb = 27.5;
     
 module stitching_shape_base() {
     square_d = sqrt(2) * pcb_thickness;
