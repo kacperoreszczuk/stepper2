@@ -4993,7 +4993,7 @@
   (gr_text "3v3" (at 81 -123.5) (layer "F.SilkS") (tstamp 6bddc418-3681-4926-b63d-31f0203a680e)
     (effects (font (size 0.85 0.85) (thickness 0.15) bold))
   )
-  (gr_text "Stepper 2.1.2\nKacper Oreszczuk\nSeptember 2023" (at 32 -111) (layer "F.SilkS") (tstamp 6e07a16c-6777-40ff-89e4-73c5b68ab9f9)
+  (gr_text "Stepper 2.1.2\nKacper Oreszczuk\nNovember 2023" (at 32 -111) (layer "F.SilkS") (tstamp 6e07a16c-6777-40ff-89e4-73c5b68ab9f9)
     (effects (font (size 1.2 1.2) (thickness 0.25) bold) (justify left bottom))
   )
   (gr_text "JLCJLCJLCJLC" (at 57.75 -36.75) (layer "F.SilkS") (tstamp 7bf8b96e-fda8-4001-8370-3c6165d9eba5)
