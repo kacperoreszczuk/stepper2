@@ -20,7 +20,9 @@ const uint16_t COMM_SET_LIMIT_TYPE 			= 0x0100 * 's' + 'l';
 const uint16_t COMM_MOVE_ABSOLUTE 			= 0x0100 * 'm' + 'a';
 const uint16_t COMM_MOVE_RELATIVE 			= 0x0100 * 'm' + 'r';
 const uint16_t COMM_TELL_POSITION 			= 0x0100 * 't' + 'p';
-const uint16_t COMM_TELL_ENCODER	 		= 0x0100 * 't' + 'e';
+const uint16_t COMM_ENCODER_RAW 		    = 0x0100 * 'e' + 'r';
+const uint16_t COMM_ENCODER_POSITION	 	= 0x0100 * 'e' + 'p';
+const uint16_t COMM_ENCODER_STEP     	 	= 0x0100 * 'e' + 's';
 const uint16_t COMM_TELL_ALL 				= 0x0100 * 't' + 'a';
 const uint16_t COMM_TELL_AXIS_COUNT 		= 0x0100 * 'a' + 'c';
 const uint16_t COMM_SET_CURRENT 			= 0x0100 * 's' + 'c';
@@ -86,10 +88,17 @@ public:
 	uint8_t nxt_in_this_cycle;
 
 	/* current motor position */
-	int32_t current_position;
+	int32_t current_position; // in microsteps
 	int32_t target_position;
 	int32_t real_position;  // real: after subtracting hysteresis
 	int32_t target_real_position;
+
+	/* encoder */
+	int32_t encoder_position_raw;  // in encoder counts
+	int32_t encoder_position_absolute;  // microsteps; independent of homing
+	int32_t encoder_homing_offset = 0;
+	int32_t encoder_position;  // relative to home zero point
+	int32_t encoder_ticks_per_million_steps;
 
 	/* motor velocity */
 	float target_velocity;
@@ -189,10 +198,6 @@ inline void Axis::limit_switch_loop() {
 	}
 	else
 	{
-//		test1 = limit_active_state == __GPIO_ReadPin(rlimit_port, rlimit_pin);
-//		test2 = limit_value_rear >> LIMIT_POWER_2;
-//		test3 = LIMIT_OLD_FRACTION * (limit_value_rear >> LIMIT_POWER_2);
-//		test4 = LIMIT_NEW_COMP * (limit_active_state == __GPIO_ReadPin(rlimit_port, rlimit_pin));
 		limit_value_rear = LIMIT_OLD_FRACTION * (limit_value_rear >> LIMIT_POWER_2) +
 				LIMIT_NEW_COMP * (limit_active_state == __GPIO_ReadPin(rlimit_port, rlimit_pin));
 		limit_value_front = LIMIT_OLD_FRACTION * (limit_value_front >> LIMIT_POWER_2) +

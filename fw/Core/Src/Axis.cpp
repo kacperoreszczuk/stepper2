@@ -71,6 +71,10 @@ void Axis::init(uint8_t axis_id) {
 	motor_current = DEFAULT_MOTOR_CURRENT;
 	was_jogging = 0;
 
+	encoder_position_raw = 0;
+	encoder_position = 0;
+	encoder_ticks_per_million_steps = 1000000;
+
 	clock = 0;
 	goal = 0;
 	dir = 0;
@@ -82,68 +86,6 @@ void Axis::init(uint8_t axis_id) {
     HAL_TIM_Base_Start_IT(htim_nxt);
     HAL_TIM_Encoder_Start(htim_enc, TIM_CHANNEL_ALL);
 }
-
-
-
-//#define TIMER_CLOCK_FREQ 137500000
-//#define LOWEST_NXT_PERIOD = 550  // 250 kHz, fastest possible switching speed
-//#define MAX_NXT_PERIOD = 110000 // 1.25 kHz, max time delay to next NXT tick
-//#define IDLE_NXT_PERIOD = 55000  // 2.5 kHz, idle time delay if NXT tick must be further in time than MAX_NXT_PERIOD
-//
-//
-//void Axis::nxt_down_loop() {
-//    HAL_GPIO_WritePin(NXT_Port[id], NXT_Pin[id], GPIO_PIN_RESET);
-//	last_dir = dir;
-//	HAL_GPIO_WritePin(dir_port, dir_pin, (GPIO_PinState)(reversed != last_dir));
-//}
-//
-//void Axis::nxt_loop() {
-//	if (goal == 0 || status == STOPPED)
-//		return;  // freeze clock if motor is stopped
-//
-//	if (status == POSITION && (current_position - target_position == 0 ))
-//		return;
-//
-//	if (limit_state_rear && last_dir && limit_enabled)
-//		return;
-//
-//	if (limit_state_front && !last_dir && limit_enabled)
-//		return;
-//
-//	clock += TICK_PERIOD_PS;
-//
-//	if (clock <= goal)
-//		return;  // still waiting before next pulse
-//
-//	clock %= goal;  // new repetition (modulo instead of subtraction for when extremely high
-//				    // speeds are provided or when speed suddenly increased)
-//
-//	nxt_in_this_cycle = 1;
-//
-//	if (last_dir)
-//	{
-//		current_position--;
-//		if(current_position < real_position)
-//			real_position = current_position;
-//	}
-//	else
-//	{
-//		current_position++;
-//		if(current_position - hysteresis_ticks > real_position)
-//			real_position = current_position - hysteresis_ticks;
-//	}
-//}
-//
-//void Axis::nxt_up_loop() {
-//
-//	if (nxt_in_this_cycle)
-//	    HAL_GPIO_WritePin(NXT_Port[id], NXT_Pin[id], GPIO_PIN_SET);
-//	nxt_in_this_cycle = 0;
-//}
-//
-//void Axis::limit_switch_loop() {
-//
-//}
 
 void Axis::control_loop() {
 	int64_t new_goal;
@@ -172,6 +114,19 @@ void Axis::control_loop() {
 //	{
 //		status = STOPPED;
 //	}
+
+	uint16_t encoder_reading = htim_enc->Instance->CNT;
+	uint16_t encoder_reading_last = (uint16_t) encoder_position_raw;
+	int32_t encoder_position_raw_new = (encoder_position_raw & 0xffff0000) | encoder_reading;
+
+	if(encoder_reading > 0xC000 && encoder_reading_last < 0x4000)
+		encoder_position_raw_new -= 0x00010000;
+	if(encoder_reading < 0x4000 && encoder_reading_last < 0xC000)
+		encoder_position_raw_new += 0x00010000;
+
+	encoder_position_raw = encoder_position_raw_new;
+	encoder_position_absolute = encoder_position_raw * 1000000ll * MICROSTEPS / encoder_ticks_per_million_steps;
+	encoder_position = encoder_position_absolute - encoder_homing_offset;
 
 	if (status == POSITION)
 	{
@@ -234,15 +189,6 @@ void Axis::control_loop() {
 	}
 
 	float value = current_velocity * step_inv * MICROSTEPS;
-//	if (value < 1 && value > -1)
-//	{
-//		if(status == VELOCITY && target_velocity == 0)
-//			status = STOPPED;
-//		new_goal = 0;
-//		new_dir = 0;
-//	}
-//	else
-//	{
 
 	if (value < 0)
 	{
@@ -289,7 +235,7 @@ void Axis::parse_command(uint16_t command, float value) {
 				target_velocity = -standard_velocity; // convert to pulses per second
 				status = HOMING;
 			}
-			print_signature_endl(COMM_HOME);
+			print_signature_endl(command);
 			break;
 		case COMM_MOVE_VELOCITY:
 			target_velocity = value;
@@ -298,7 +244,7 @@ void Axis::parse_command(uint16_t command, float value) {
 			else if (target_velocity < -max_velocity)
 				target_velocity = -max_velocity;
 			status = VELOCITY;
-			print_signature_endl(COMM_MOVE_VELOCITY);
+			print_signature_endl(command);
 
 			break;
 		case COMM_SET_STEP:
@@ -306,34 +252,34 @@ void Axis::parse_command(uint16_t command, float value) {
 			step_inv = 1.0f / value;
 			status = STOPPED;
 			hysteresis_ticks = hysteresis / step * MICROSTEPS;
-			print_signature_endl(COMM_SET_STEP);
+			print_signature_endl(command);
 			break;
 		case COMM_SET_VELOCITY:
 			standard_velocity = value;
-			print_signature_endl(COMM_SET_VELOCITY);
+			print_signature_endl(command);
 			break;
 		case COMM_SET_MAX_VELOCITY:
 			max_velocity = value;
-			print_signature_endl(COMM_SET_MAX_VELOCITY);
+			print_signature_endl(command);
 			break;
 		case COMM_SET_ACCELERATION_TIME:
 			acceleration_time_inv = 1.0f / value;
-			print_signature_endl(COMM_SET_ACCELERATION_TIME);
+			print_signature_endl(command);
 			break;
 		case COMM_SET_HOMING_OFFSET:
 			homing_offset = value;
-			print_signature_endl(COMM_SET_HOMING_OFFSET);
+			print_signature_endl(command);
 			break;
 		case COMM_CLONE_AXIS:  // undocumented feature, clones NXT pin of given axis to EIO pin
 			clone_axis = 1;
-			print_signature_endl(COMM_CLONE_AXIS);
+			print_signature_endl(command);
 			break;
 		case COMM_SET_LIMIT_TYPE:
 			// 0 - no switch, 1 - active switch (high-active) 2 - active shorted,
 			// 3 - active disconnected, 4,5 - like 2,3, but only for homing
 			limit_type = value + 0.5f;
 			set_limit_type(limit_type);
-			print_signature_endl(COMM_SET_LIMIT_TYPE);
+			print_signature_endl(command);
 			break;
 		case COMM_MOVE_ABSOLUTE:
 			target_real_position = value / step * MICROSTEPS;
@@ -342,7 +288,7 @@ void Axis::parse_command(uint16_t command, float value) {
 			else
 				target_position = target_real_position + hysteresis_ticks;
 			status = POSITION;
-			print_signature_endl(COMM_MOVE_ABSOLUTE);
+			print_signature_endl(command);
 			break;
 		case COMM_MOVE_RELATIVE:
 			if (status == POSITION)
@@ -354,31 +300,24 @@ void Axis::parse_command(uint16_t command, float value) {
 			else
 				target_position = target_real_position + hysteresis_ticks;
 			status = POSITION;
-			print_signature_endl(COMM_MOVE_RELATIVE);
+			print_signature_endl(command);
 			break;
 		case COMM_TELL_POSITION:
-			print_signature(COMM_TELL_POSITION);
+			print_signature(command);
 			printf("%.6f\r", get_position());
 			break;
-		case COMM_TELL_ENCODER:
-			print_signature(COMM_TELL_ENCODER);
-			printf("%ld\r", htim_enc->Instance->CNT);
+		case COMM_ENCODER_POSITION:
+			print_signature(command);
+			printf("%.6f\r", encoder_position * step / MICROSTEPS);
 			break;
-//		case COMM_TELL_ALL:
-//			printf("ta");
-//			for (id = 0; id < NO_OF_MOTORS; id++)
-//				printf("%.6f ", real_position * step / MICROSTEPS);
-//			for (id = 0; id < NO_OF_MOTORS; id++)
-//			{
-//				result_u8 = status;
-//				if (result_u8 == 4)
-//					result_u8 = 3;  // treat both homing phases as the same
-//				if (emergency_button && !HAL_GPIO_ReadPin(EIO_GPIO_Port, EIO_Pin))
-//					result_u8 = 4;  // special case: stopped by the emergency button
-//				printf("%d", result_u8);
-//			}
-//			printf("\r");
-//			break;
+		case COMM_ENCODER_RAW:
+			print_signature(command);
+			printf("%ld\r", encoder_position_raw);
+			break;
+		case COMM_ENCODER_STEP:
+			print_signature_endl(command);
+			encoder_ticks_per_million_steps = 1000000 * step / value;  // TODO make it permutable with step setting
+			break;
 		case COMM_TELL_AXIS_COUNT:
 			print_signature(COMM_TELL_AXIS_COUNT);
 			printf("%d\r", NO_OF_MOTORS);
@@ -406,16 +345,16 @@ void Axis::parse_command(uint16_t command, float value) {
 							HAL_GPIO_ReadPin(rlimit_port, flimit_pin));
 			break;
 		case COMM_ID:
-			print_signature(COMM_ID);
+			print_signature(command);
 			printf("%d\r", DRIVER_ID);
 			break;
 		case COMM_SET_EMERGENCY_BUTTON:
 			emergency_button = (value != 0.0);
-			print_signature_endl(COMM_SET_EMERGENCY_BUTTON);
+			print_signature_endl(command);
 			break;
 		case COMM_SET_REVERSED:
 			reversed = (value != 0.0);
-			print_signature_endl(COMM_SET_REVERSED);
+			print_signature_endl(command);
 			break;
 		default:
 			printf("?\r");
