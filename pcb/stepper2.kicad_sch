@@ -3241,7 +3241,7 @@
     (uuid ff9db17d-d017-4ee6-ad9c-7ab606de0f52)
   )
 
-  (text "up1 down1\nup2 down2\nup3 down34\n" (at 125.73 194.31 0)
+  (text "layout:\nup1 down1\nup2 down2\nup3 down3\n" (at 125.73 196.85 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid bfa2dac4-3ef6-4203-89b7-936da6fa9034)
   )
