@@ -39,14 +39,14 @@ module pcb_support_2d() {
     }
 }
 
-module base_2d() {
+module base_2d_bottom() {
     translate([-d - pcb_margin, -d - pcb_margin])
         square([pcb_x + 2 * pcb_margin + 2 * d, pcb_y + 2 * pcb_margin + 2 * d]);
 }
 
-module outer_frame_2d() {
+module outer_frame_2d_bottom() {
     difference() {
-        base_2d();
+        base_2d_bottom();
         translate([-pcb_margin, -pcb_margin])
             square([pcb_x + 2 * pcb_margin, pcb_y + 2 * pcb_margin]);
     }
@@ -166,15 +166,15 @@ module ethernet_drill() {
         cube([w, 10, h], center=true);
 }
 
-module base() {
+module base_bottom() {
     difference() {
         union() {
             linear_extrude(d)
-                base_2d();
+                base_2d_bottom();
             linear_extrude(d + thickness_below_pcb)
                 pcb_support_2d();
             linear_extrude(d + thickness_below_pcb + pcb_thickness)
-                outer_frame_2d();
+                outer_frame_2d_bottom();
             linear_extrude(d + structure_rails_height)
                 structure_rails_2d();
             linear_extrude(d + support_nucleo_pins_h)
@@ -198,7 +198,7 @@ module base() {
     }
 }
 
-base();
+base_bottom();
 //structure_rails_2d();
 
 

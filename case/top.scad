@@ -277,10 +277,10 @@ module base_old() {
     }
 }
 
-base();
+//base();
 //structure_rails_2d();
-translate([-37, 0, -fan_d + top_height - fan_height - d])
-corridor_top();
+//translate([-37, 0, -fan_d + top_height - fan_height - d])
+//corridor_top();
 
 
 
