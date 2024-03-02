@@ -14,7 +14,7 @@ m3_head_h = 3.0;
 m3_head_diameter = 5.8;
 m3_long_length = 30.6; // M3x30 with additional margin
 
-top_height = 13;
+top_height = 14.5;
 top_empty_height = 6.3;
 
 motor_port_y = [24, 69, 114];
@@ -27,8 +27,11 @@ $fn = 32;
 corridor_x = 21.5;
 corridor_y = 68.5;
 corridor_w = 16;
-corridor_len = 62.0;
+corridor_len = 63.0;
 corridor_horiz_y = 12.89;
+dcdc_len = 25;
+dcdc_w = 17;
+dcdc_h = 9;
 
 fan_d = 20.3;
 fan_thickness = 10.7;
