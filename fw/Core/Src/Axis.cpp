@@ -115,13 +115,13 @@ void Axis::control_loop() {
 //		status = STOPPED;
 //	}
 
-	uint16_t encoder_reading = htim_enc->Instance->CNT;
+	uint16_t encoder_reading = __HAL_TIM_GET_COUNTER(htim_enc);
 	uint16_t encoder_reading_last = (uint16_t) encoder_position_raw;
 	int32_t encoder_position_raw_new = (encoder_position_raw & 0xffff0000) | encoder_reading;
 
 	if(encoder_reading > 0xC000 && encoder_reading_last < 0x4000)
 		encoder_position_raw_new -= 0x00010000;
-	if(encoder_reading < 0x4000 && encoder_reading_last < 0xC000)
+	if(encoder_reading < 0x4000 && encoder_reading_last > 0xC000)
 		encoder_position_raw_new += 0x00010000;
 
 	encoder_position_raw = encoder_position_raw_new;

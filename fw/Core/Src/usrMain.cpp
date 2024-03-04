@@ -70,9 +70,6 @@ inline void nxt_loop() {
 extern "C" int usrMain()
 {
 	setbuf(stdout, NULL);
-    HAL_TIM_Base_Start_IT(htim_tmc_vref);
-    HAL_TIM_Base_Start_IT(htim_control_loop);
-    usb_uart_init();
 
 
 
@@ -84,6 +81,10 @@ extern "C" int usrMain()
     axis0.set_current(350);
     axis1.set_current(350);
     axis2.set_current(350);
+
+    HAL_TIM_Base_Start_IT(htim_tmc_vref);
+    HAL_TIM_Base_Start_IT(htim_control_loop);
+    usb_uart_init();
 
 //    axis0.parse_command(COMM_SET_STEP, 64);
 //    axis0.parse_command(COMM_SET_CURRENT, 600);
