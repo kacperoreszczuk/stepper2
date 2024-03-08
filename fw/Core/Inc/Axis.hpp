@@ -41,13 +41,13 @@ class Axis:public Tmc {
 public:
 	Axis(){};
 	void init(uint8_t axis_id);
-	void parse_command(uint16_t signature, float value);
+	void parse_command(uint16_t signature, double value);
 	void control_loop();
 	void nxt_down_loop();
 	void nxt_up_loop();
 	void nxt_loop();
 	void limit_switch_loop();
-	float get_position();
+	double get_position();
 	uint8_t get_status();
 
 private:
@@ -99,26 +99,26 @@ public:
 	int32_t encoder_position_microsteps;  // relative to home zero point
 	int32_t encoder_homing_offset_raw;
 	int32_t encoder_ticks_per_million_steps;
-	float encoder_step;
-	float encoder_position;
+	double encoder_step;
+	double encoder_position;
 
 	/* motor velocity */
-	float target_velocity;
-	float current_velocity;
+	double target_velocity;
+	double current_velocity;
 
 	/* motor config */
-	float acceleration_time_inv; // precalculated 1/acceleration_time for performance reasons
-	float step;  // full step in user units (e.g. millimeters or degrees)
-	float step_inv;  // precalculated 1/step for performance reasons
-	float hysteresis;  // in user units
+	double acceleration_time_inv; // precalculated 1/acceleration_time for performance reasons
+	double step;  // full step in user units (e.g. millimeters or degrees)
+	double step_inv;  // precalculated 1/step for performance reasons
+	double hysteresis;  // in user units
 	int32_t hysteresis_ticks;  // in microsteps
-	float max_velocity;  // maximum permittable motor velocity
-	float standard_velocity;  // motor velocity in target position mode or when jogging with buttons
+	double max_velocity;  // maximum permittable motor velocity
+	double standard_velocity;  // motor velocity in target position mode or when jogging with buttons
 	uint8_t limit_type;
 	uint8_t limit_active_state;
 	uint8_t limit_enabled;
 	uint8_t homing_enabled;
-	float homing_offset;
+	double homing_offset;
 	uint8_t emergency_button;
 	uint8_t reversed;
 	uint8_t clone_axis;

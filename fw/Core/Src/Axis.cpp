@@ -58,20 +58,20 @@ void Axis::init(uint8_t axis_id) {
 	clone_pin = CLONE_Pin[id];
 
 	acceleration_time_inv = DEFAULT_ACCELERATION_TIME_INV;
-	step_inv = 1.0f / DEFAULT_STEP;
+	step_inv = 1.0l / DEFAULT_STEP;
 	step = DEFAULT_STEP;
 	hysteresis = DEFAULT_HYSTERESIS;
 	hysteresis_ticks = DEFAULT_HYSTERESIS / DEFAULT_STEP * MICROSTEPS;
 	max_velocity = DEFAULT_MAX_VELOCITY;
 	standard_velocity = DEFAULT_STANDARD_VELOCITY;
-	limit_value_front = 0.5f;
-	limit_value_rear = 0.5f;
+	limit_value_front = 0.5l;
+	limit_value_rear = 0.5l;
 	limit_on_position = 0xffffffff;
 	limit_off_position = 0xffffffff;
 	motor_current = DEFAULT_MOTOR_CURRENT;
 	was_jogging = 0;
 
-	encoder_step = 0.005;
+	encoder_step = 0.005l;
 
 	clock = 0;
 	goal = 0;
@@ -169,7 +169,7 @@ void Axis::control_loop() {
 			if (current_velocity == 0)
 			{
 				limit_off_position = 0xffffffff;
-				target_velocity = 0.1f * standard_velocity;
+				target_velocity = 0.1l * standard_velocity;
 			}
 			else if (target_velocity != 0 && limit_off_position != 0xffffffff)  // else to introduce one loop cycle delay
 			{
@@ -183,12 +183,12 @@ void Axis::control_loop() {
 				else
 					target_position = target_real_position + hysteresis_ticks;
 				__enable_irq();
-				encoder_homing_offset_raw = encoder_position_raw_absolute - float(current_position) * step / MICROSTEPS / encoder_step;
+				encoder_homing_offset_raw = encoder_position_raw_absolute - double(current_position) * step / MICROSTEPS / encoder_step;
 			}
 		}
 	}
 
-	float value = current_velocity * step_inv * MICROSTEPS;
+	double value = current_velocity * step_inv * MICROSTEPS;
 
 	if (value < 0)
 	{
@@ -212,7 +212,7 @@ void Axis::control_loop() {
 }
 
 
-void Axis::parse_command(uint16_t command, float value) {
+void Axis::parse_command(uint16_t command, double value) {
 
 	static uint8_t result_u8, j;
 
@@ -250,7 +250,7 @@ void Axis::parse_command(uint16_t command, float value) {
 			break;
 		case COMM_SET_STEP:
 			step = value;
-			step_inv = 1.0f / value;
+			step_inv = 1.0l / value;
 			status = STOPPED;
 			hysteresis_ticks = hysteresis / step * MICROSTEPS;
 			print_signature_endl(command);
@@ -264,7 +264,7 @@ void Axis::parse_command(uint16_t command, float value) {
 			print_signature_endl(command);
 			break;
 		case COMM_SET_ACCELERATION_TIME:
-			acceleration_time_inv = 1.0f / value;
+			acceleration_time_inv = 1.0l / value;
 			print_signature_endl(command);
 			break;
 		case COMM_SET_HOMING_OFFSET:
@@ -278,7 +278,7 @@ void Axis::parse_command(uint16_t command, float value) {
 		case COMM_SET_LIMIT_TYPE:
 			// 0 - no switch, 1 - active switch (high-active) 2 - active shorted,
 			// 3 - active disconnected, 4,5 - like 2,3, but only for homing
-			limit_type = value + 0.5f;
+			limit_type = value + 0.5l;
 			set_limit_type(limit_type);
 			print_signature_endl(command);
 			break;
@@ -305,11 +305,11 @@ void Axis::parse_command(uint16_t command, float value) {
 			break;
 		case COMM_TELL_POSITION:
 			print_signature(command);
-			printf("%.6f\r", get_position());
+			printf("%.8f\r", get_position());
 			break;
 		case COMM_ENCODER_POSITION:
 			print_signature(command);
-			printf("%.6f\r", encoder_position_microsteps * step / MICROSTEPS);
+			printf("%.8f\r", encoder_position_microsteps * step / MICROSTEPS);
 			break;
 		case COMM_ENCODER_RAW:
 			print_signature(command);
@@ -350,11 +350,11 @@ void Axis::parse_command(uint16_t command, float value) {
 			printf("%d\r", DRIVER_ID);
 			break;
 		case COMM_SET_EMERGENCY_BUTTON:
-			emergency_button = (value != 0.0);
+			emergency_button = (value != 0.0l);
 			print_signature_endl(command);
 			break;
 		case COMM_SET_REVERSED:
-			reversed = (value != 0.0);
+			reversed = (value != 0.0l);
 			print_signature_endl(command);
 			break;
 		default:
@@ -362,7 +362,7 @@ void Axis::parse_command(uint16_t command, float value) {
 	}
 }
 
-float Axis::get_position(){
+double Axis::get_position(){
 	return real_position * step / MICROSTEPS;
 }
 
