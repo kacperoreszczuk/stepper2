@@ -4,11 +4,12 @@
 #define TIMER_CLOCK_FREQ 137500000
 #define NXT_TIME_PS_PER_SEC 1000000000000ll
 #define TICK_PERIOD_PS 6400000
-#define DRIVER_ID 152
+#define DRIVER_ID 151
 #define NO_OF_MOTORS 3
 
 static uint16_t const CONTROL_LOOP_FREQ = 500;
 static uint16_t const MICROSTEPS = 64;
+static float const MICROSTEPS_INV = 1.0f / MICROSTEPS;
 static float const DEFAULT_STEP = 0.005f;
 static float const DEFAULT_ACCELERATION_TIME_INV = 4.0f;  // 0.25s
 static float const DEFAULT_MAX_VELOCITY = 12.0f;

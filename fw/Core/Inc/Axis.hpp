@@ -94,11 +94,13 @@ public:
 	int32_t target_real_position;
 
 	/* encoder */
-	int32_t encoder_position_raw;  // in encoder counts
-	int32_t encoder_position_absolute;  // microsteps; independent of homing
-	int32_t encoder_homing_offset = 0;
-	int32_t encoder_position;  // relative to home zero point
+	int32_t encoder_position_raw_absolute;  // in encoder counts, independed of homing
+	int32_t encoder_position_raw;  // in encoder counts, offset from home
+	int32_t encoder_position_microsteps;  // relative to home zero point
+	int32_t encoder_homing_offset_raw;
 	int32_t encoder_ticks_per_million_steps;
+	float encoder_step;
+	float encoder_position;
 
 	/* motor velocity */
 	float target_velocity;

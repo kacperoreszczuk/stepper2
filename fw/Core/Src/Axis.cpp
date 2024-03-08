@@ -71,9 +71,7 @@ void Axis::init(uint8_t axis_id) {
 	motor_current = DEFAULT_MOTOR_CURRENT;
 	was_jogging = 0;
 
-	encoder_position_raw = 0;
-	encoder_position = 0;
-	encoder_ticks_per_million_steps = 1000000;
+	encoder_step = 0.005;
 
 	clock = 0;
 	goal = 0;
@@ -115,18 +113,19 @@ void Axis::control_loop() {
 //		status = STOPPED;
 //	}
 
-	uint16_t encoder_reading = __HAL_TIM_GET_COUNTER(htim_enc);
-	uint16_t encoder_reading_last = (uint16_t) encoder_position_raw;
-	int32_t encoder_position_raw_new = (encoder_position_raw & 0xffff0000) | encoder_reading;
+	uint16_t encoder_reading = (uint16_t)(-((int16_t)__HAL_TIM_GET_COUNTER(htim_enc)));
+	uint16_t encoder_reading_last = (uint16_t) encoder_position_raw_absolute;
+	int32_t encoder_position_raw_absolute_new = (encoder_position_raw_absolute & 0xffff0000) | encoder_reading;
 
 	if(encoder_reading > 0xC000 && encoder_reading_last < 0x4000)
-		encoder_position_raw_new -= 0x00010000;
+		encoder_position_raw_absolute_new -= 0x00010000;
 	if(encoder_reading < 0x4000 && encoder_reading_last > 0xC000)
-		encoder_position_raw_new += 0x00010000;
+		encoder_position_raw_absolute_new += 0x00010000;----
 
-	encoder_position_raw = encoder_position_raw_new;
-	encoder_position_absolute = encoder_position_raw * 1000000ll * MICROSTEPS / encoder_ticks_per_million_steps;
-	encoder_position = encoder_position_absolute - encoder_homing_offset;
+	encoder_position_raw_absolute = encoder_position_raw_absolute_new;
+	encoder_position_raw = encoder_position_raw_absolute - encoder_homing_offset_raw;
+	encoder_position_microsteps = encoder_position_raw * encoder_step / step * MICROSTEPS;
+	encoder_position = encoder_position_raw * encoder_step;
 
 	if (status == POSITION)
 	{
@@ -184,6 +183,7 @@ void Axis::control_loop() {
 				else
 					target_position = target_real_position + hysteresis_ticks;
 				__enable_irq();
+				encoder_homing_offset_raw = encoder_position_raw_absolute - float(current_position) * step / MICROSTEPS / encoder_step;
 			}
 		}
 	}
@@ -224,6 +224,7 @@ void Axis::parse_command(uint16_t command, float value) {
 				status = STOPPED;
 				current_position += -real_position + homing_offset * step_inv * MICROSTEPS;
 				real_position = homing_offset * step_inv * MICROSTEPS;
+				encoder_homing_offset_raw = encoder_position_raw_absolute;
 			}
 			else
 			{
@@ -308,7 +309,7 @@ void Axis::parse_command(uint16_t command, float value) {
 			break;
 		case COMM_ENCODER_POSITION:
 			print_signature(command);
-			printf("%.6f\r", encoder_position * step / MICROSTEPS);
+			printf("%.6f\r", encoder_position_microsteps * step / MICROSTEPS);
 			break;
 		case COMM_ENCODER_RAW:
 			print_signature(command);
@@ -316,7 +317,7 @@ void Axis::parse_command(uint16_t command, float value) {
 			break;
 		case COMM_ENCODER_STEP:
 			print_signature_endl(command);
-			encoder_ticks_per_million_steps = 1000000 * step / value;  // TODO make it permutable with step setting
+			encoder_step = value;
 			break;
 		case COMM_TELL_AXIS_COUNT:
 			print_signature(COMM_TELL_AXIS_COUNT);
