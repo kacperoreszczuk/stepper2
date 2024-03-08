@@ -151,8 +151,8 @@ module mount_tab(yyy) {
 module stlink_drill() {
     x = 42;
     depth = 9.5;
-    w = 6.5;
-    h = 4.5;
+    w = 7.5;
+    h = 4.0;
     translate([x, -pcb_margin - d / 2, d + thickness_below_pcb - depth])
         cube([w, 10, h], center=true);
 }
