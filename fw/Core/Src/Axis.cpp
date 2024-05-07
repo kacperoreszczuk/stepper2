@@ -347,7 +347,7 @@ void Axis::parse_command(uint16_t command, double value) {
 			break;
 		case COMM_ID:
 			print_signature(command);
-			printf("%d\r", DRIVER_ID);
+			printf("%s\r", DRIVER_ID);
 			break;
 		case COMM_SET_EMERGENCY_BUTTON:
 			emergency_button = (value != 0.0l);
