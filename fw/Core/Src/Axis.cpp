@@ -124,20 +124,20 @@ void Axis::control_loop() {
 
 	encoder_position_raw_absolute = encoder_position_raw_absolute_new;
 	encoder_position_raw = encoder_position_raw_absolute - encoder_homing_offset_raw;
+	if (reversed)
+		encoder_position_raw *= -1;
 	encoder_position_microsteps = encoder_position_raw * encoder_step / step * MICROSTEPS;
 	encoder_position = encoder_position_raw * encoder_step;
 
 	if (status == POSITION)
 	{
-		{
-			target_velocity = min(standard_velocity,
-				__builtin_sqrtf((float)(abs(current_position - target_position))
-								* 2 * standard_velocity * acceleration_time_inv * step * MICROSTEP_SIZE));
-			if (current_position > target_position)
-				target_velocity *= -1;
-			if (real_position == target_real_position)
-				status = STOPPED;
-		}
+		target_velocity = min(standard_velocity,
+			__builtin_sqrtf((float)(abs(current_position - target_position))
+							* 2 * standard_velocity * acceleration_time_inv * step * MICROSTEP_SIZE));
+		if (current_position > target_position)
+			target_velocity *= -1;
+		if (real_position == target_real_position)
+			status = STOPPED;
 	}
 	if (status == STOPPED)
 	{
@@ -183,7 +183,10 @@ void Axis::control_loop() {
 				else
 					target_position = target_real_position + hysteresis_ticks;
 				__enable_irq();
-				encoder_homing_offset_raw = encoder_position_raw_absolute - double(current_position) * step / MICROSTEPS / encoder_step;
+				if (reversed)
+    				encoder_homing_offset_raw = encoder_position_raw_absolute + double(current_position) * step / MICROSTEPS / encoder_step;
+				else
+    				encoder_homing_offset_raw = encoder_position_raw_absolute - double(current_position) * step / MICROSTEPS / encoder_step;
 			}
 		}
 	}
