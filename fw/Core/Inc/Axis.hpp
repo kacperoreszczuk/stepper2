@@ -193,16 +193,16 @@ inline void Axis::nxt_loop() {
 inline void Axis::limit_switch_loop() {
 	if (reversed)
 	{
-		limit_value_rear = LIMIT_OLD_FRACTION * (limit_value_rear >> LIMIT_POWER_2) +
+		limit_value_rear = (LIMIT_OLD_FRACTION * limit_value_rear) >> LIMIT_POWER_2 +
 				LIMIT_NEW_COMP * (!limit_active_state == !__GPIO_ReadPin(flimit_port, flimit_pin));
-		limit_value_front = LIMIT_OLD_FRACTION * (limit_value_front >> LIMIT_POWER_2) +
+		limit_value_front = (LIMIT_OLD_FRACTION * limit_value_front) >> LIMIT_POWER_2 +
 				LIMIT_NEW_COMP * (!limit_active_state == !__GPIO_ReadPin(rlimit_port, rlimit_pin));
 	}
 	else
 	{
-		limit_value_rear = LIMIT_OLD_FRACTION * (limit_value_rear >> LIMIT_POWER_2) +
+		limit_value_rear = (LIMIT_OLD_FRACTION * limit_value_rear) >> LIMIT_POWER_2 +
 				LIMIT_NEW_COMP * (limit_active_state == __GPIO_ReadPin(rlimit_port, rlimit_pin));
-		limit_value_front = LIMIT_OLD_FRACTION * (limit_value_front >> LIMIT_POWER_2) +
+		limit_value_front = (LIMIT_OLD_FRACTION * limit_value_front) >> LIMIT_POWER_2 +
 				LIMIT_NEW_COMP * (limit_active_state == __GPIO_ReadPin(flimit_port, flimit_pin));
 	}
 
