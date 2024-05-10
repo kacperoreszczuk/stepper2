@@ -67,8 +67,8 @@ void Axis::init(uint8_t axis_id) {
 	standard_velocity = DEFAULT_STANDARD_VELOCITY;
 	limit_value_front = 0.5l;
 	limit_value_rear = 0.5l;
-	limit_on_position = 0xffffffff;
-	limit_off_position = 0xffffffff;
+	limit_on_position = INT32_MAX;
+	limit_off_position = INT32_MAX;
 	motor_current = DEFAULT_MOTOR_CURRENT;
 	was_jogging = 0;
 
@@ -156,10 +156,10 @@ void Axis::control_loop() {
 	{
 		if (status == HOMING)
 		{
-			if ((uint32_t)limit_on_position != 0xffffffff || limit_state_home == 1)
+			if ((uint32_t)limit_on_position != INT32_MAX || limit_state_home == 1)
 			{
 				__disable_irq();
-				limit_off_position = 0xffffffff;
+				limit_off_position = INT32_MAX;
 				__enable_irq();
 				status = HOMING_2;
 				target_velocity = 0;
@@ -169,10 +169,11 @@ void Axis::control_loop() {
 		{
 			if (current_velocity == 0)
 			{
-				limit_off_position = 0xffffffff;
-				target_velocity = 0.1l * standard_velocity;
+				limit_off_position = INT32_MAX;
+				target_velocity = (homing_reversed ? -1 : 1) * 0.1l * standard_velocity;
+
 			}
-			else if (target_velocity != 0 && (uint32_t)limit_off_position != 0xffffffff)  // else to introduce one loop cycle delay
+			else if (target_velocity != 0 && (uint32_t)limit_off_position != INT32_MAX)  // else to introduce one loop cycle delay
 			{
 				__disable_irq();
 				status = POSITION;
@@ -230,13 +231,17 @@ void Axis::parse_command(uint16_t command, double value) {
 			else
 			{
 				__disable_irq();
-				limit_on_position = 0xffffffff;  // clear last limit switch positions
-				limit_off_position = 0xffffffff;
+				limit_on_position = INT32_MAX;  // clear last limit switch positions
+				limit_off_position = INT32_MAX;
 				limit_state_home_last = 0;
 				__enable_irq();
-				target_velocity = -standard_velocity; // convert to pulses per second
+				target_velocity = (homing_reversed ? -1 : 1) * (-standard_velocity);
 				status = HOMING;
 			}
+			print_signature_endl(command);
+			break;
+		case COMM_HOMING_REVERSED:
+			homing_reversed = (value != 0);
 			print_signature_endl(command);
 			break;
 		case COMM_MOVE_VELOCITY:
@@ -247,7 +252,6 @@ void Axis::parse_command(uint16_t command, double value) {
 				target_velocity = -max_velocity;
 			status = VELOCITY;
 			print_signature_endl(command);
-
 			break;
 		case COMM_SET_STEP:
 			step = value;

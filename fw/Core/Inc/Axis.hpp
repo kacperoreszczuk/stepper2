@@ -122,6 +122,7 @@ public:
 	double homing_offset;
 	uint8_t emergency_button;
 	uint8_t reversed;
+	uint8_t homing_reversed;
 	uint8_t clone_axis;
 	int16_t motor_current;  // in milliamperes
 
@@ -218,7 +219,10 @@ inline void Axis::limit_switch_loop() {
 		limit_state_front = 0;
 
 	limit_state_home_last = limit_state_home;
-	limit_state_home = limit_state_rear;
+	if (homing_reversed)
+		limit_state_home = limit_state_front;
+	else
+		limit_state_home = limit_state_rear;
 
 	if (limit_state_home_last && !limit_state_home) // limit switch just was deactivated
 		limit_off_position = current_position;
