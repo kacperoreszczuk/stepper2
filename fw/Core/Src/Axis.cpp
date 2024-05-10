@@ -156,7 +156,7 @@ void Axis::control_loop() {
 	{
 		if (status == HOMING)
 		{
-			if (limit_on_position != 0xffffffff || limit_state_home == 1)
+			if ((uint32_t)limit_on_position != 0xffffffff || limit_state_home == 1)
 			{
 				__disable_irq();
 				limit_off_position = 0xffffffff;
@@ -172,7 +172,7 @@ void Axis::control_loop() {
 				limit_off_position = 0xffffffff;
 				target_velocity = 0.1l * standard_velocity;
 			}
-			else if (target_velocity != 0 && limit_off_position != 0xffffffff)  // else to introduce one loop cycle delay
+			else if (target_velocity != 0 && (uint32_t)limit_off_position != 0xffffffff)  // else to introduce one loop cycle delay
 			{
 				__disable_irq();
 				status = POSITION;
