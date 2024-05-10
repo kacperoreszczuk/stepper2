@@ -15,7 +15,7 @@ uint16_t uart_current_count = 10;
 
 bool usb_uart_parse(uint8_t *axis, uint16_t *command_signature, double *value) {
 	static uint16_t i, length;
-	static uint8_t byte, id;
+	static uint8_t byte;
 
 	uart_current_count = (rx_buff_size - __HAL_DMA_GET_COUNTER(hdma_uart_usb_rx)) % rx_buff_size;
 
