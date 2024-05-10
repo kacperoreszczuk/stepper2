@@ -32,6 +32,7 @@ const uint16_t COMM_READ_LIMIT_SWITCH 		= 0x0100 * 'r' + 's';
 const uint16_t COMM_ID 						= 0x0100 * 'i' + 'd';
 const uint16_t COMM_SET_EMERGENCY_BUTTON 	= 0x0100 * 's' + 'e';
 const uint16_t COMM_SET_REVERSED 			= 0x0100 * 's' + 'r';
+const uint16_t COMM_HOMING_REVERSED 		= 0x0100 * 'h' + 'r';
 
 void print_signature_endl(uint16_t command_signature);
 void print_signature(uint16_t command_signature);
@@ -193,16 +194,16 @@ inline void Axis::nxt_loop() {
 inline void Axis::limit_switch_loop() {
 	if (reversed)
 	{
-		limit_value_rear = (LIMIT_OLD_FRACTION * limit_value_rear) >> LIMIT_POWER_2 +
+		limit_value_rear = ((LIMIT_OLD_FRACTION * limit_value_rear) >> LIMIT_POWER_2) +
 				LIMIT_NEW_COMP * (!limit_active_state == !__GPIO_ReadPin(flimit_port, flimit_pin));
-		limit_value_front = (LIMIT_OLD_FRACTION * limit_value_front) >> LIMIT_POWER_2 +
+		limit_value_front = ((LIMIT_OLD_FRACTION * limit_value_front) >> LIMIT_POWER_2) +
 				LIMIT_NEW_COMP * (!limit_active_state == !__GPIO_ReadPin(rlimit_port, rlimit_pin));
 	}
 	else
 	{
-		limit_value_rear = (LIMIT_OLD_FRACTION * limit_value_rear) >> LIMIT_POWER_2 +
+		limit_value_rear = ((LIMIT_OLD_FRACTION * limit_value_rear) >> LIMIT_POWER_2) +
 				LIMIT_NEW_COMP * (limit_active_state == __GPIO_ReadPin(rlimit_port, rlimit_pin));
-		limit_value_front = (LIMIT_OLD_FRACTION * limit_value_front) >> LIMIT_POWER_2 +
+		limit_value_front = ((LIMIT_OLD_FRACTION * limit_value_front) >> LIMIT_POWER_2) +
 				LIMIT_NEW_COMP * (limit_active_state == __GPIO_ReadPin(flimit_port, flimit_pin));
 	}
 

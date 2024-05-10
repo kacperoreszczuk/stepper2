@@ -12,7 +12,6 @@
 void Axis::init(uint8_t axis_id) {
 
 	UART_HandleTypeDef *huart_tmc;
-	uint32_t pwm_channel;
 
 	switch (axis_id) {
 	case 0:
@@ -30,6 +29,8 @@ void Axis::init(uint8_t axis_id) {
 		htim_enc = htim_enc3;
 //		htim_nxt = htim_nxt3;
 		break;
+	default:
+		return;
 	}
 	init_tmc(huart_tmc, MOTOR_CURRENT_Channel[axis_id]);
 
@@ -88,7 +89,6 @@ void Axis::init(uint8_t axis_id) {
 void Axis::control_loop() {
 	int64_t new_goal;
 	uint8_t new_dir;
-	uint8_t id;
 
 	int8_t jog = 0;
 	if (!HAL_GPIO_ReadPin(fjog_port, fjog_pin))
@@ -119,8 +119,9 @@ void Axis::control_loop() {
 
 	if(encoder_reading > 0xC000 && encoder_reading_last < 0x4000)
 		encoder_position_raw_absolute_new -= 0x00010000;
+
 	if(encoder_reading < 0x4000 && encoder_reading_last > 0xC000)
-		encoder_position_raw_absolute_new += 0x00010000;----
+		encoder_position_raw_absolute_new += 0x00010000;
 
 	encoder_position_raw_absolute = encoder_position_raw_absolute_new;
 	encoder_position_raw = encoder_position_raw_absolute - encoder_homing_offset_raw;
@@ -216,9 +217,6 @@ void Axis::control_loop() {
 
 
 void Axis::parse_command(uint16_t command, double value) {
-
-	static uint8_t result_u8, j;
-
 	switch(command)
 	{
 		case COMM_HOME:
