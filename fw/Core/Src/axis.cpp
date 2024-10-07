@@ -12,28 +12,25 @@
 
 void Axis::init(uint8_t axis_id) {
 
-	UART_HandleTypeDef *huart_tmc;
+	Serial *serial_tmc;
 
 	switch (axis_id) {
 	case 0:
-		huart_tmc = huart_tmc1;
+		serial_tmc = &serial_tmc1;
 		htim_enc = htim_enc1;
-//		htim_nxt = htim_nxt1;
 		break;
 	case 1:
-		huart_tmc = huart_tmc2;
+		serial_tmc = &serial_tmc2;
 		htim_enc = htim_enc2;
-//		htim_nxt = htim_nxt2;
 		break;
 	case 2:
-		huart_tmc = huart_tmc3;
+		serial_tmc = &serial_tmc3;
 		htim_enc = htim_enc3;
-//		htim_nxt = htim_nxt3;
 		break;
 	default:
 		return;
 	}
-	init_tmc(huart_tmc, MOTOR_CURRENT_Channel[axis_id]);
+	init_tmc(serial_tmc, MOTOR_CURRENT_Channel[axis_id]);
 
 	id = axis_id;
 

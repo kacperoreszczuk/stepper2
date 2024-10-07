@@ -33,6 +33,9 @@ public:
 };
 
 extern Serial serial_pc;
+extern Serial serial_tmc1;
+extern Serial serial_tmc2;
+extern Serial serial_tmc3;
 
 
 #endif // SERIAL_HPP

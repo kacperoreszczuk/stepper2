@@ -7,7 +7,10 @@
 #include "serial.hpp"
 
 
-Serial serial_pc = Serial(huart_usb, hdma_uart_usb_rx);
+Serial serial_pc = Serial(huart_pc, hdma_uart_pc_rx);
+Serial serial_tmc1 = Serial(huart_tmc1, hdma_uart_tmc1_rx);
+Serial serial_tmc2 = Serial(huart_tmc2, hdma_uart_tmc2_rx);
+Serial serial_tmc3 = Serial(huart_tmc3, hdma_uart_tmc3_rx);
 
 
 // Constructor

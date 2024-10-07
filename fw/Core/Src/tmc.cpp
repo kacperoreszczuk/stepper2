@@ -4,12 +4,8 @@
 #include "main.h"
 
 
-Tmc::Tmc(UART_HandleTypeDef* tmc_uart_handle, uint32_t motor_current_pwm_channel) {
-	init_tmc(tmc_uart_handle, motor_current_pwm_channel);
-};
-
-void Tmc::init_tmc(UART_HandleTypeDef* tmc_uart_handle, uint32_t motor_current_pwm_channel) {
-	uart_handle = tmc_uart_handle;
+void Tmc::init_tmc(Serial *serial_port, uint32_t motor_current_pwm_channel) {
+	serial = serial_port;
 	pwm_channel = motor_current_pwm_channel;
 	HAL_TIM_PWM_Start(htim_tmc_vref, pwm_channel);
 	write_conf_default();
@@ -46,8 +42,9 @@ void Tmc::write_reg_driver(uint8_t reg, uint32_t data)
 	buffer[5] = data >> 8;
 	buffer[6] = data;
 	calc_crc(buffer, 8);
-	for (uint8_t i = 0; i < 8; i++)
-        HAL_UART_Transmit(uart_handle, buffer + i, 1, 500);
+	for (uint8_t i = 0; i < 8; i++) {
+        serial->printf("%c", buffer[i]);
+	}
 	return;
 }
 
@@ -111,8 +108,6 @@ void Tmc::set_current(uint16_t current)
 	if(current > htim_tmc_vref->Instance->ARR){  // 1.35 * sqrt(2) * 3.3/2.5 = 2520
 		current = htim_tmc_vref->Instance->ARR;  // cap to 100%
 	}
-	write_half_current(0);
-	write_half_current(1);
 	if (current < 350)
 	{
 		write_half_current(1);

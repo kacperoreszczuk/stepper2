@@ -17,14 +17,11 @@
 #define __GPIO_ReadPin(port, pin) ((port->IDR & pin) != 0x00U)
 
 extern TIM_HandleTypeDef htim1;
-//extern TIM_HandleTypeDef htim2;
 extern TIM_HandleTypeDef htim3;
 extern TIM_HandleTypeDef htim4;
-//extern TIM_HandleTypeDef htim5;
 extern TIM_HandleTypeDef htim6;
 extern TIM_HandleTypeDef htim7;
 extern TIM_HandleTypeDef htim8;
-//extern TIM_HandleTypeDef htim23;
 extern TIM_HandleTypeDef htim24;
 
 extern UART_HandleTypeDef huart4;
@@ -34,14 +31,20 @@ extern UART_HandleTypeDef huart9;
 extern UART_HandleTypeDef huart2;
 extern UART_HandleTypeDef huart3;
 extern DMA_HandleTypeDef hdma_usart2_rx;
+extern DMA_HandleTypeDef hdma_uart4_rx;
+extern DMA_HandleTypeDef hdma_uart5_rx;
+extern DMA_HandleTypeDef hdma_uart9_rx;
 
-[[maybe_unused]] static UART_HandleTypeDef *huart_usb = &huart2;
-[[maybe_unused]] static DMA_HandleTypeDef *hdma_uart_usb_rx = &hdma_usart2_rx;
+[[maybe_unused]] static UART_HandleTypeDef *huart_pc = &huart2;
+[[maybe_unused]] static DMA_HandleTypeDef *hdma_uart_pc_rx = &hdma_usart2_rx;
 [[maybe_unused]] static UART_HandleTypeDef *huart_stlink = &huart3;
 [[maybe_unused]] static UART_HandleTypeDef *huart_expansion = &huart7;
 [[maybe_unused]] static UART_HandleTypeDef *huart_tmc1 = &huart9;
+[[maybe_unused]] static DMA_HandleTypeDef *hdma_uart_tmc1_rx = &hdma_uart9_rx;
 [[maybe_unused]] static UART_HandleTypeDef *huart_tmc2 = &huart5;
+[[maybe_unused]] static DMA_HandleTypeDef *hdma_uart_tmc2_rx = &hdma_uart5_rx;
 [[maybe_unused]] static UART_HandleTypeDef *huart_tmc3 = &huart4;
+[[maybe_unused]] static DMA_HandleTypeDef *hdma_uart_tmc3_rx = &hdma_uart4_rx;
 
 [[maybe_unused]] static TIM_HandleTypeDef *htim_tmc_vref = &htim1;
 [[maybe_unused]] static TIM_HandleTypeDef *htim_micros = &htim24;
@@ -50,9 +53,6 @@ extern DMA_HandleTypeDef hdma_usart2_rx;
 [[maybe_unused]] static TIM_HandleTypeDef *htim_enc1 = &htim4;
 [[maybe_unused]] static TIM_HandleTypeDef *htim_enc2 = &htim3;
 [[maybe_unused]] static TIM_HandleTypeDef *htim_enc3 = &htim8;
-//[[maybe_unused]] static TIM_HandleTypeDef *htim_nxt1 = &htim5;
-//[[maybe_unused]] static TIM_HandleTypeDef *htim_nxt2 = &htim23;
-//[[maybe_unused]] static TIM_HandleTypeDef *htim_nxt3 = &htim2;
 
 
 static GPIO_TypeDef* const NXT_Port[] = {NXT1_GPIO_Port, NXT2_GPIO_Port, NXT3_GPIO_Port};
