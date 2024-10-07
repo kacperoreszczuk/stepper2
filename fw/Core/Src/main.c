@@ -23,6 +23,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
+#include "usr_main.hpp"
 #include "handles.hpp"
 /* USER CODE END Includes */
 
@@ -172,7 +173,7 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  usrMain();
+  usr_main();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

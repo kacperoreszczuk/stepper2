@@ -1,12 +1,13 @@
-#include "Axis.hpp"
+#include "serial.hpp"
+#include "axis.hpp"
 #include "handles.hpp"
 #include "main.h"
 #include "defaults.hpp"
-#include "uart_printf.h"
 
 
 #define min(a,b) (((a)<(b))?(a):(b))
 #define max(a,b) (((a)>(b))?(a):(b))
+
 
 
 void Axis::init(uint8_t axis_id) {
@@ -217,7 +218,7 @@ void Axis::control_loop() {
 }
 
 
-void Axis::parse_command(uint16_t command, double value) {
+void Axis::execute_command(uint16_t command, double value) {
 	switch(command)
 	{
 		case COMM_HOME:
@@ -310,15 +311,15 @@ void Axis::parse_command(uint16_t command, double value) {
 			break;
 		case COMM_TELL_POSITION:
 			print_signature(command);
-			printf("%.8f\r", get_position());
+			serial_pc.printf("%.8f\r", get_position());
 			break;
 		case COMM_ENCODER_POSITION:
 			print_signature(command);
-			printf("%.8f\r", encoder_position_microsteps * step / MICROSTEPS);
+			serial_pc.printf("%.8f\r", encoder_position_microsteps * step / MICROSTEPS);
 			break;
 		case COMM_ENCODER_RAW:
 			print_signature(command);
-			printf("%ld\r", encoder_position_raw);
+			serial_pc.printf("%ld\r", encoder_position_raw);
 			break;
 		case COMM_ENCODER_STEP:
 			print_signature_endl(command);
@@ -326,7 +327,7 @@ void Axis::parse_command(uint16_t command, double value) {
 			break;
 		case COMM_TELL_AXIS_COUNT:
 			print_signature(COMM_TELL_AXIS_COUNT);
-			printf("%d\r", NO_OF_MOTORS);
+			serial_pc.printf("%d\r", NO_OF_MOTORS);
 			break;
 		case COMM_SET_CURRENT:
 			value = max(0, min(2000, value));
@@ -342,17 +343,17 @@ void Axis::parse_command(uint16_t command, double value) {
 			break;
 		case COMM_TELL_AXIS_STATUS:
 			print_signature(COMM_TELL_AXIS_STATUS);
-			printf("%d\r", get_status());
+			serial_pc.printf("%d\r", get_status());
 			break;
 		case COMM_READ_LIMIT_SWITCH:
 			print_signature(COMM_READ_LIMIT_SWITCH);
-			printf("F%d R%d\r",
+			serial_pc.printf("F%d R%d\r",
 							HAL_GPIO_ReadPin(flimit_port, flimit_pin),
 							HAL_GPIO_ReadPin(rlimit_port, flimit_pin));
 			break;
 		case COMM_ID:
 			print_signature(command);
-			printf("%s\r", DRIVER_ID);
+			serial_pc.printf("%s\r", DRIVER_ID);
 			break;
 		case COMM_SET_EMERGENCY_BUTTON:
 			emergency_button = (value != 0.0l);
@@ -363,7 +364,7 @@ void Axis::parse_command(uint16_t command, double value) {
 			print_signature_endl(command);
 			break;
 		default:
-			printf("?\r");
+			serial_pc.printf("?\r");
 	}
 }
 
@@ -399,12 +400,12 @@ void Axis::set_limit_type(uint8_t limit_type){
 
 
 void print_signature(uint16_t command_signature) {
-	printf("%c%c", (char)(command_signature >> 8), (char)(command_signature));
+	serial_pc.printf("%c%c", (char)(command_signature >> 8), (char)(command_signature));
 	return;
 }
 
 void print_signature_endl(uint16_t command_signature) {
-	printf("%c%c\r", (char)(command_signature >> 8), (char)(command_signature));
+	serial_pc.printf("%c%c\r", (char)(command_signature >> 8), (char)(command_signature));
 	return;
 }
 

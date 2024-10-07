@@ -19,7 +19,7 @@ void control_loop();
 void save_state_to_backup_ram();
 void load_state_from_backup_ram();
 
-int usrMain();
+int usr_main();
 
 #ifdef __cplusplus
 }

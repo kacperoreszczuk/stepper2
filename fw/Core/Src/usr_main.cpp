@@ -1,13 +1,12 @@
-#include <uart_printf.h>
 #include "handles.hpp"
-#include "usrMain.hpp"
+#include "usr_main.hpp"
 #include "stdio.h"
 #include "stdlib.h"
 #include "math.h"
 #include "main.h"
 #include "tmc.hpp"
 #include "axis.hpp"
-#include "usb_uart_parser.hpp"
+#include "serial.hpp"
 
 Axis axis0 = Axis();
 Axis axis1 = Axis();
@@ -18,27 +17,27 @@ void control_loop() {
 	uint8_t axis;
 	uint16_t message_id;
 	double value;
-	while (usb_uart_parse(&axis, &message_id, &value)) {
+	while (serial_pc.parse_command(&axis, &message_id, &value)) {
 		if (message_id == 0)
-			printf("?\r");
+			serial_pc.printf("?\r");
 		else if (message_id == COMM_TELL_ALL) {
 			print_signature(COMM_TELL_ALL);
-			printf("%.8f ", axis0.get_position());
-			printf("%.8f ", axis1.get_position());
-			printf("%.8f ", axis2.get_position());
-			printf("%d", axis0.get_status());
-			printf("%d", axis1.get_status());
-			printf("%d", axis2.get_status());
-			printf("\r");
+			serial_pc.printf("%.8f ", axis0.get_position());
+			serial_pc.printf("%.8f ", axis1.get_position());
+			serial_pc.printf("%.8f ", axis2.get_position());
+			serial_pc.printf("%d", axis0.get_status());
+			serial_pc.printf("%d", axis1.get_status());
+			serial_pc.printf("%d", axis2.get_status());
+			serial_pc.printf("\r");
 			break;
 		}
 		else {
 			if (axis == 0)
-				axis0.parse_command(message_id, value);
+				axis0.execute_command(message_id, value);
 			if (axis == 1)
-				axis1.parse_command(message_id, value);
+				axis1.execute_command(message_id, value);
 			if (axis == 2)
-				axis2.parse_command(message_id, value);
+				axis2.execute_command(message_id, value);
 		}
 	}
 
@@ -67,11 +66,9 @@ inline void nxt_loop() {
 	}
 }
 
-extern "C" int usrMain()
+extern "C" int usr_main()
 {
 	setbuf(stdout, NULL);
-
-
 
     axis0.init(0);
     axis1.init(1);
@@ -84,29 +81,32 @@ extern "C" int usrMain()
 
     HAL_TIM_Base_Start_IT(htim_tmc_vref);
     HAL_TIM_Base_Start_IT(htim_control_loop);
-    usb_uart_init();
+    serial_pc.init();
 
-//    axis0.parse_command(COMM_SET_STEP, 64);
-//    axis0.parse_command(COMM_SET_CURRENT, 600);
-//    axis0.parse_command(COMM_SET_MAX_VELOCITY, 1000000);
-//    axis0.parse_command(COMM_SET_VELOCITY, 1000000);
-//    axis0.parse_command(COMM_MOVE_VELOCITY, 0.24);
-//    axis0.goal = 1000000;
-////    axis0.dir = 1;
-//    axis1.parse_command(COMM_SET_STEP, 64);
-//    axis1.parse_command(COMM_SET_CURRENT, 150);+
-//    axis1.parse_command(COMM_SET_MAX_VELOCITY, 1000000);
-//    axis1.parse_command(COMM_SET_VELOCITY, 1000000);
-//    axis1.parse_command(COMM_MOVE_VELOCITY, 500000);
-//    axis1.goal = 1000000;
-////    axis1.dir = 1;
-//    axis2.parse_command(COMM_SET_STEP, 0.005);
-//    axis2.parse_command(COMM_SET_CURRENT, 1200);
-//    axis2.parse_command(COMM_SET_MAX_VELOCITY, 20);
-//    axis2.parse_command(COMM_SET_VELOCITY, 1);
-//    axis2.parse_command(COMM_MOVE_VELOCITY, 1);
-//    axis2.goal = 1000000;
-//    axis2.dir = 1;
+	axis0.execute_command(COMM_SET_STEP, 64);
+	axis0.execute_command(COMM_SET_CURRENT, 600);
+	axis0.execute_command(COMM_SET_MAX_VELOCITY, 1000000);
+	axis0.execute_command(COMM_SET_VELOCITY, 1000000);
+	axis0.execute_command(COMM_MOVE_VELOCITY, 0.24);
+	// axis1.execute_command(COMM_TELL_POSITION, 0);
+	axis0.goal = 1000000;
+	axis0.dir = 1;
+	axis1.execute_command(COMM_SET_STEP, 64);
+	axis1.execute_command(COMM_SET_CURRENT, 150);
+	axis1.execute_command(COMM_SET_MAX_VELOCITY, 1000000);
+	axis1.execute_command(COMM_SET_VELOCITY, 1000000);
+	axis1.execute_command(COMM_MOVE_VELOCITY, 500000);
+	// axis1.execute_command(COMM_TELL_POSITION, 0);
+	axis1.goal = 1000000;
+	axis1.dir = 1;
+	axis2.execute_command(COMM_SET_STEP, 0.005);
+	axis2.execute_command(COMM_SET_CURRENT, 1200);
+	axis2.execute_command(COMM_SET_MAX_VELOCITY, 20);
+	axis2.execute_command(COMM_SET_VELOCITY, 1);
+	axis2.execute_command(COMM_MOVE_VELOCITY, 1);
+	// axis2.execute_command(COMM_TELL_POSITION, 0);
+	axis2.goal = 1000000;
+	axis2.dir = 1;
 
     HAL_TIM_Base_Start_IT(htim_nxt_loop);
 

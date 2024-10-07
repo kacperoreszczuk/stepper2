@@ -1,7 +1,7 @@
+#include <serial.hpp>
 #include "tmc.hpp"
 #include "handles.hpp"
 #include "main.h"
-#include "uart_printf.h"
 
 
 Tmc::Tmc(UART_HandleTypeDef* tmc_uart_handle, uint32_t motor_current_pwm_channel) {
