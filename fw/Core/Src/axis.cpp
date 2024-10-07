@@ -3,7 +3,7 @@
 #include "handles.hpp"
 #include "main.h"
 #include "defaults.hpp"
-
+#include "irq_lock.hpp"
 
 #define min(a,b) (((a)<(b))?(a):(b))
 #define max(a,b) (((a)>(b))?(a):(b))
@@ -156,9 +156,7 @@ void Axis::control_loop() {
 		{
 			if ((uint32_t)limit_on_position != INT32_MAX || limit_state_home == 1)
 			{
-				__disable_irq();
 				limit_off_position = INT32_MAX;
-				__enable_irq();
 				status = HOMING_2;
 				target_velocity = 0;
 			}
@@ -173,16 +171,17 @@ void Axis::control_loop() {
 			}
 			else if (target_velocity != 0 && (uint32_t)limit_off_position != INT32_MAX)  // else to introduce one loop cycle delay
 			{
-				__disable_irq();
-				status = POSITION;
-				real_position += -limit_off_position + homing_offset * step_inv * MICROSTEPS;
-				current_position = real_position + hysteresis_ticks;
-				target_real_position = 0;
-				if(target_real_position < real_position)
-					target_position = target_real_position;
-				else
-					target_position = target_real_position + hysteresis_ticks;
-				__enable_irq();
+				{
+					IrqLock lock;
+					status = POSITION;
+					real_position += -limit_off_position + homing_offset * step_inv * MICROSTEPS;
+					current_position = real_position + hysteresis_ticks;
+					target_real_position = 0;
+					if(target_real_position < real_position)
+						target_position = target_real_position;
+					else
+						target_position = target_real_position + hysteresis_ticks;
+				}
 				if (reversed)
     				encoder_homing_offset_raw = encoder_position_raw_absolute + double(current_position) * step / MICROSTEPS / encoder_step;
 				else
@@ -203,15 +202,17 @@ void Axis::control_loop() {
 	}
 
 	value = NXT_TIME_PS_PER_SEC / value;
-	if (value > 1e18)
+	if (value > 1e18) {
 		new_goal = 0;
-	else
+	} else {
 		new_goal = value;
-//	}
-	__disable_irq();
-	goal = new_goal;
-	dir = new_dir;
-	__enable_irq();
+	}
+
+	{
+		IrqLock lock;
+		goal = new_goal;
+		dir = new_dir;
+	}
 }
 
 
@@ -228,11 +229,12 @@ void Axis::execute_command(uint16_t command, double value) {
 			}
 			else
 			{
-				__disable_irq();
-				limit_on_position = INT32_MAX;  // clear last limit switch positions
-				limit_off_position = INT32_MAX;
-				limit_state_home_last = 0;
-				__enable_irq();
+				{
+					IrqLock lock;
+					limit_on_position = INT32_MAX;  // clear last limit switch positions
+					limit_off_position = INT32_MAX;
+					limit_state_home_last = 0;
+				}
 				target_velocity = (homing_reversed ? -1 : 1) * (-standard_velocity);
 				status = HOMING;
 			}
@@ -274,10 +276,6 @@ void Axis::execute_command(uint16_t command, double value) {
 			homing_offset = value;
 			print_signature_endl(command);
 			break;
-		case COMM_CLONE_AXIS:  // undocumented feature, clones NXT pin of given axis to EIO pin
-			clone_axis = 1;
-			print_signature_endl(command);
-			break;
 		case COMM_SET_LIMIT_TYPE:
 			// 0 - no switch, 1 - active switch (high-active) 2 - active shorted,
 			// 3 - active disconnected, 4,5 - like 2,3, but only for homing
@@ -308,15 +306,15 @@ void Axis::execute_command(uint16_t command, double value) {
 			break;
 		case COMM_TELL_POSITION:
 			print_signature(command);
-			serial_pc.printf("%.8f\r", get_position());
+			serial_pc.print("%.8f\r", get_position());
 			break;
 		case COMM_ENCODER_POSITION:
 			print_signature(command);
-			serial_pc.printf("%.8f\r", encoder_position_microsteps * step / MICROSTEPS);
+			serial_pc.print("%.8f\r", encoder_position_microsteps * step / MICROSTEPS);
 			break;
 		case COMM_ENCODER_RAW:
 			print_signature(command);
-			serial_pc.printf("%ld\r", encoder_position_raw);
+			serial_pc.print("%ld\r", encoder_position_raw);
 			break;
 		case COMM_ENCODER_STEP:
 			print_signature_endl(command);
@@ -324,7 +322,7 @@ void Axis::execute_command(uint16_t command, double value) {
 			break;
 		case COMM_TELL_AXIS_COUNT:
 			print_signature(COMM_TELL_AXIS_COUNT);
-			serial_pc.printf("%d\r", NO_OF_MOTORS);
+			serial_pc.print("%d\r", NO_OF_MOTORS);
 			break;
 		case COMM_SET_CURRENT:
 			value = max(0, min(2000, value));
@@ -340,17 +338,17 @@ void Axis::execute_command(uint16_t command, double value) {
 			break;
 		case COMM_TELL_AXIS_STATUS:
 			print_signature(COMM_TELL_AXIS_STATUS);
-			serial_pc.printf("%d\r", get_status());
+			serial_pc.print("%d\r", get_status());
 			break;
 		case COMM_READ_LIMIT_SWITCH:
 			print_signature(COMM_READ_LIMIT_SWITCH);
-			serial_pc.printf("F%d R%d\r",
+			serial_pc.print("F%d R%d\r",
 							HAL_GPIO_ReadPin(flimit_port, flimit_pin),
 							HAL_GPIO_ReadPin(rlimit_port, flimit_pin));
 			break;
 		case COMM_ID:
 			print_signature(command);
-			serial_pc.printf("%s\r", DRIVER_ID);
+			serial_pc.print("%s\r", DRIVER_ID);
 			break;
 		case COMM_SET_EMERGENCY_BUTTON:
 			emergency_button = (value != 0.0l);
@@ -360,8 +358,20 @@ void Axis::execute_command(uint16_t command, double value) {
 			reversed = (value != 0.0l);
 			print_signature_endl(command);
 			break;
+		case COMM_DRIVER_STATUS:
+			print_signature(command);
+			serial_pc.print("0x%X\r", read_tmc_status_blocking());
+			break;
+		case COMM_DRIVER_RESET:
+			tmc_en_cycle();
+			print_signature_endl(command);
+			break;
+		case COMM_TELL_TIME:
+			print_signature(command);
+			serial_pc.print("%.6f\r", micros() / 1.0e6);
+			break;
 		default:
-			serial_pc.printf("?\r");
+			serial_pc.print("?\r");
 	}
 }
 
@@ -395,82 +405,20 @@ void Axis::set_limit_type(uint8_t limit_type){
 	HAL_GPIO_Init(rlimit_port, &GPIO_InitStruct);
 }
 
+void Axis::tmc_en_cycle(){
+	HAL_GPIO_WritePin(en_port, en_pin, GPIO_PIN_SET);
+	int64_t t_end = micros() + 2;
+	while (micros() < t_end) {}  // wait between 1 and 2us
+	HAL_GPIO_WritePin(en_port, en_pin, GPIO_PIN_RESET);
+}
 
 void print_signature(uint16_t command_signature) {
-	serial_pc.printf("%c%c", (char)(command_signature >> 8), (char)(command_signature));
+	serial_pc.print("%c%c", (char)(command_signature >> 8), (char)(command_signature));
 	return;
 }
 
 void print_signature_endl(uint16_t command_signature) {
-	serial_pc.printf("%c%c\r", (char)(command_signature >> 8), (char)(command_signature));
+	serial_pc.print("%c%c\r", (char)(command_signature >> 8), (char)(command_signature));
 	return;
 }
 
-
-
-
-/*
- * #define NXT_SUPERRESOLUTION_FACTOR 10
-#define LOWEST_NXT_PERIOD 550  // 250 kHz, fastest possible switching speed
-#define IDLE_NXT_PERIOD 55000  // 2.5 kHz, idle time delay if NXT tick must be further in time than MAX_NXT_PERIOD
- *
- *
- *
- *
- * last_dir = dir;
-
-	// explicitly call the content of:
-	//HAL_GPIO_WritePin(dir_port, dir_pin, (GPIO_PinState)(reversed != last_dir));
-	if (reversed != last_dir)
-		dir_port->BSRR = dir_pin;
-	else
-		dir_port->BSRR = (uint32_t)dir_pin << 16U;
-
-	uint32_t duration;
-	bool active = false;
-
-	if (goal == 0) {
-		clock = 0;
-		duration = IDLE_NXT_PERIOD;
-	}
-	else if (clock > goal) {
-		duration = LOWEST_NXT_PERIOD;
-	}
-	else {
-		duration = (goal - clock) / NXT_SUPERRESOLUTION_FACTOR + 1;
-		if (duration < LOWEST_NXT_PERIOD)
-			duration = LOWEST_NXT_PERIOD;
-	}
-
-	clock += duration * NXT_SUPERRESOLUTION_FACTOR;
-	if (clock > goal) {
-		clock %= goal;
-		active = true;
-	} else {
-		active = false;
-	}
-
-	if (status == STOPPED ||
-		status == POSITION && (current_position - target_position == 0) ||
-		limit_state_rear && last_dir && limit_enabled ||
-		limit_state_front && !last_dir && limit_enabled)
-		active = false;
-
-	if (active) {
-		if (last_dir) {
-			current_position--;
-			if(current_position < real_position)
-				real_position = current_position;
-		} else {
-			current_position++;
-			if(current_position - hysteresis_ticks > real_position)
-				real_position = current_position - hysteresis_ticks;
-		}
-	}
-
-	htim_nxt->Instance->ARR = duration - 1;
-	if (active)
-		__HAL_TIM_SET_COMPARE(htim_nxt, TIM_CHANNEL_1, duration / 2);  // rising slope after half period
-	else
-		__HAL_TIM_SET_COMPARE(htim_nxt, TIM_CHANNEL_1, duration + 1);  // no rising slope
- */

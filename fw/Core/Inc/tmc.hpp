@@ -11,12 +11,16 @@ public:
 	void write_conf_default();
 	void set_current(uint16_t current);
 
+	void request_status();
+	uint32_t read_tmc_status_blocking();
+	bool check_on_status(uint32_t *status);
+
 private:
 	Serial *serial;
 	uint32_t pwm_channel;
 	uint16_t last_current;
 	void calc_crc(uint8_t *datagram, uint8_t datagramLength);
-	void write_reg_driver(uint8_t reg, uint32_t data);
+	void write_reg(uint8_t reg, uint32_t data);
 	void write_half_current(uint8_t is_half);
 
 protected:

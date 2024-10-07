@@ -19,16 +19,16 @@ void control_loop() {
 	double value;
 	while (serial_pc.parse_command(&axis, &message_id, &value)) {
 		if (message_id == 0)
-			serial_pc.printf("?\r");
+			serial_pc.print("?\r");
 		else if (message_id == COMM_TELL_ALL) {
 			print_signature(COMM_TELL_ALL);
-			serial_pc.printf("%.8f ", axis0.get_position());
-			serial_pc.printf("%.8f ", axis1.get_position());
-			serial_pc.printf("%.8f ", axis2.get_position());
-			serial_pc.printf("%d", axis0.get_status());
-			serial_pc.printf("%d", axis1.get_status());
-			serial_pc.printf("%d", axis2.get_status());
-			serial_pc.printf("\r");
+			serial_pc.print("%.8f ", axis0.get_position());
+			serial_pc.print("%.8f ", axis1.get_position());
+			serial_pc.print("%.8f ", axis2.get_position());
+			serial_pc.print("%d", axis0.get_status());
+			serial_pc.print("%d", axis1.get_status());
+			serial_pc.print("%d", axis2.get_status());
+			serial_pc.print("\r");
 			break;
 		}
 		else {
@@ -68,7 +68,7 @@ inline void nxt_loop() {
 
 extern "C" int usr_main()
 {
-	setbuf(stdout, NULL);
+	us_timer_init();
 
     serial_pc.init();
     serial_tmc1.init();
@@ -86,11 +86,6 @@ extern "C" int usr_main()
 
     HAL_TIM_Base_Start_IT(htim_tmc_vref);
     HAL_TIM_Base_Start_IT(htim_control_loop);
-
-	// axis1.execute_command(COMM_TELL_POSITION, 0);
-	// axis1.execute_command(COMM_TELL_POSITION, 0);
-	// axis2.execute_command(COMM_TELL_POSITION, 0);
-
     HAL_TIM_Base_Start_IT(htim_nxt_loop);
 
 	int i = 0;
@@ -101,7 +96,6 @@ extern "C" int usr_main()
     	HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, (GPIO_PinState)((i + 2) / 3 % 2));
     	HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, (GPIO_PinState)((i + 3) / 3 % 2));
     	HAL_Delay(550);
-//    	axis2.set_current(1200);
     }
     
     return 0;

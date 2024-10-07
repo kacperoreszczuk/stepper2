@@ -15,7 +15,6 @@ const uint16_t COMM_SET_VELOCITY 			= 0x0100 * 's' + 'v';
 const uint16_t COMM_SET_MAX_VELOCITY 		= 0x0100 * 's' + 'm';
 const uint16_t COMM_SET_ACCELERATION_TIME 	= 0x0100 * 's' + 'a';
 const uint16_t COMM_SET_HOMING_OFFSET 		= 0x0100 * 's' + 'o';
-const uint16_t COMM_CLONE_AXIS 				= 0x0100 * 'c' + 'a';
 const uint16_t COMM_SET_LIMIT_TYPE 			= 0x0100 * 's' + 'l';
 const uint16_t COMM_MOVE_ABSOLUTE 			= 0x0100 * 'm' + 'a';
 const uint16_t COMM_MOVE_RELATIVE 			= 0x0100 * 'm' + 'r';
@@ -33,6 +32,9 @@ const uint16_t COMM_ID 						= 0x0100 * 'i' + 'd';
 const uint16_t COMM_SET_EMERGENCY_BUTTON 	= 0x0100 * 's' + 'e';
 const uint16_t COMM_SET_REVERSED 			= 0x0100 * 's' + 'r';
 const uint16_t COMM_HOMING_REVERSED 		= 0x0100 * 'h' + 'r';
+const uint16_t COMM_DRIVER_STATUS	 		= 0x0100 * 'd' + 's';
+const uint16_t COMM_DRIVER_RESET	 		= 0x0100 * 'd' + 'r';
+const uint16_t COMM_TELL_TIME		 		= 0x0100 * 't' + 't';
 
 void print_signature_endl(uint16_t command_signature);
 void print_signature(uint16_t command_signature);
@@ -50,6 +52,7 @@ public:
 	void limit_switch_loop();
 	double get_position();
 	uint8_t get_status();
+	void tmc_en_cycle();
 
 private:
 	void set_limit_type(uint8_t limit_type);
