@@ -11,3 +11,7 @@ hs_err*
 *.lck
 /fw/.cproject
 /fw/.mxproject
+*.aux
+*.log
+*.out
+*.synctex.gz

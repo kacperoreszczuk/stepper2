@@ -95,6 +95,9 @@ User can communicate with LUMS Stepper via virtual serial port provided by Nucle
 \rowcolor[gray]{0.95} er & Encoder Raw & 0er & Returns encoder position in raw counts.\\
 \rowcolor[gray]{0.90} es & Encoder Step & 0es0.002 & Configures encoder step in user units. Must be called after configuring motor step.\\
 \rowcolor[gray]{0.95} ep & Encoder Position & 0ep & Returns encoder position in user units. \\
+\rowcolor[gray]{0.90} ds & Driver Status & 0ds & Returns the TMC's DRV_STATUS register in hex format. See TMC2226 datasheet, table 5.5.3 for details. \\
+\rowcolor[gray]{0.95} dr & Driver Reset & 0dr & Cycles the EN pin of the TMC driver, clearing the hardware error flags in the process. \\
+\rowcolor[gray]{0.90} tt & Tell Time & tt & Returns time from boot in seconds. \\
 \end{tabularx}
 \caption{Commands in communication protocol.}\label{commands}
 \end{table}
