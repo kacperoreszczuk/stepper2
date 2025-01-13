@@ -11,7 +11,6 @@
 \usepackage{tabularx}
 \usepackage{sectsty}
 \usepackage{float}
-\usepackage{siunitx}
 \usepackage{hyperref}
 \definecolor{Gray}{gray}{0.85}
 \sectionfont{\huge}
@@ -39,7 +38,7 @@ Custom solution allowed me to implement important additional features. The most 
 
 \section{Hardware design}
 
-Single device is able to control three bipolar stepper motors with 1/64 microsteps precision. Maximum current is about \SI{2.0}{A} per motor and the supply voltage must be between \SI{7}{V} and \SI{24}{V}.
+Single device is able to control three bipolar stepper motors with 1/64 microsteps precision. Maximum current is about $2.0$\,A per motor and the supply voltage must be between $7$\,V and $24$\,V.
 Low level motor driving operation  is performed by\textit{TMC2226} driver on \textit{Stepstick} breakout board. Three such drivers are connected to \textit{NUCLEO144}  board with \textit{STM32H723ZG} microcontroller. Nucleo board connected via on-board \textit{FT232RL}\ USB-UART controller to computer provides virtual serial port for communication and power for logic layer of device. Separate power connector is provided on main PCB for motor operation and six high-density D-SUB15 female connectors for motors and encoders. Full schematics of the device is presented in Figure \ref{schematics}. PCB board is double-sided. It is advised to order PCB with SMD\ assembly. See Figure \ref{pcb} for PCB layout.  The driver is confined in 3D-printed case (Figure \ref{case}) protecting it and allowing mounting to optic table. 
 %Picture \ref{photo} shows assembled device with the top lid removed. 
 Design files for PCB and case along with source code for microcontroller are available at project page: \url{github.com/kacperoreszczuk/stepper2/}. 
@@ -95,7 +94,7 @@ User can communicate with LUMS Stepper via virtual serial port provided by Nucle
 \rowcolor[gray]{0.95} er & Encoder Raw & 0er & Returns encoder position in raw counts.\\
 \rowcolor[gray]{0.90} es & Encoder Step & 0es0.002 & Configures encoder step in user units. Must be called after configuring motor step.\\
 \rowcolor[gray]{0.95} ep & Encoder Position & 0ep & Returns encoder position in user units. \\
-\rowcolor[gray]{0.90} ds & Driver Status & 0ds & Returns the TMC's DRV_STATUS register in hex format. See TMC2226 datasheet, table 5.5.3 for details. \\
+\rowcolor[gray]{0.90} ds & Driver Status & 0ds & Returns the TMC's DRV\_STATUS register in hex format. See TMC2226 datasheet, table 5.5.3 for details. \\
 \rowcolor[gray]{0.95} dr & Driver Reset & 0dr & Cycles the EN pin of the TMC driver, clearing the hardware error flags in the process. \\
 \rowcolor[gray]{0.90} tt & Tell Time & tt & Returns time from boot in seconds. \\
 \end{tabularx}
