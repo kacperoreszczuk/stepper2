@@ -14836,7 +14836,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp yes)
+		(dnp no)
 		(uuid "0738c430-9da2-4cda-9c7e-4305d600be6e")
 		(property "Reference" "BT1"
 			(at 196.85 66.04 0)

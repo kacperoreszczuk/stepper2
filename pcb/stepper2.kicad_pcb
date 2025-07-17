@@ -1462,7 +1462,7 @@
 			(net 6 "VCC")
 			(pinfunction "IN+")
 			(pintype "bidirectional")
-			(uuid "19ef9518-d788-4bc3-8c75-609ddcb8fc3b")
+			(uuid "a5f9d4ec-1c3c-48fc-bfcb-8b2610b5de84")
 		)
 		(pad "3" thru_hole circle
 			(at -5.08 -8.89 180)
@@ -2304,7 +2304,7 @@
 			(net 94 "UP1")
 			(pinfunction "1")
 			(pintype "passive")
-			(uuid "e0f1116c-2450-48fe-836c-4ed9e0b09070")
+			(uuid "d81c2d96-e379-43b0-81be-663f02088f51")
 		)
 		(pad "2" thru_hole circle
 			(at 0 4.5)
@@ -2326,7 +2326,7 @@
 			(net 2 "GND")
 			(pinfunction "2")
 			(pintype "passive")
-			(uuid "825b215e-961a-4e80-9d08-863420dfe5a2")
+			(uuid "c3edc811-95dd-4092-a39b-52f7f24288de")
 		)
 		(embedded_fonts no)
 		(model "${KICAD9_3DMODEL_DIR}/Button_Switch_THT.3dshapes/SW_PUSH_6mm_H4.3mm.wrl"
@@ -2692,7 +2692,7 @@
 			(net 2 "GND")
 			(pinfunction "Pin_1")
 			(pintype "passive")
-			(uuid "5a6a53d3-663f-46cd-81d2-55fa2387dcdf")
+			(uuid "23b46926-9b59-4dea-82f1-840916d4dcc5")
 		)
 		(pad "2" thru_hole circle
 			(at 0 -2.85 180)
@@ -2713,7 +2713,7 @@
 			(net 109 "NXT2")
 			(pinfunction "Pin_2")
 			(pintype "passive")
-			(uuid "0fed128a-2957-410a-b340-84e14b40c6ae")
+			(uuid "06db00ac-653a-4e22-96a7-479da455b1a3")
 		)
 		(pad "3" thru_hole circle
 			(at 2 -2.85 180)
@@ -2734,7 +2734,7 @@
 			(net 118 "DIR2")
 			(pinfunction "Pin_3")
 			(pintype "passive")
-			(uuid "29e4edd2-6079-49e7-82f4-709caeb3b4a5")
+			(uuid "5602289e-1304-4037-8825-285512c99a16")
 		)
 		(pad "MP" thru_hole circle
 			(at -4.35 2.9 180)
@@ -2749,7 +2749,7 @@
 			(size 1.5 3.4)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.166667)
-			(uuid "e4ab154c-3efd-4e20-b880-d768936d9d94")
+			(uuid "7dcb208a-5b8e-4b05-b7de-3580c196baee")
 		)
 		(pad "MP" thru_hole circle
 			(at 4.35 2.9 180)
@@ -2757,14 +2757,14 @@
 			(drill 0.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(uuid "e4ab154c-3efd-4e20-b880-d768936d9d94")
+			(uuid "9b6a347b-ed06-4e6a-98f6-b77932bd4875")
 		)
 		(pad "MP" smd roundrect
 			(at 4.35 2.9 180)
 			(size 1.5 3.4)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.166667)
-			(uuid "e4ab154c-3efd-4e20-b880-d768936d9d94")
+			(uuid "32e3fa11-75b2-408e-87e6-68ba3e4317a5")
 		)
 		(embedded_fonts no)
 		(model "${KICAD6_3DMODEL_DIR}/Connector_JST.3dshapes/JST_PH_S4B-PH-SM4-TB_1x04-1MP_P2.00mm_Horizontal.wrl"
@@ -4084,7 +4084,7 @@
 		(path "/0738c430-9da2-4cda-9c7e-4305d600be6e")
 		(sheetname "/")
 		(sheetfile "stepper2.kicad_sch")
-		(attr smd dnp)
+		(attr smd)
 		(fp_line
 			(start -9.55 8.35)
 			(end -11.35 6.55)
@@ -4994,7 +4994,7 @@
 			(drill 2.5)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(uuid "30856038-ab5e-4332-818f-31c7eee07e07")
+			(uuid "c2cb20cd-90df-4843-b73d-f0803e858c6c")
 		)
 		(embedded_fonts no)
 		(model "${KICAD9_3DMODEL_DIR}/Connector_BarrelJack.3dshapes/BarrelJack_CUI_PJ-063AH_Horizontal_CircularHoles.wrl"
@@ -6270,7 +6270,7 @@
 			(net 141 "+3V3")
 			(pinfunction "Pin_1")
 			(pintype "passive")
-			(uuid "9a141686-babb-4e1e-801c-2f0e2decd22a")
+			(uuid "5f06fcda-627d-48b3-ad89-d396bb32b413")
 		)
 		(pad "2" thru_hole circle
 			(at -2 -2.85 90)
@@ -6291,7 +6291,7 @@
 			(net 142 "+5V")
 			(pinfunction "Pin_2")
 			(pintype "passive")
-			(uuid "25302816-67eb-43fe-aa70-bab8a9dacb99")
+			(uuid "19fb04a3-2106-428c-96cb-b9a57a58040b")
 		)
 		(pad "3" thru_hole circle
 			(at 0 -2.85 90)
@@ -6312,7 +6312,7 @@
 			(net 75 "EXTSDA")
 			(pinfunction "Pin_3")
 			(pintype "passive")
-			(uuid "12ebfbc7-4ca9-468a-8115-a7cad38eaaa7")
+			(uuid "84296d49-df64-4105-98a8-815ba2fbb2cf")
 		)
 		(pad "4" thru_hole circle
 			(at 2 -2.85 90)
@@ -6333,7 +6333,7 @@
 			(net 76 "EXTSCL")
 			(pinfunction "Pin_4")
 			(pintype "passive")
-			(uuid "a46cdf24-74dc-4088-9508-e5a906f927c5")
+			(uuid "bf795730-a9b4-4458-bf5b-af60dbf416da")
 		)
 		(pad "5" thru_hole circle
 			(at 4 -2.85 90)
@@ -6354,7 +6354,7 @@
 			(net 2 "GND")
 			(pinfunction "Pin_5")
 			(pintype "passive")
-			(uuid "fe77f8b1-22b2-40b9-8aa8-476c51c3d152")
+			(uuid "65cb653a-c18c-47aa-8a6d-843b850e372b")
 		)
 		(pad "MP" thru_hole circle
 			(at -6.35 2.9 90)
@@ -6369,7 +6369,7 @@
 			(size 1.5 3.4)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.166667)
-			(uuid "a0307d1e-eb14-40f8-b8a8-24833365370f")
+			(uuid "1193135b-e3ff-44e3-a344-bdc6b8736193")
 		)
 		(pad "MP" thru_hole circle
 			(at 6.35 2.9 90)
@@ -6377,14 +6377,14 @@
 			(drill 0.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(uuid "a0307d1e-eb14-40f8-b8a8-24833365370f")
+			(uuid "7db99112-459e-4112-9afd-a821330237b9")
 		)
 		(pad "MP" smd roundrect
 			(at 6.35 2.9 90)
 			(size 1.5 3.4)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.166667)
-			(uuid "a0307d1e-eb14-40f8-b8a8-24833365370f")
+			(uuid "704a1f20-57e2-4fa9-8719-7f435de10de6")
 		)
 		(embedded_fonts no)
 		(model "${KICAD6_3DMODEL_DIR}/Connector_JST.3dshapes/JST_PH_S5B-PH-SM4-TB_1x05-1MP_P2.00mm_Horizontal.wrl"
@@ -7849,7 +7849,7 @@
 			(net 97 "UP3")
 			(pinfunction "1")
 			(pintype "passive")
-			(uuid "e95177fb-c67e-4e67-9e11-cda34e378620")
+			(uuid "0fcfdeae-2939-4092-8194-25b9e8d37450")
 		)
 		(pad "2" thru_hole circle
 			(at 0 4.5 180)
@@ -7871,7 +7871,7 @@
 			(net 2 "GND")
 			(pinfunction "2")
 			(pintype "passive")
-			(uuid "c7eb2553-2439-45a7-ac53-27e7f9fb6437")
+			(uuid "ee188624-7f32-4c1c-959d-abb68daee8fe")
 		)
 		(embedded_fonts no)
 		(model "${KICAD9_3DMODEL_DIR}/Button_Switch_THT.3dshapes/SW_PUSH_6mm_H4.3mm.wrl"
@@ -8461,7 +8461,7 @@
 			(net 141 "+3V3")
 			(pinfunction "Pin_1")
 			(pintype "passive")
-			(uuid "a820458a-d6bb-4fc4-9e3b-61656ada9f6a")
+			(uuid "21a2b7d3-14ff-433f-ae69-1ef5fda750c4")
 		)
 		(pad "2" thru_hole circle
 			(at -4 -3 90)
@@ -8482,7 +8482,7 @@
 			(net 142 "+5V")
 			(pinfunction "Pin_2")
 			(pintype "passive")
-			(uuid "d30b2807-4c27-456b-84dd-93cd188125d1")
+			(uuid "5e159a75-2b49-46bf-9852-c856bbb94a7f")
 		)
 		(pad "3" thru_hole circle
 			(at -2 -3 90)
@@ -8503,7 +8503,7 @@
 			(net 81 "EXTRX")
 			(pinfunction "Pin_3")
 			(pintype "passive")
-			(uuid "91ca6c0c-ad2a-4088-a88c-c32dc8831252")
+			(uuid "af20aa1b-c515-43c6-9891-c566f5e5c52a")
 		)
 		(pad "4" thru_hole circle
 			(at 0 -3 90)
@@ -8524,7 +8524,7 @@
 			(net 82 "EXTTX")
 			(pinfunction "Pin_4")
 			(pintype "passive")
-			(uuid "0e6cae50-d61a-4833-8854-da4a79737ae6")
+			(uuid "a14fc42b-37bb-4bea-810f-52ff6c184f18")
 		)
 		(pad "5" thru_hole circle
 			(at 2 -3 90)
@@ -8545,7 +8545,7 @@
 			(net 85 "EXTDAC1")
 			(pinfunction "Pin_5")
 			(pintype "passive")
-			(uuid "7d8bcf3a-3b11-41cd-8362-55d9cbbc2703")
+			(uuid "37ffe312-295a-400d-821e-e0d4139eed38")
 		)
 		(pad "6" thru_hole circle
 			(at 4 -3 90)
@@ -8566,7 +8566,7 @@
 			(net 86 "EXTDAC2")
 			(pinfunction "Pin_6")
 			(pintype "passive")
-			(uuid "9e12d84f-5694-444d-971b-f6df642ad178")
+			(uuid "d7c85a2c-6bbb-47e1-bdb7-c64dfe152ed3")
 		)
 		(pad "7" thru_hole circle
 			(at 6 -3 90)
@@ -8587,7 +8587,7 @@
 			(net 2 "GND")
 			(pinfunction "Pin_7")
 			(pintype "passive")
-			(uuid "91b0c2c6-eeb7-4da9-9234-fd3cb26ac7a7")
+			(uuid "a3695f77-9cee-4be1-b458-83d71dfea0b5")
 		)
 		(pad "MP" thru_hole circle
 			(at -8.35 2.9 90)
@@ -8602,7 +8602,7 @@
 			(size 1.5 3.4)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.166667)
-			(uuid "8da2333f-b21b-4c86-a623-4f89105f09b9")
+			(uuid "ddd9a0d7-b3ed-4360-9452-94b178d6db9d")
 		)
 		(pad "MP" thru_hole circle
 			(at 8.35 2.9 90)
@@ -8610,14 +8610,14 @@
 			(drill 0.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(uuid "8da2333f-b21b-4c86-a623-4f89105f09b9")
+			(uuid "68b1dd33-1251-4dd2-8826-bbd260603520")
 		)
 		(pad "MP" smd roundrect
 			(at 8.35 2.9 90)
 			(size 1.5 3.4)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.166667)
-			(uuid "8da2333f-b21b-4c86-a623-4f89105f09b9")
+			(uuid "c2c945f2-b7a3-423a-bd42-c57c0df39d97")
 		)
 		(embedded_fonts no)
 		(model "${KICAD6_3DMODEL_DIR}/Connector_JST.3dshapes/JST_PH_S7B-PH-SM4-TB_1x07-1MP_P2.00mm_Horizontal.wrl"
@@ -8983,7 +8983,7 @@
 			(net 2 "GND")
 			(pinfunction "Pin_1")
 			(pintype "passive")
-			(uuid "0d24d253-a967-4826-9313-e277409a8bd6")
+			(uuid "fd625bc2-26d1-4130-af5b-32b151f8d79e")
 		)
 		(pad "2" thru_hole circle
 			(at 0 -2.85 180)
@@ -9004,7 +9004,7 @@
 			(net 108 "NXT3")
 			(pinfunction "Pin_2")
 			(pintype "passive")
-			(uuid "0bfd7b69-d086-426b-a31b-bb39ceeee309")
+			(uuid "2577b932-1e1b-4c8a-bba7-160b775edab7")
 		)
 		(pad "3" thru_hole circle
 			(at 2 -2.85 180)
@@ -9025,7 +9025,7 @@
 			(net 121 "DIR3")
 			(pinfunction "Pin_3")
 			(pintype "passive")
-			(uuid "bc2b4832-b998-449d-beed-7124e320c430")
+			(uuid "39775fcd-0e06-4355-9eb8-bb024d2c89bb")
 		)
 		(pad "MP" thru_hole circle
 			(at -4.35 2.9 180)
@@ -9040,7 +9040,7 @@
 			(size 1.5 3.4)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.166667)
-			(uuid "f94ea686-5ee0-4eb3-9d92-2d0c6d794d93")
+			(uuid "6508d804-9dc9-45e6-ad3e-ac19bf81d3b9")
 		)
 		(pad "MP" thru_hole circle
 			(at 4.35 2.9 180)
@@ -9048,14 +9048,14 @@
 			(drill 0.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(uuid "f94ea686-5ee0-4eb3-9d92-2d0c6d794d93")
+			(uuid "ea77b375-5939-432a-ab6a-3a07ff554ddf")
 		)
 		(pad "MP" smd roundrect
 			(at 4.35 2.9 180)
 			(size 1.5 3.4)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.166667)
-			(uuid "f94ea686-5ee0-4eb3-9d92-2d0c6d794d93")
+			(uuid "f0b7eab5-0144-4f4c-b48c-4c381d57124a")
 		)
 		(embedded_fonts no)
 		(model "${KICAD6_3DMODEL_DIR}/Connector_JST.3dshapes/JST_PH_S4B-PH-SM4-TB_1x04-1MP_P2.00mm_Horizontal.wrl"
@@ -10078,7 +10078,7 @@
 			(net 100 "DOWN3")
 			(pinfunction "1")
 			(pintype "passive")
-			(uuid "f947701f-74ee-426e-85e0-3ea39d1bcd01")
+			(uuid "1e00c6ac-c7d4-4de3-a20e-06224e9d5a6e")
 		)
 		(pad "2" thru_hole circle
 			(at 0 4.5)
@@ -10100,7 +10100,7 @@
 			(net 2 "GND")
 			(pinfunction "2")
 			(pintype "passive")
-			(uuid "93a92b90-b73c-486c-80aa-8fe51c7ef187")
+			(uuid "fef1f2d2-a973-4177-ad5e-49a5f5e32074")
 		)
 		(embedded_fonts no)
 		(model "${KICAD9_3DMODEL_DIR}/Button_Switch_THT.3dshapes/SW_PUSH_6mm_H4.3mm.wrl"
@@ -14128,7 +14128,7 @@
 			(net 99 "DOWN2")
 			(pinfunction "1")
 			(pintype "passive")
-			(uuid "55d74e47-28a3-49b3-9513-1ded479decae")
+			(uuid "fc27d8b1-d300-4c02-9c1e-36502ebf23d1")
 		)
 		(pad "2" thru_hole circle
 			(at 0 4.5)
@@ -14150,7 +14150,7 @@
 			(net 2 "GND")
 			(pinfunction "2")
 			(pintype "passive")
-			(uuid "27b94af4-02b1-4126-b49e-c171949dfddb")
+			(uuid "9614c36a-9d39-4ece-8972-3ba4857ed0c6")
 		)
 		(embedded_fonts no)
 		(model "${KICAD9_3DMODEL_DIR}/Button_Switch_THT.3dshapes/SW_PUSH_6mm_H4.3mm.wrl"
@@ -16701,7 +16701,7 @@
 			(net 2 "GND")
 			(pinfunction "Pin_1")
 			(pintype "passive")
-			(uuid "6084bb46-dde5-456b-b15e-524cdf9c0d09")
+			(uuid "e3508230-8257-4b28-8313-6f4816d69f80")
 		)
 		(pad "2" thru_hole circle
 			(at 0 -2.85 180)
@@ -16722,7 +16722,7 @@
 			(net 112 "NXT1")
 			(pinfunction "Pin_2")
 			(pintype "passive")
-			(uuid "287d28e1-e6d3-4c17-9e19-848e4445f5c3")
+			(uuid "c8b133a6-d36d-401e-8c90-97f621a9b136")
 		)
 		(pad "3" thru_hole circle
 			(at 2 -2.85 180)
@@ -16743,7 +16743,7 @@
 			(net 115 "DIR1")
 			(pinfunction "Pin_3")
 			(pintype "passive")
-			(uuid "9e5d97a5-f322-4513-b8ac-59281e4e693b")
+			(uuid "35d11a41-d060-48eb-8032-977b60de7814")
 		)
 		(pad "MP" thru_hole circle
 			(at -4.35 2.9 180)
@@ -16758,7 +16758,7 @@
 			(size 1.5 3.4)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.166667)
-			(uuid "22a8b0fb-eaf8-4670-8abc-fb98ea0908ab")
+			(uuid "3bfbfddc-32a7-427d-87f4-d19080f6f2f2")
 		)
 		(pad "MP" thru_hole circle
 			(at 4.35 2.9 180)
@@ -16766,14 +16766,14 @@
 			(drill 0.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(uuid "22a8b0fb-eaf8-4670-8abc-fb98ea0908ab")
+			(uuid "672cb03d-9a18-42ab-923d-015c9eefc72e")
 		)
 		(pad "MP" smd roundrect
 			(at 4.35 2.9 180)
 			(size 1.5 3.4)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.166667)
-			(uuid "22a8b0fb-eaf8-4670-8abc-fb98ea0908ab")
+			(uuid "bcb62974-ea7c-465b-bcfb-9acab29a93a0")
 		)
 		(embedded_fonts no)
 		(model "${KICAD6_3DMODEL_DIR}/Connector_JST.3dshapes/JST_PH_S4B-PH-SM4-TB_1x04-1MP_P2.00mm_Horizontal.wrl"
@@ -17587,7 +17587,7 @@
 			(net 141 "+3V3")
 			(pinfunction "Pin_1")
 			(pintype "passive")
-			(uuid "5e5123c6-bd23-4cd7-9e37-cc09165bd778")
+			(uuid "aac878f5-e4f6-4fc4-839c-1f45f781024f")
 		)
 		(pad "2" thru_hole circle
 			(at -1 -2.85 90)
@@ -17608,7 +17608,7 @@
 			(net 73 "EXTA1")
 			(pinfunction "Pin_2")
 			(pintype "passive")
-			(uuid "4e1f5ed1-2328-45a0-b26a-6452dfd9e38e")
+			(uuid "6a09c246-62a1-403a-a1d2-277904ab70c3")
 		)
 		(pad "3" thru_hole circle
 			(at 1 -2.85 90)
@@ -17629,7 +17629,7 @@
 			(net 74 "EXTA2")
 			(pinfunction "Pin_3")
 			(pintype "passive")
-			(uuid "6c7bfc25-6e0c-4ac9-8738-a51779773f95")
+			(uuid "b62d75fb-374f-4bac-8a80-e1dd67ebd2da")
 		)
 		(pad "4" thru_hole circle
 			(at 3 -2.85 90)
@@ -17650,7 +17650,7 @@
 			(net 2 "GND")
 			(pinfunction "Pin_4")
 			(pintype "passive")
-			(uuid "3a40d6bf-9ef6-484b-a168-2520415f8ca0")
+			(uuid "472eb2ea-ffe0-4068-9644-e59430736286")
 		)
 		(pad "MP" thru_hole circle
 			(at -5.35 2.9 90)
@@ -17665,7 +17665,7 @@
 			(size 1.5 3.4)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.166667)
-			(uuid "dc7fada2-15fb-459e-91d3-ad1b12f79fc4")
+			(uuid "03daa69a-e7a5-4b80-8955-fa5c70f19fd2")
 		)
 		(pad "MP" thru_hole circle
 			(at 5.35 2.9 90)
@@ -17673,14 +17673,14 @@
 			(drill 0.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(uuid "dc7fada2-15fb-459e-91d3-ad1b12f79fc4")
+			(uuid "1bc1e702-2d2b-4b19-8902-8285709ee58f")
 		)
 		(pad "MP" smd roundrect
 			(at 5.35 2.9 90)
 			(size 1.5 3.4)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.166667)
-			(uuid "dc7fada2-15fb-459e-91d3-ad1b12f79fc4")
+			(uuid "47847eab-e6d2-4176-b355-f3bd054cff90")
 		)
 		(embedded_fonts no)
 		(model "${KICAD6_3DMODEL_DIR}/Connector_JST.3dshapes/JST_PH_S4B-PH-SM4-TB_1x04-1MP_P2.00mm_Horizontal.wrl"
@@ -18255,7 +18255,7 @@
 			(net 96 "UP2")
 			(pinfunction "1")
 			(pintype "passive")
-			(uuid "2789fb77-2ff1-4cc4-9813-7552acc1380c")
+			(uuid "dfde3979-4cbb-4594-a301-31fa36b4f64f")
 		)
 		(pad "2" thru_hole circle
 			(at 0 4.5)
@@ -18277,7 +18277,7 @@
 			(net 2 "GND")
 			(pinfunction "2")
 			(pintype "passive")
-			(uuid "ff615a5f-3b0a-462b-97ca-3d4b046da6ad")
+			(uuid "56e5df9b-8f2e-4539-8d14-e7e78035eff1")
 		)
 		(embedded_fonts no)
 		(model "${KICAD9_3DMODEL_DIR}/Button_Switch_THT.3dshapes/SW_PUSH_6mm_H4.3mm.wrl"
@@ -19076,7 +19076,7 @@
 			(net 98 "DOWN1")
 			(pinfunction "1")
 			(pintype "passive")
-			(uuid "658baa7b-501b-4bd3-b532-9dfe2b0e61b5")
+			(uuid "ad679126-87e7-4a3f-abe0-a281777ed41a")
 		)
 		(pad "2" thru_hole circle
 			(at 0 4.5)
@@ -19098,7 +19098,7 @@
 			(net 2 "GND")
 			(pinfunction "2")
 			(pintype "passive")
-			(uuid "c37548b3-5edf-4a03-9fc6-bbf79b960119")
+			(uuid "90837ee8-710d-4097-8fec-64d8e69f2b74")
 		)
 		(embedded_fonts no)
 		(model "${KICAD9_3DMODEL_DIR}/Button_Switch_THT.3dshapes/SW_PUSH_6mm_H4.3mm.wrl"
@@ -19464,7 +19464,7 @@
 			(net 141 "+3V3")
 			(pinfunction "Pin_1")
 			(pintype "passive")
-			(uuid "44f8dbea-5c05-4500-82c9-747b651feca2")
+			(uuid "ba2af48e-1b6b-46a3-b8db-74633c3dad25")
 		)
 		(pad "2" thru_hole circle
 			(at -3 -2.85 90)
@@ -19485,7 +19485,7 @@
 			(net 77 "EXTCLK")
 			(pinfunction "Pin_2")
 			(pintype "passive")
-			(uuid "4b5c4e02-8eda-4428-aa7e-eace299d9c86")
+			(uuid "030b7f82-72d2-4775-9197-bfe48d7e2e06")
 		)
 		(pad "3" thru_hole circle
 			(at -1 -2.85 90)
@@ -19506,7 +19506,7 @@
 			(net 78 "EXTCIPO")
 			(pinfunction "Pin_3")
 			(pintype "passive")
-			(uuid "3854d4ce-9f7e-4660-a09e-39e31c8609e2")
+			(uuid "efec5563-2a06-487c-a7cb-22a53a7a80b9")
 		)
 		(pad "4" thru_hole circle
 			(at 1 -2.85 90)
@@ -19527,7 +19527,7 @@
 			(net 79 "EXTCOPI")
 			(pinfunction "Pin_4")
 			(pintype "passive")
-			(uuid "e4e3ae08-7fbb-4bfb-81fb-cff1b960db70")
+			(uuid "60078968-3ff0-4900-ab38-e154f05a8ece")
 		)
 		(pad "5" thru_hole circle
 			(at 3 -2.85 90)
@@ -19548,7 +19548,7 @@
 			(net 80 "EXTCS")
 			(pinfunction "Pin_5")
 			(pintype "passive")
-			(uuid "d7d6dd9b-86cf-4d3d-a549-7d70b378417b")
+			(uuid "bc87f4ba-b44b-4f26-977d-951e77dbf09d")
 		)
 		(pad "6" thru_hole circle
 			(at 5 -2.85 90)
@@ -19569,7 +19569,7 @@
 			(net 2 "GND")
 			(pinfunction "Pin_6")
 			(pintype "passive")
-			(uuid "59214ea3-d258-475a-9edb-35db4e862b89")
+			(uuid "57fa06c9-4c20-42e6-841d-a57e690bafdd")
 		)
 		(pad "MP" thru_hole circle
 			(at -7.35 2.9 90)
@@ -19584,7 +19584,7 @@
 			(size 1.5 3.4)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.166667)
-			(uuid "dee79c5a-1f82-491a-9de0-937ffae4ab58")
+			(uuid "74ca7210-5c65-4332-af84-51e157d3166a")
 		)
 		(pad "MP" thru_hole circle
 			(at 7.35 2.9 90)
@@ -19592,14 +19592,14 @@
 			(drill 0.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(uuid "dee79c5a-1f82-491a-9de0-937ffae4ab58")
+			(uuid "8b42050d-fe16-4dab-a110-3e7938b29e47")
 		)
 		(pad "MP" smd roundrect
 			(at 7.35 2.9 90)
 			(size 1.5 3.4)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.166667)
-			(uuid "dee79c5a-1f82-491a-9de0-937ffae4ab58")
+			(uuid "20ae4145-423b-43f7-b7a9-884d27709bb8")
 		)
 		(embedded_fonts no)
 		(model "${KICAD6_3DMODEL_DIR}/Connector_JST.3dshapes/JST_PH_S6B-PH-SM4-TB_1x06-1MP_P2.00mm_Horizontal.wrl"
@@ -21063,7 +21063,7 @@
 			)
 		)
 	)
-	(gr_text "Remove jumper from USB-UART module\nUnsolder potentiometer from TMC drivers\nNucleo: move 5V PWR jumper to EXT\nNucleo: remove SB52 to use 3V battery\n        (leave if 3V battery not used)"
+	(gr_text "Remove jumper from USB-UART module\nUnsolder potentiometer from TMC drivers\nNucleo: move 5V PWR jumper to EXT\nNucleo: remove SB52 to use 3V battery"
 		(at 28.75 -103 0)
 		(layer "F.SilkS")
 		(uuid "6295bc43-c28d-4682-82dc-0894af2bb113")
