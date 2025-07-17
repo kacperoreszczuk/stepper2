@@ -1356,7 +1356,7 @@
 		(path "/de15bb1f-f655-43a5-9831-f9099c9f07dd")
 		(sheetname "/")
 		(sheetfile "stepper2.kicad_sch")
-		(attr exclude_from_bom)
+		(attr exclude_from_bom dnp)
 		(fp_rect
 			(start -8.89 -10.16)
 			(end 8.89 10.16)
@@ -6467,7 +6467,7 @@
 		(path "/df9f04a3-89b1-4b02-98ef-b04b64332a62")
 		(sheetname "/")
 		(sheetfile "stepper2.kicad_sch")
-		(attr through_hole exclude_from_bom)
+		(attr through_hole exclude_from_bom dnp)
 		(fp_rect
 			(start -4.5 -15)
 			(end 4.5 -9.3)
@@ -10707,7 +10707,7 @@
 		(path "/c153669c-eff0-490f-b284-d7f8dd1286ea")
 		(sheetname "/")
 		(sheetfile "stepper2.kicad_sch")
-		(attr through_hole)
+		(attr through_hole dnp)
 		(fp_line
 			(start -7.62 -10.16)
 			(end 7.62 -10.16)
@@ -11029,7 +11029,7 @@
 		(path "/e87e0564-48f0-4987-854c-8f21b2c12b94")
 		(sheetname "/")
 		(sheetfile "stepper2.kicad_sch")
-		(attr through_hole)
+		(attr through_hole dnp)
 		(fp_rect
 			(start 20.32 -6.35)
 			(end 25.4 36.83)
@@ -12337,7 +12337,7 @@
 		(path "/74a29eae-800d-4baa-b2d1-e8516e41a6b7")
 		(sheetname "/")
 		(sheetfile "stepper2.kicad_sch")
-		(attr through_hole)
+		(attr through_hole dnp)
 		(fp_line
 			(start -7.62 -10.16)
 			(end 7.62 -10.16)
@@ -15194,7 +15194,7 @@
 		(path "/f81656e8-eb5a-4ce0-a13f-fa8514cfc2d7")
 		(sheetname "/")
 		(sheetfile "stepper2.kicad_sch")
-		(attr through_hole)
+		(attr through_hole dnp)
 		(fp_line
 			(start -7.62 -10.16)
 			(end 7.62 -10.16)
