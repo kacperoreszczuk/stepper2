@@ -3,6 +3,7 @@ Second version of the lums stepper
 
 Compiling in STM32CubeIDE:
 
+0. Disclaimer: STM32CubeIDE constantly invents new ways to make this instruction not work. Be mentally prepared that you will have to bruteforce this with LLM anyway.
 1. Install STM32CubeIDE, sadly requires account creation
 2. Click "Import project" and select "fw" directory from this repository
 3. In the "Project Explorer" panel on the left open stepper2.ioc
