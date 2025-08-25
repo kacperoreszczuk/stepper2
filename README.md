@@ -21,7 +21,8 @@ Compiling in STM32CubeIDE:
     - in MCU(or MCU/MPU) G++ Compiler->Optimization: change level to -O3
     - If you want to switch to release configuration, change configuration to Release in the top of the Settings window, and repeat last four steps. In that case take care to build in the release later.
     - click apply and close, confirm if prompted to rebuild index
-5. You may want to go to Core/Inc/defaults.h and change #define DRIVER_ID to a different value (any you like), especially if you would use more than one device simultaneously and be able to discern between them when talking through serial port.
+5. You may want to go to Core/Inc/defaults.hpp and change #define DRIVER_ID to a different value (any you like), especially if you would use more than one device simultaneously and want to be able to discern between them when talking through serial port.
 6. Power up the driver and connect it with micro usb port (near the power input socket, slightly lower). Click Run->Run or click the green arrow icon to build and flash the device.
-    - You may be prompted to upgrade the stlink firmware. Agree. In the STLinkUpgrade Window click "Open in update mode" and then "Upgrade". Cycle power to the driver and try again number 6 in this instruction.
+    - You may be prompted to upgrade the stlink firmware. Agree. In the STLinkUpgrade Window click "Open in update mode" and then "Upgrade". Unplug and plug the micro USB cable and try again number 6 in this instruction.
+    - you may be prompted to save the files you edited. Agree.
 7. Alternatively to point 6. you can select Project->Build Project and then copy manually the file in Debug/stepper2.bin to the mass storage device that opens after conneting the driver. 
